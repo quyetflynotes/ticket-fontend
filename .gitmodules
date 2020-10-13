@@ -1,0 +1,3 @@
+[submodule "src/share/base-ticket"]
+	path = src/share/base-ticket
+	url = https://github.com/lgnvpr/base-ticket.git
