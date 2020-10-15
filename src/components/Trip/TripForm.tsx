@@ -2,38 +2,31 @@ import React, { useState, useEffect } from 'react';
 // thành phần phản ứng được sử dụng để tạo cảnh báo ngọt ngào
 import ReactBSAlert from "react-bootstrap-sweetalert";
 import Button from 'react-bootstrap/Button';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
-import ImportExportIcon from '@material-ui/icons/ImportExport';
-import ImageIcon from '@material-ui/icons/Image';
+
 import FaceIcon from '@material-ui/icons/Face';
 import PhoneIcon from '@material-ui/icons/Phone';
-import BrandingWatermarkIcon from '@material-ui/icons/BrandingWatermark';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import RecentActorsIcon from '@material-ui/icons/RecentActors';
-import AddIcon from '@material-ui/icons/Add';
+
 import { Staff } from "../../share/base-ticket/base-carOwner/Staff";
-import { Route } from '../../share/base-ticket/base-carOwner/Route';
+import { Route } from "../../share/base-ticket/base-carOwner/Route";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Car } from '../../share/base-ticket/base-carOwner/Car';
 import { FormControl, Input, InputLabel, OutlinedInput, TextField } from '@material-ui/core';
 import { HelpTime } from '../../Helpers/HelpTime';
+import { Trip } from '../../share/base-ticket/base-carOwner/Trip';
 
 type Props = {
-    trip: Route
+    trip: Trip
     formModal: boolean,
-    onTrip: (trip: Route) => void
+    onTrip: (trip: Trip) => void
     onCancel: () => void,
-    // cars: Car[];
     staff: Staff[];
+    route : Route[]
 }
 
 
 
-export default function RouteForm(props: Props) {
-    const [trip, setTrip] = useState<Route>(props.trip);
+export default function TripForm(props: Props) {
+    const [trip, setTrip] = useState<Trip>(props.trip);
     useEffect(() => {
         setTrip(props.trip);
     }, [props])
@@ -54,32 +47,35 @@ export default function RouteForm(props: Props) {
                                             <div className="form-group">
                                                 <div className="input-group input-group-merge input-group-alternative">
                                                     <FormControl variant="outlined" fullWidth>
-                                                        <InputLabel >Địa điểm bắt đầu</InputLabel>
+                                                        <InputLabel >Giá Vé</InputLabel>
                                                         <OutlinedInput
                                                             endAdornment={
                                                                 <FaceIcon />
                                                             }
                                                             fullWidth
-                                                            value={trip.localStart || ""}
+                                                            value={trip.price || ""}
+                                                            type={"number"}
                                                             onChange={(event) => {
-                                                                setTrip({ ...trip, localStart: event.target.value })
+                                                                setTrip({ ...trip, price: parseInt(event.target.value) })
                                                             }}
                                                             labelWidth={200}
                                                         />
                                                     </FormControl>
-
                                                 </div>
                                             </div>
+
+
                                             <div className="form-group">
                                                 <div className="input-group input-group-merge input-group-alternative">
                                                     <FormControl variant="outlined" fullWidth>
-                                                        <InputLabel >Địa điểm kết thúc</InputLabel>
+                                                        <InputLabel >Thời gian chạy</InputLabel>
                                                         <OutlinedInput
                                                             endAdornment={<PhoneIcon />}
                                                             fullWidth
-                                                            value={trip.localEnd || ""}
+                                                            defaultValue={"2001-01-01"}
+                                                            type={"date"}
                                                             onChange={(event) => {
-                                                                setTrip({ ...trip, localEnd: event.target.value })
+                                                                setTrip({ ...trip, timeStart: new Date(event.target.value) })
                                                             }}
                                                             labelWidth={200}
                                                         />
@@ -87,41 +83,44 @@ export default function RouteForm(props: Props) {
                                                 </div>
                                             </div>
 
-                                            {/* phần sẽ xet ngày dự kiện bắt đầu  */}
                                             <div className="form-group">
                                                 <div className="input-group input-group-merge input-group-alternative">
-                                                    <FormControl variant="outlined" fullWidth>
-                                                        <InputLabel >Giờ bắt đầu chạy</InputLabel>
-                                                        <OutlinedInput
-                                                            // endAdornment={<PhoneIcon />}
-                                                            fullWidth
-                                                            defaultValue={"2020-10-06T16:32"} 
-                                                            type={"time"}
-                                                            onChange={(e) => {
-                                                                setTrip({ ...trip, startAt: HelpTime.convertTimeToDate(e.target.value) })
-                                                            }}
-                                                            labelWidth={200}
-                                                        />
-                                                    </FormControl>
+                                                    {/* <div className="input-group-prepend">
+                                                <span className="input-group-text"><RecentActorsIcon /></span>
+                                            </div> */}
+                                                    <Autocomplete
+                                                        options={props.staff}
+                                                        getOptionLabel={(option: Staff) => option.name || ""}
+                                                        fullWidth
+                                                        onChange={(event: any, newValue: any) => {
+                                                            console.log(newValue)
+                                                            setTrip({ ...trip, driveId: newValue._id })
+                                                        }}
+                                                        renderInput={(params) => <TextField {...params} label="Chức vụ" variant="outlined" />}
+                                                    />
                                                 </div>
                                             </div>
-                                            {/* phần này sẽ xet ngày dự kiến kết thúc */}
+
+                                            {/* chọn tài xê */}
+
                                             <div className="form-group">
                                                 <div className="input-group input-group-merge input-group-alternative">
-                                                    <FormControl variant="outlined" fullWidth>
-                                                        <InputLabel >Giờ kết thúc dự kiến kết thúc</InputLabel>
-                                                        <OutlinedInput
-                                                            // endAdornment={<PhoneIcon />}
-                                                            fullWidth
-                                                            defaultValue={10} 
-                                                            
-                                                            type={"number"}
-                                                            onChange={(e) => setTrip({ ...trip, sumTimeRun:  parseInt(e.target.value) })}
-                                                            labelWidth={200}
-                                                        />
-                                                    </FormControl>
+                                                    {/* <div className="input-group-prepend">
+                                                <span className="input-group-text"><RecentActorsIcon /></span>
+                                            </div> */}
+                                                    <Autocomplete
+                                                        options={props.route}
+                                                        getOptionLabel={(option: Route) => `${option.localStart}-${option.localEnd}`}
+                                                        fullWidth
+                                                        onChange={(event: any, newValue: any) => {
+                                                            console.log(newValue)
+                                                            setTrip({ ...trip,RouteId : newValue?._id || "" })
+                                                        }}
+                                                        renderInput={(params) => <TextField {...params} label="Chọn chuyến đi" variant="outlined" />}
+                                                    />
                                                 </div>
                                             </div>
+
 
 
                                             <div className="text-center">

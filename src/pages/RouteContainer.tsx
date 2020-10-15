@@ -3,34 +3,29 @@ import FooterDashboard from '../components/FooterDashboard';
 import HeaderDashboard from '../components/HeaderDashboard';
 import NavbarDashboard from '../components/NavbarDashboard';
 import Sidebar from '../components/Sidebar';
-import TripForm from '../components/Trip/TripForm';
+import RouteForm from '../components/Route/RouteForm';
 import { StaffService } from '../Services/StaffService';
 import { Staff } from '../share/base-ticket/base-carOwner/Staff';
 import { Paging } from '../share/base-ticket/Paging';
 import Pagination from '@material-ui/lab/Pagination';
-import TripTables from '../components/Trip/TripTables';
+import RouteTables from '../components/Route/RouteTables';
 import { Customer } from '../share/base-ticket/base-carOwner/Customer';
 import { CustomerService } from '../Services/CustomerService';
 import { Route } from '../share/base-ticket/base-carOwner/Route';
-import { TripService } from '../Services/TripService';
+import { RouteService } from '../Services/RouteService';
 import { Car } from '../share/base-ticket/base-carOwner/Car';
 import { CarService } from '../Services/CarService';
-import { Trip } from '../share/base-ticket/base-carOwner/Trip';
-import { RouteService } from '../Services/RouteService';
-import { HelpRouter } from '../Helpers/HelpRouter';
 
-var self: TripContainer;
-
-class TripContainer extends Component<Props, State> {
+var self: RouteContainer;
+class RouteContainer extends Component<Props, State> {
     constructor(props: any) {
         super(props);
         this.state = {
             trips: { page: 1, total: 1, totalPages: 1, rows: [], pageSize: 1 },
             showForm: false,
             tripForm: {},
-            // cars: { page: 1, total: 1, totalPages: 1, rows: [], pageSize: 1 },
-            staff: { page: 1, total: 1, totalPages: 1, rows: [], pageSize: 1 },
-            route: { page: 1, total: 1, totalPages: 1, rows: [], pageSize: 1 }
+            cars : { page: 1, total: 1, totalPages: 1, rows: [], pageSize: 1 },
+            staff : { page: 1, total: 1, totalPages: 1, rows: [], pageSize: 1 }
         }
         self = this
     }
@@ -40,26 +35,27 @@ class TripContainer extends Component<Props, State> {
     }
 
     async getData(page: number = 1) {
-        let getTrip: Paging<Trip> = await TripService.getListByCarId(HelpRouter.getIdFromPath(window.location.pathname),page );
-        let getRoute: Paging<Car> = await RouteService.list();
-        let getStaff: Paging<Staff> = await StaffService.list();
+        let getTrip : Paging<Route> = await RouteService.list(page);
+
+        let getCar : Paging<Car> = await CarService.list();
+        let getStaff : Paging<Staff> = await StaffService.list();
         self.setState({
             trips: getTrip,
-            route: getRoute,
+            cars : getCar,
             staff : getStaff
         })
+        
     }
 
-    tripForm(trip: Trip) {
+    tripForm(trip: Route) {
         self.setState({
             tripForm: trip,
             showForm: true
         })
     }
 
-    tripFormCreate(trip: Trip) {
-        trip.CarId = HelpRouter.getIdFromPath(window.location.pathname);
-        TripService.create(trip).then((res: any) => {
+    tripFormCreate(trip: Route) {
+        RouteService.create(trip).then((res: any) => {
             if (res) {
                 self.getData(self.state.trips.page);
             }
@@ -70,31 +66,28 @@ class TripContainer extends Component<Props, State> {
     }
 
     tripDelete(id: string) {
-        TripService.delete(id).then((res: any) => {
+        RouteService.delete(id).then((res: any) => {
             if (res) {
                 self.getData(self.state.trips.page);
             }
         })
     }
-    onCancel() {
+    onCancel(){
         self.setState({
-            showForm: false
+            showForm : false
         })
     }
 
     render() {
-        console.log("======this is page tripcontianer =========")
         return (
             <div>
-                <TripForm
-                    route = {this.state.route.rows}
+                <RouteForm
                     formModal={this.state.showForm}
                     trip={this.state.tripForm}
                     onTrip={this.tripFormCreate}
-                    onCancel={this.onCancel}
-                    // cars={this.state.cars.rows}
-                    staff={this.state.staff.rows}
-                ></TripForm>
+                    onCancel = {this.onCancel}
+                    staff = {this.state.staff.rows}
+                ></RouteForm>
                 <Sidebar></Sidebar>
                 <div className="main-content" id="panel">
                     <NavbarDashboard></NavbarDashboard >
@@ -104,11 +97,11 @@ class TripContainer extends Component<Props, State> {
                         </div>
                     </div>
                     <div className="container-fluid mt--6">
-                        <TripTables
+                        <RouteTables
                             trip={this.state.trips.rows}
                             onTrip={this.tripForm}
                             onDeleteTrip={this.tripDelete}
-                        ></TripTables>
+                        ></RouteTables>
                         <Pagination count={this.state.trips.totalPages} onChange={(event, value) => {
                             this.getData(value);
                         }} color="primary" />
@@ -125,13 +118,11 @@ type Props = {
 }
 
 type State = {
-    trips: Paging<Trip>,
+    trips: Paging<Customer>,
     showForm: boolean,
     tripForm: Customer,
-    // cars: Paging<Car>,
-    staff: Paging<Staff>
-    route: Paging<Route>
-    
+    cars : Paging<Car>,
+    staff : Paging<Staff>
 }
 
-export default TripContainer;
+export default RouteContainer;

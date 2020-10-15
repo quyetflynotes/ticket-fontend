@@ -15,6 +15,7 @@ import PostionStaff from './pages/PostionStaff';
 import CarContainer from './pages/CarContainer';
 import TypeCarContainer from './pages/TypeCarContainer';
 import CustomerContainer from './pages/CustomerContainer';
+import RouteContainer from './pages/RouteContainer';
 import TripContainer from './pages/TripContainer';
 import CalcMoney from './pages/CalcMoney';
 import TestFormMilk from './components/TestFormMilk';
@@ -57,11 +58,15 @@ function App() {
             </Route>
             
             <Route path="/quan-ly-lo-trinh">
-              <TripContainer />
+              <RouteContainer />
             </Route>
 
             <Route path="/quan-ly-ghe/:id">
               <Ghe />
+            </Route>
+
+            <Route path="/quan-ly-chuyen-di/:id">
+              <TripContainer />
             </Route>
 
             <Route path="/quan-ly-ve">

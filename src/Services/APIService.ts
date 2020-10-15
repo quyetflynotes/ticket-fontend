@@ -58,4 +58,20 @@ export class APIService{
             .catch(err => null)
         })
     }
+
+    public static listByQuery(url : string, data : any) : Promise<any>{
+        console.log(data);
+        return getAxios().then(axios=>{
+            return axios({
+                method : "GET",
+                url : `${url}`,
+                params: data
+            }).then(res=>{
+                console.log(res.data)
+                return res.data;
+            })
+            .catch(err => null)
+        })
+    }
+    
 }
