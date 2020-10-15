@@ -2058,7 +2058,7 @@ textarea.form-control {
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .form-text {
@@ -24754,4 +24754,9 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
 .thongTinKhachHang .thongTin {
     width: 50%;
     margin: 0 auto;
+}
+
+.thongTin .form-group .form-control-label span::before {
+    content: "*";
+    color: red;
 }

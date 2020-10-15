@@ -3,15 +3,15 @@ import FooterDashboard from '../components/FooterDashboard';
 import HeaderDashboard from '../components/HeaderDashboard';
 import NavbarDashboard from '../components/NavbarDashboard';
 import Sidebar from '../components/Sidebar';
-import TripForm from '../components/trip/TripForm';
+import RouteForm from '../components/Route/RouteForm';
 import { StaffService } from '../Services/StaffService';
 import { Staff } from '../share/base-ticket/base-carOwner/Staff';
 import { Paging } from '../share/base-ticket/Paging';
 import Pagination from '@material-ui/lab/Pagination';
-import TripTables from '../components/trip/TripTables';
+import TripTables from '../components/Route/RouteTables';
 import { Customer } from '../share/base-ticket/base-carOwner/Customer';
 import { CustomerService } from '../Services/CustomerService';
-import { Trip } from '../share/base-ticket/base-carOwner/Trip';
+import { Route } from '../share/base-ticket/base-carOwner/Route';
 import { TripService } from '../Services/TripService';
 import { Car } from '../share/base-ticket/base-carOwner/Car';
 import { CarService } from '../Services/CarService';
@@ -35,7 +35,7 @@ class TripContainer extends Component<Props, State> {
     }
 
     async getData(page: number = 1) {
-        let getTrip : Paging<Trip> = await TripService.list(page);
+        let getTrip : Paging<Route> = await TripService.list(page);
 
         let getCar : Paging<Car> = await CarService.list();
         let getStaff : Paging<Staff> = await StaffService.list();
@@ -47,14 +47,14 @@ class TripContainer extends Component<Props, State> {
         
     }
 
-    tripForm(trip: Trip) {
+    tripForm(trip: Route) {
         self.setState({
             tripForm: trip,
             showForm: true
         })
     }
 
-    tripFormCreate(trip: Trip) {
+    tripFormCreate(trip: Route) {
         TripService.create(trip).then((res: any) => {
             if (res) {
                 self.getData(self.state.trips.page);
@@ -81,14 +81,14 @@ class TripContainer extends Component<Props, State> {
     render() {
         return (
             <div>
-                <TripForm
+                <RouteForm
                     formModal={this.state.showForm}
                     trip={this.state.tripForm}
                     onTrip={this.tripFormCreate}
                     onCancel = {this.onCancel}
                     cars = {this.state.cars.rows}
                     staff = {this.state.staff.rows}
-                ></TripForm>
+                ></RouteForm>
                 <Sidebar></Sidebar>
                 <div className="main-content" id="panel">
                     <NavbarDashboard></NavbarDashboard >

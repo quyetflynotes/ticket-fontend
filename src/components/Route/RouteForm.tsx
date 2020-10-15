@@ -15,15 +15,16 @@ import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import RecentActorsIcon from '@material-ui/icons/RecentActors';
 import AddIcon from '@material-ui/icons/Add';
 import { Staff } from "../../share/base-ticket/base-carOwner/Staff";
-import { Trip } from '../../share/base-ticket/base-carOwner/Trip';
+import { Route } from '../../share/base-ticket/base-carOwner/Route';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Car } from '../../share/base-ticket/base-carOwner/Car';
 import { FormControl, Input, InputLabel, OutlinedInput, TextField } from '@material-ui/core';
+import { HelpTime } from '../../Helpers/HelpTime';
 
 type Props = {
-    trip: Trip
+    trip: Route
     formModal: boolean,
-    onTrip: (trip: Trip) => void
+    onTrip: (trip: Route) => void
     onCancel: () => void,
     cars: Car[];
     staff: Staff[];
@@ -31,8 +32,8 @@ type Props = {
 
 
 
-export default function TripForm(props: Props) {
-    const [trip, setTrip] = useState<Trip>(props.trip);
+export default function RouteForm(props: Props) {
+    const [trip, setTrip] = useState<Route>(props.trip);
     useEffect(() => {
         setTrip(props.trip);
     }, [props])
@@ -90,15 +91,14 @@ export default function TripForm(props: Props) {
                                             <div className="form-group">
                                                 <div className="input-group input-group-merge input-group-alternative">
                                                     <FormControl variant="outlined" fullWidth>
-                                                        <InputLabel >Thời gian bắt đầu</InputLabel>
+                                                        <InputLabel >Giờ bắt đầu chạy</InputLabel>
                                                         <OutlinedInput
                                                             // endAdornment={<PhoneIcon />}
                                                             fullWidth
                                                             defaultValue={"2020-10-06T16:32"} 
-                                                            type={"datetime-local"}
+                                                            type={"time"}
                                                             onChange={(e) => {
-                                                                console.log(e.target.value)
-                                                                setTrip({ ...trip, startAt: new Date(e.target.value) })
+                                                                setTrip({ ...trip, startAt: HelpTime.convertTimeToDate(e.target.value) })
                                                             }}
                                                             labelWidth={200}
                                                         />
@@ -109,64 +109,20 @@ export default function TripForm(props: Props) {
                                             <div className="form-group">
                                                 <div className="input-group input-group-merge input-group-alternative">
                                                     <FormControl variant="outlined" fullWidth>
-                                                        <InputLabel >Thời gian kết thúc</InputLabel>
+                                                        <InputLabel >Giờ kết thúc dự kiến kết thúc</InputLabel>
                                                         <OutlinedInput
                                                             // endAdornment={<PhoneIcon />}
                                                             fullWidth
-                                                            defaultValue={"2020-10-06T16:32"} 
+                                                            defaultValue={10} 
                                                             
-                                                            type={"datetime-local"}
-                                                            onChange={(e) => setTrip({ ...trip, endAt: new Date(e.target.value) })}
+                                                            type={"number"}
+                                                            onChange={(e) => setTrip({ ...trip, sumTimeRun:  parseInt(e.target.value) })}
                                                             labelWidth={200}
                                                         />
                                                     </FormControl>
                                                 </div>
                                             </div>
 
-                                            <div className="form-group">
-                                                <div className="input-group input-group-merge input-group-alternative">
-                                                    <Autocomplete
-                                                        options={props.cars}
-                                                        getOptionLabel={(option: Car) => `${option.name} (${option.licensePlates})` || ""}
-                                                        fullWidth
-                                                        onChange={(event: any, newValue: any) => {
-                                                            setTrip({ ...trip, carId: newValue?._id || "" })
-                                                        }}
-                                                        renderInput={(params) => <TextField {...params} label="Tên xe" variant="outlined" />}
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div className="form-group">
-                                                <div className="input-group input-group-merge input-group-alternative">
-                                                    <Autocomplete
-                                                        options={props.staff}
-                                                        getOptionLabel={(option: Staff) => option.name || ""}
-                                                        fullWidth
-                                                        onChange={(event: any, newValue: any) => {
-                                                            setTrip({ ...trip, driverId: newValue?._id || "" })
-                                                        }}
-                                                        renderInput={(params) => <TextField {...params} label="Tài xế" variant="outlined" />}
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            {/* <div className="form-group">
-                                                <div className="input-group input-group-merge input-group-alternative">
-                                                    <div className="input-group-prepend">
-                                                        <span className="input-group-text"><RecentActorsIcon /></span>
-                                                    </div>
-                                                    <Autocomplete
-                                                        options={props.staff}
-                                                        getOptionLabel={(option: Staff) => option.name  || ""}
-                                                        fullWidth
-                                                        onChange={(event: any, newValue: any) => {
-                                                            setTrip({ ...trip, driverId: newValue?._id || "" })
-                                                        }}
-                                                        renderInput={(params) => <TextField {...params} label="Lơ xe" variant="filled" />}
-                                                    />
-                                                </div>
-                                            </div> */}
 
                                             <div className="text-center">
                                                 <Button color="success"
