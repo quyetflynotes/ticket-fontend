@@ -17,6 +17,8 @@ import AddIcon from '@material-ui/icons/Add';
 import { Staff } from "../../share/base-ticket/base-carOwner/Staff";
 import FormNhanVien from './FormCar';
 import { Car } from '../../share/base-ticket/base-carOwner/Car';
+import { useHistory } from 'react-router-dom';
+
 
 type Props = {
     car: Car[],
@@ -27,6 +29,7 @@ type Props = {
 
 
 export default function TableCar(props: Props) {
+    const history = useHistory();
     return (
         <div className="card">
             {/* Card header */}
@@ -113,6 +116,14 @@ export default function TableCar(props: Props) {
                                                     }}
                                                 />
                                             </a>
+                                            <a href="#!" className="table-action" data-toggle="tooltip" data-original-title="Edit product">
+                                                <EditIcon
+                                                    onClick={() => {
+                                                        history.push(`/quan-ly-ghe/${carItem._id}`)
+                                                    }}
+                                                />
+                                            </a>
+
                                         </td>
                                     </tr>
                                 )

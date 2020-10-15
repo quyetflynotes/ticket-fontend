@@ -4,7 +4,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 type Props = {
     listChair: any;
-    onAddRows: () => void;
+    onAddRows: (floor : number) => void;
     onClickEdit: (chair: any) => void;
 }
 export default function AddGhe(props: Props) {
@@ -45,59 +45,67 @@ export default function AddGhe(props: Props) {
                     </div>
                     <div className="tangGhe">
 
-                        <div className="tang">
-                            <div className="text-center text-gray-dark">
-                                <span>Tầng 1</span>
-                            </div>
-                            <div className="danhSachGhe">
-                                <div className="ghe">
-                                    <img alt="" width="40" color="white" src="/images/car-steering-wheel.svg" />
-                                </div>
-                            </div>
-                            {
-                                props.listChair.map((row: any) => {
-                                    return (
-                                        <div className="danhSachGhe">
-                                            {
-                                                row.map((collumn: any,value :number) => {
-                                                    return (collumn._id)
-                                                        ? (
-                                                            <div className="ghe">
-                                                                <button style = {{background : "none"}} onClick={()=>{props.onClickEdit(collumn)}}>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 28 44"><g fill="#fff" stroke="#000" stroke-width=".5"><g><rect width="28" height="44" rx="4" stroke="none"></rect><rect x=".25" y=".25" width="27.5" height="43.5" rx="3.75" fill="none"></rect></g><g transform="translate(2)"><rect width="24" height="34" rx="2" stroke="none"></rect><rect x=".25" y=".25" width="23.5" height="33.5" rx="1.75" fill="none"></rect></g><g transform="translate(6 36)"><rect width="16" height="8" rx="2" stroke="none"></rect><rect x=".25" y=".25" width="15.5" height="7.5" rx="1.75" fill="none"></rect></g></g></svg>
-                                                                </button>
-                                                            </div>
-                                                        )
-                                                        : (
-                                                            <div className="ghe">
-                                                                <button className="btn-primary btn-round" 
-                                                                onClick={()=>{props.onClickEdit({...collumn})}}>+</button>
-                                                            </div>
-                                                        )
-
-                                                })
-                                            }
+                        {
+                            props.listChair.map((floor: any) => {
+                                return (
+                                    <div className="tang">
+                                        <div className="text-center text-gray-dark">
+                                            <span>Tầng 1</span>
                                         </div>
-                                    )
-                                })
-                            }
+                                        <div className="danhSachGhe">
+                                            <div className="ghe">
+                                                <img alt="" width="40" color="white" src="/images/car-steering-wheel.svg" />
+                                            </div>
+                                        </div>
+                                        {
+                                            floor.map((row: any) => {
+                                                return (
+                                                    <div className="danhSachGhe">
+                                                        {
+                                                            row.map((collumn: any, value: number) => {
+                                                                return (collumn._id)
+                                                                    ? (
+                                                                        <div className="ghe">
+                                                                            <button style={{ background: "none" }} onClick={() => { props.onClickEdit(collumn) }}>
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 28 44"><g fill="#fff" stroke="#000" stroke-width=".5"><g><rect width="28" height="44" rx="4" stroke="none"></rect><rect x=".25" y=".25" width="27.5" height="43.5" rx="3.75" fill="none"></rect></g><g transform="translate(2)"><rect width="24" height="34" rx="2" stroke="none"></rect><rect x=".25" y=".25" width="23.5" height="33.5" rx="1.75" fill="none"></rect></g><g transform="translate(6 36)"><rect width="16" height="8" rx="2" stroke="none"></rect><rect x=".25" y=".25" width="15.5" height="7.5" rx="1.75" fill="none"></rect></g></g></svg>
+                                                                            </button>
+                                                                        </div>
+                                                                    )
+                                                                    : (
+                                                                        <div className="ghe">
+                                                                            <button className="btn-primary btn-round"
+                                                                                onClick={() => { props.onClickEdit(collumn) }}>+</button>
+                                                                        </div>
+                                                                    )
+                                                            })
+                                                        }
+                                                    </div>
+                                                )
+                                            })
+                                        }
 
 
-                            <div className="danhSachGhe">
-                                <button className="btn btn-sm btn-primary btn-round"
-                                    onClick={() => props.onAddRows()}
-                                >THÊM HÀNG</button>
-                            </div>
+                                        <div className="danhSachGhe">
+                                            <button className="btn btn-sm btn-primary btn-round"
+                                                onClick={() => props.onAddRows(floor[0][0].localFloor)}
+                                            >THÊM HÀNG</button>
+                                        </div>
 
-                        </div>
-                        <div className="tang">
+                                    </div>
+                                )
+                            })
+                        }
+
+
+
+                        {/* <div className="tang">
                             <div className="text-center text-gray-dark">
                                 <span>Tầng 2</span>
                             </div>
                             <div className="danhSachGhe">
 
                             </div>
-                        </div>
+                        </div> */}
 
                     </div>
                 </div>

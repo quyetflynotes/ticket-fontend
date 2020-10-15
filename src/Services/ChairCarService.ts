@@ -20,11 +20,16 @@ export class ChairCarService{
         return APIService.create(`${URL}/manager/ChairCar`, staff)
     }
 
+    public static autoCreate(staff : Staff) : Promise<ChairCar>{
+        
+        return APIService.create(`${URL}/manager/ChairCar/autoCreate`, staff)
+    }
+    
+
     public static delete(id : string) : Promise<any>{
         return APIService.delete(`${URL}/manager/ChairCar`, id)
     }
     public static getByCarid(id : string) : Promise<any>{
-        id = "5f7e8b727aaa101a1df7ec71";
         return APIService.getById(`${URL}/manager/ChairCar/getByCarId/${id}`)
     }
     

@@ -2,19 +2,9 @@ import React, { useEffect, useState } from 'react';
 // thành phần phản ứng được sử dụng để tạo cảnh báo ngọt ngào
 import ReactBSAlert from "react-bootstrap-sweetalert";
 import Button from 'react-bootstrap/Button';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
-import ImportExportIcon from '@material-ui/icons/ImportExport';
-import ImageIcon from '@material-ui/icons/Image';
+
 import FaceIcon from '@material-ui/icons/Face';
-import PhoneIcon from '@material-ui/icons/Phone';
-import BrandingWatermarkIcon from '@material-ui/icons/BrandingWatermark';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import RecentActorsIcon from '@material-ui/icons/RecentActors';
-import AddIcon from '@material-ui/icons/Add';
-import { Staff } from "../../share/base-ticket/base-carOwner/Staff";
+
 import { Car, statusCar } from '../../share/base-ticket/base-carOwner/Car';
 import { TypeCar } from '../../share/base-ticket/base-carOwner/TypeCar';
 import Autocomplete from '@material-ui/lab/Autocomplete';
