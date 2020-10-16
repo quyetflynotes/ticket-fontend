@@ -19,11 +19,15 @@ class NhapThongTinMuaVe extends Component<Props, State> {
             <div className="thongTinKhachHang">
                 <div className="thongTin">
                     <div className="form-group">
-                        <label className="form-control-label" htmlFor="exampleFormControlInput1">Họ tên*</label>
+                        <label className="form-control-label" htmlFor="exampleFormControlInput1">Họ tên
+                            <span></span>
+                        </label>
                         <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Huỳnh Văn A" />
                     </div>
                     <div className="form-group">
-                        <label className="form-control-label" htmlFor="exampleFormControlInput1">Số điện thoại*</label>
+                        <label className="form-control-label" htmlFor="exampleFormControlInput1">Số điện thoại
+                            <span></span>
+                        </label>
                         <ReactPhoneInput
                             country={'vn'}
                             value={this.state.phone}
@@ -31,7 +35,9 @@ class NhapThongTinMuaVe extends Component<Props, State> {
                         />
                     </div>
                     <div className="form-group">
-                        <label className="form-control-label" htmlFor="exampleFormControlInput1">Email*</label>
+                        <label className="form-control-label" htmlFor="exampleFormControlInput1">Email
+                            <span></span>
+                        </label>
                         <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="email@gmail.com" />
                     </div>
                     <div className="form-group">

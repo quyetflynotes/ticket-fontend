@@ -22,7 +22,7 @@ import TestFormMilk from './components/TestFormMilk';
 import StyleDemo from './pages/StyleDemo';
 import Ghe from './pages/Ghe';
 import SettingsNhanVien from './pages/SettingsNhanVien';
-import Ve from './pages/Ve';
+import Ve from './pages/TripHomeContainer';
 
 
 

@@ -4,7 +4,7 @@ import URL from "../config/URLConfig"
 import { Paging } from "../share/base-ticket/Paging";
 import { APIService } from "./APIService";
 export class StaffService{
-    public static list(page : number = 1) : Promise<Paging<Staff> >{
+    public static list(page : number = 0) : Promise<Paging<Staff> >{
         return APIService.list(page, `${URL}/manager/staff`)
     }
 

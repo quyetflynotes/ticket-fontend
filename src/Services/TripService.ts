@@ -5,7 +5,7 @@ import URL from "../config/URLConfig"
 import { Paging } from "../share/base-ticket/Paging";
 import { APIService } from "./APIService";
 export class TripService{
-    public static list(page : number = 1) : Promise<Paging<Trip>>{
+    public static list(page : number=0) : Promise<Paging<Trip>>{
         return APIService.list(page, `${URL}/manager/trip`)
     }
 

@@ -9,6 +9,13 @@ export class HelpTime {
         console.log(date);
         // if(!date) return "";
         date = new Date(date)
-        return `0${date.getHours()}`.slice(-2) + ` : `+`0${date.getMinutes()}`.slice(-2)
+        return `0${date.getHours()}`.slice(-2) + `:`+`0${date.getMinutes()}`.slice(-2)
     }
+    public static formatDate(date : Date = new Date) : string{
+        date = new Date(date);
+        return `0${date.getDate()}`.slice(-2) + `-`+`0${date.getMonth()+1}`.slice(-2) +`-`+`${date.getFullYear()}`
+    }
+
+    
+
 }

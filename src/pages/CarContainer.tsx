@@ -39,7 +39,6 @@ export default function CarContainer() {
         CarService.list(page).then((carPaging: Paging<Staff>) => {
             if (carPaging) {
                 setCar(carPaging)
-                
             }
         })
     }
@@ -62,7 +61,6 @@ export default function CarContainer() {
     function onCarFormCreate(carCreate: Car) {
         CarService.create(carCreate).then((res: any) => {
             getData(car.page)
-            
             setShowForm(false)
         })
 
@@ -112,5 +110,3 @@ export default function CarContainer() {
         </div>
     )
 }
-
-

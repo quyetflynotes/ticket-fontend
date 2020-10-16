@@ -5,7 +5,7 @@ import { Paging } from "../share/base-ticket/Paging";
 import { APIService } from "./APIService";
 import { Customer } from "../share/base-ticket/base-carOwner/Customer";
 export class CustomerService{
-    public static list(page : number = 1) : Promise<Paging<Customer> >{
+    public static list(page : number = 0) : Promise<Paging<Customer> >{
         return APIService.list(page, `${URL}/manager/customer`)
     }
 
