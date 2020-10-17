@@ -47,8 +47,7 @@ axios.interceptors.response.use(
 )
 export const getAxios = async () => {
     
-    // var jwt = await UserService.getJWT();
-    // axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`
+    axios.defaults.headers.common["Authorization"] = `LQN 5f78812aeb8ac1182da0ddfd`
     return axios;
 }
 

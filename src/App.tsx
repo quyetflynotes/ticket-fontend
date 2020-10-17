@@ -23,6 +23,8 @@ import StyleDemo from './pages/StyleDemo';
 import Ghe from './pages/Ghe';
 import SettingsNhanVien from './pages/SettingsNhanVien';
 import Ve from './pages/TripHomeContainer';
+import Messenger from './pages/Messenger';
+
 import Diagram from './components/DiagramsTicket/Diagram';
 
 
@@ -30,70 +32,75 @@ import Diagram from './components/DiagramsTicket/Diagram';
 function App() {
   return (
     <div>
-      <Router>
+      <div>
         <div>
-          <Switch>
-
-          <Route path="/formilk">
-              <StyleDemo />
-            </Route>
-
-            <Route path="/quan-ly-nhan-vien">
-              <NhanVien />
-            </Route>
-
-            <Route path="/quan-ly-chuc-vu">
-              <PostionStaff />
-            </Route>
-
-            <Route path="/quan-ly-xe">
-              <CarContainer />
-            </Route>
-
-            <Route path="/quan-ly-loai-xe">
-              <TypeCarContainer />
-            </Route>
-
-            <Route path="/quan-ly-khach-hang">
-              <CustomerContainer />
-            </Route>
-            
-            <Route path="/quan-ly-lo-trinh">
-              <RouteContainer />
-            </Route>
-
-            <Route path="/quan-ly-ghe/:id">
-              <Ghe />
-            </Route>
-
-            <Route path="/quan-ly-chuyen-di/:id">
-              <TripContainer />
-            </Route>
-
-            <Route path="/quan-ly-ve">
-              <Ve />
-            </Route>
-
-            <Route path="/saleTicket/:id">
-              <Diagram />
-            </Route>
-
-            <Route path="/setting-nhan-vien">
-              <SettingsNhanVien />
-            </Route>
-
-            <Route path="/dashboard">
-              <Dashboard />
-            </Route>
-            <Route path="/dang-ky">
-              <Register />
-            </Route>
-            <Route path="/">
-              <LoginQL />
-            </Route>
-          </Switch>
+      {/* <Messenger></Messenger> */}
         </div>
-      </Router >
+        <Router>
+          <div>
+            <Switch>
+
+              <Route path="/formilk">
+                <StyleDemo />
+              </Route>
+
+              <Route path="/quan-ly-nhan-vien">
+                <NhanVien />
+              </Route>
+
+              <Route path="/quan-ly-chuc-vu">
+                <PostionStaff />
+              </Route>
+
+              <Route path="/quan-ly-xe">
+                <CarContainer />
+              </Route>
+
+              <Route path="/quan-ly-loai-xe">
+                <TypeCarContainer />
+              </Route>
+
+              <Route path="/quan-ly-khach-hang">
+                <CustomerContainer />
+              </Route>
+
+              <Route path="/quan-ly-lo-trinh">
+                <RouteContainer />
+              </Route>
+
+              <Route path="/quan-ly-ghe/:id">
+                <Ghe />
+              </Route>
+
+              <Route path="/quan-ly-chuyen-di/:id">
+                <TripContainer />
+              </Route>
+
+              <Route path="/quan-ly-ve">
+                <Ve />
+              </Route>
+
+              <Route path="/saleTicket/:id">
+                <Diagram />
+              </Route>
+
+              <Route path="/setting-nhan-vien">
+                <SettingsNhanVien />
+              </Route>
+
+              <Route path="/dashboard">
+                <Dashboard />
+              </Route>
+              <Route path="/dang-ky">
+                <Register />
+              </Route>
+              <Route path="/">
+                <LoginQL />
+              </Route>
+            </Switch>
+          </div>
+        </Router >
+      </div>
     </div>
   );
 }

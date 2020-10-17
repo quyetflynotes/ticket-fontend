@@ -4,8 +4,14 @@ import URL from "../config/URLConfig"
 import { Paging } from "../share/base-ticket/Paging";
 import { APIService } from "./APIService";
 export class TicketService{
-    public static list(page : number = 0) : Promise<Paging<Staff> >{
-        return APIService.list(page, `${URL}/manager/ticket`)
+
+
+    public static list(page : number = 0, search : string = "") : Promise<Paging<Staff> >{
+        let params = {page : page,
+            query : {},
+            
+        }
+        return APIService.listByQuery(  `${URL}/manager/ticket`,params)
     }
 
     public static getById(id : string) : Promise<Staff>{

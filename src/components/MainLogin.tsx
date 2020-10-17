@@ -4,6 +4,7 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { Link } from 'react-router-dom';
 import { AccountService } from '../Services/AccountService';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 type Account = {
@@ -12,9 +13,10 @@ type Account = {
 }
 export default function MainLogin() {
     const history = useHistory();
-
+    const state = useSelector(state => state)
+    console.log(state);
     useEffect(()=>{
-
+        
     }, [])
     const [userName , setUserName]  = useState<Account>({});
     function login(){

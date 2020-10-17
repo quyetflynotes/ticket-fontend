@@ -5,19 +5,24 @@ import { Paging } from "../share/base-ticket/Paging";
 import { APIService } from "./APIService";
 import { Car } from "../share/base-ticket/base-carOwner/Car";
 export class CarService{
-    public static list(page : number = 0) : Promise<Paging<Car> >{
-        return APIService.list(page, `${URL}/manager/car`)
+
+    public static list(page : number = 0, search : string = "") : Promise<Paging<any> >{
+        let params = {page : page,
+            query : {},
+            
+        }
+        return APIService.listByQuery( `${URL}/manager/car`,params)
     }
 
-    public static getById(id : string) : Promise<Car>{
+    public static getById(id : string) : Promise<any>{
         return APIService.getById(`${URL}/manager/car/${id}`)
     }
 
-    public static create(staff : Car) : Promise<Car>{
+    public static create(staff : Car) : Promise<any>{
         return APIService.create(`${URL}/manager/car`, staff)
     }
 
-    public static delete(id : string) : Promise<Car>{
+    public static delete(id : string) : Promise<any>{
         return APIService.delete(`${URL}/manager/car`, id)
     }
     

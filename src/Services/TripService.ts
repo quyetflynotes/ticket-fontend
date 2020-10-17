@@ -5,9 +5,13 @@ import URL from "../config/URLConfig"
 import { Paging } from "../share/base-ticket/Paging";
 import { APIService } from "./APIService";
 export class TripService{
-    public static list(page : number=0) : Promise<Paging<Trip>>{
-        let query = {page : page}
-        return APIService.listByQuery(`${URL}/manager/trip`,query)
+
+    public static list(page : number = 0, search : string = "") : Promise<Paging<Staff> >{
+        let params = {page : page,
+            query : {},
+            
+        }
+        return APIService.listByQuery(  `${URL}/manager/trip`,params)
     }
 
     public static getById(id : string) : Promise<Trip>{

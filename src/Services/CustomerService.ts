@@ -5,8 +5,14 @@ import { Paging } from "../share/base-ticket/Paging";
 import { APIService } from "./APIService";
 import { Customer } from "../share/base-ticket/base-carOwner/Customer";
 export class CustomerService{
-    public static list(page : number = 0) : Promise<Paging<Customer> >{
-        return APIService.list(page, `${URL}/manager/customer`)
+
+
+    public static list(page : number = 0, search : string = "") : Promise<Paging<Customer>>{
+        let params = {page : page,
+            query : {},
+            
+        }
+        return APIService.listByQuery( `${URL}/manager/customer`,params)
     }
 
     public static getById(id : string) : Promise<Customer>{
