@@ -12,7 +12,9 @@ class SettingsNhanVien extends Component {
             <div>
                 <Sidebar></Sidebar>
                 <div className="main-content" id="panel">
-                    <NavbarDashboard></NavbarDashboard >
+                    <NavbarDashboard
+                    search = {()=>{}}
+                    ></NavbarDashboard >
                     <div className="header bg-primary pb-6 d-flex align-items-center" style={{ minHeight: "500px", backgroundImage: "url(/images/profile-cover.jpg)", backgroundSize: "cover", backgroundPosition: "center top" }}>
                         {/* Mask */}
                         <span className="mask bg-gradient-default opacity-8"></span>

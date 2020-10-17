@@ -1,19 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { HelpFormat } from '../../Helpers/HelpFormat'
 import { HelpTime } from '../../Helpers/HelpTime'
 import { Trip } from '../../share/base-ticket/base-carOwner/Trip'
 import { Paging } from '../../share/base-ticket/Paging'
+import Diagram from '../DiagramsTicket/Diagram'
 
 
 type Props  = {
     trips  :Trip
 }
 export default function ListTripItem(props : Props) {
+    let history = useHistory();
     function calTimeWithHours(time : Date , hour : number) : Date{
         time = new Date(time);
         time.setHours(time.getHours() + hour);
         return time;
     }
+
+
     return (
         <div className="khungThongTinVe mt-4">
             <div className="containerKhung">
@@ -21,7 +26,6 @@ export default function ListTripItem(props : Props) {
                     <div className="khungAnhXe">
                         <img className="imageXe" src="https://static.vexere.com/production/images/1588992988116.jpeg" alt="race" />
                     </div>
-
                     <div className="khungThongTinXe">
                         <div className="khungTitleXe">
                             <div className="bus-info">
@@ -70,7 +74,9 @@ export default function ListTripItem(props : Props) {
                                     38 chỗ trống
                                         </div>
                                 <div className="action">
-                                    <button type="button" className="btn btn-success ">Đặt vé</button>
+                                    <button type="button" className="btn btn-success "
+                                        onClick={(e)=> history.push(`/saleTicket/${props.trips._id}`)}
+                                    >Đặt vé</button>
                                 </div>
                             </div>
                         </div>

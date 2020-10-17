@@ -24326,7 +24326,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
 }
 
 .tang {
-    width: 20%;
+    width: 30%;
     display: flex;
     flex-direction: column;
     background: rgb(230, 230, 230);
@@ -24759,4 +24759,28 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
 .thongTin .form-group .form-control-label span::before {
     content: "*";
     color: red;
+}
+
+
+/* Khung đặt vé */
+
+.khungDatVe {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.khungDatVe .khung {
+    width: 48%;
+    border-radius: 4px;
+    border: 1px solid rgb(192, 192, 192);
+    margin-bottom: 16px;
+    padding: 15px;
+}
+
+.khungButton {
+    width: 20%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
 }

@@ -6,8 +6,6 @@ export class HelpTime {
         return now;
     }
     public static getHourAndMinute(date : Date = new Date) : string{
-        console.log(date);
-        // if(!date) return "";
         date = new Date(date)
         return `0${date.getHours()}`.slice(-2) + `:`+`0${date.getMinutes()}`.slice(-2)
     }

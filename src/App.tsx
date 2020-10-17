@@ -23,6 +23,7 @@ import StyleDemo from './pages/StyleDemo';
 import Ghe from './pages/Ghe';
 import SettingsNhanVien from './pages/SettingsNhanVien';
 import Ve from './pages/TripHomeContainer';
+import Diagram from './components/DiagramsTicket/Diagram';
 
 
 
@@ -71,6 +72,10 @@ function App() {
 
             <Route path="/quan-ly-ve">
               <Ve />
+            </Route>
+
+            <Route path="/saleTicket/:id">
+              <Diagram />
             </Route>
 
             <Route path="/setting-nhan-vien">

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import FooterDashboard from '../components/FooterDashboard';
 import HeaderDashboard from '../components/HeaderDashboard';
 import NavbarDashboard from '../components/NavbarDashboard';
@@ -12,114 +12,128 @@ import FormNhanVien from '../components/Staff/FormNhanVien';
 import { PostionStaff } from '../share/base-ticket/base-carOwner/PostionStaff';
 import { PositionStaffCarService } from '../Services/PositionStaffCarService';
 
-var self: NhanVien;
-class NhanVien extends Component<Props, State> {
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            staffs: { page: 1, total: 1, totalPages: 1, rows: [], pageSize: 1 },
-            showForm: false,
-            staffForm: {},
-            listPostion : []
-        }
-        self = this
-    }
 
-    componentDidMount() {
-        this.getData(1);
-        PositionStaffCarService.list().then((res : Paging<PostionStaff>)=>{
-            this.setState({
-                listPostion : res.rows
+
+type State = {
+    staffs: Paging<Staff>,
+    showForm: boolean,
+    staffForm: Staff,
+    listPostion: PostionStaff[], 
+}
+
+
+
+
+
+
+
+export default function NhanVien() {
+    const [state, setState] = useState<State>({
+        staffs: { page: 1, total: 1, totalPages: 1, rows: [], pageSize: 1 },
+        showForm: false,
+        staffForm: {},
+        listPostion: [], 
+    })
+    const [search , setSearch] = useState<string>("")
+
+    useEffect(() => {
+        PositionStaffCarService.list().then((res: Paging<PostionStaff>) => {
+            setState({
+                ...state,
+                listPostion: res.rows
             })
         })
-    }
+        getData(1);
+        
+    },[])
 
-     getData(page: number = 1) {
-        StaffService.list(page).then((staffPaging: Paging<Staff>) => {
+    
+
+
+    async function getData(page: number = 1, search : string = "") {
+        StaffService.list(page, search).then((staffPaging: Paging<Staff>) => {
             if (staffPaging) {
-                this.setState({
+                setState({
+                    ...state,
                     staffs: staffPaging
                 })
             }
         })
     }
 
-    staffForm(staff: Staff) {
-        self.setState({
+    function staffForm(staff: Staff) {
+        setState({
+            ...state,
             staffForm: staff,
             showForm: true
         })
     }
 
-    staffFormCreate(staff: Staff) {
+    function staffFormCreate(staff: Staff) {
         StaffService.create(staff).then((res: any) => {
             if (res) {
-                self.getData(self.state.staffs.page);
+                getData(state.staffs.page);
             }
         })
-        self.setState({
+        setState({
+            ...state,
             showForm: false
         })
     }
 
-    staffDelete(id: string) {
+    function staffDelete(id: string) {
         StaffService.delete(id).then((res: any) => {
             if (res) {
-                self.getData(self.state.staffs.page);
+                getData(state.staffs.page);
             }
         })
     }
 
-    onCancel(){
-        self.setState({
-            showForm :false 
+    function onCancel() {
+        setState({
+            ...state,
+            showForm: false
         })
     }
 
-    render() {
-        return (
-            <div>
-                <FormNhanVien
-                    formModal={this.state.showForm}
-                    staff={this.state.staffForm}
-                    onStaff={this.staffFormCreate}
-                    listPostion = {this.state.listPostion}
-                    onCancel = {this.onCancel}
-                ></FormNhanVien>
-                <Sidebar></Sidebar>
-                <div className="main-content" id="panel">
-                    <NavbarDashboard></NavbarDashboard >
-                    <div className="header bg-primary pb-6">
-                        <div className="container-fluid">
-                            <HeaderDashboard></HeaderDashboard>
-                        </div>
-                    </div>
-                    <div className="container-fluid mt--6">
-                        <Tables
-                            staffs={this.state.staffs.rows}
-                            onStaffs={this.staffForm}
-                            onDeleteStaff={this.staffDelete}
-                        ></Tables>
-                        <Pagination count={this.state.staffs.totalPages} onChange={(event, value) => {
-                            this.getData(value);
-                        }} color="primary" />
-                        <FooterDashboard></FooterDashboard>
+    function onSearch(search : any) {
+        getData(1, search).then(((res : any)=>{
+            setSearch(search)
+        }))
+    }
+
+    return (
+        <div>
+            <FormNhanVien
+                formModal={state.showForm}
+                staff={state.staffForm}
+                onStaff={staffFormCreate}
+                listPostion={state.listPostion}
+                onCancel={onCancel}
+            ></FormNhanVien>
+            <Sidebar></Sidebar>
+
+            <div className="main-content" id="panel">
+                <NavbarDashboard
+                    search={onSearch}
+                ></NavbarDashboard >
+                <div className="header bg-primary pb-6">
+                    <div className="container-fluid">
+                        <HeaderDashboard></HeaderDashboard>
                     </div>
                 </div>
+                <div className="container-fluid mt--6">
+                    <Tables
+                        staffs={state.staffs.rows}
+                        onStaffs={staffForm}
+                        onDeleteStaff={staffDelete}
+                    ></Tables>
+                    <Pagination count={state.staffs.totalPages} onChange={(event, value) => {
+                        getData(value);
+                    }} color="primary" />
+                    <FooterDashboard></FooterDashboard>
+                </div>
             </div>
-        );
-    }
+        </div>
+    )
 }
-
-type Props = {
-
-}
-
-type State = {
-    staffs: Paging<Staff>,
-    showForm: boolean,
-    staffForm: Staff,
-    listPostion : PostionStaff[]
-}
-
-export default NhanVien;

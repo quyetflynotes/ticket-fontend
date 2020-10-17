@@ -6,7 +6,8 @@ import { Paging } from "../share/base-ticket/Paging";
 import { APIService } from "./APIService";
 export class TripService{
     public static list(page : number=0) : Promise<Paging<Trip>>{
-        return APIService.list(page, `${URL}/manager/trip`)
+        let query = {page : page}
+        return APIService.listByQuery(`${URL}/manager/trip`,query)
     }
 
     public static getById(id : string) : Promise<Trip>{
@@ -30,6 +31,10 @@ export class TripService{
             }
         }
         return APIService.listByQuery(`${URL}/manager/trip`, params)
+    }
+
+    public static getChairByTrip(id : string) : Promise<any>{
+        return APIService.list(0, `${URL}/manager/trip/getChair/${id}`)
     }
 
 

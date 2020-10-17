@@ -13,7 +13,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import SearchIcon from '@material-ui/icons/Search';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
-
+var timeOut : any;
 class NavbarDashboard extends Component<Props, State> {
     constructor(props: any) {
         super(props);
@@ -26,15 +26,15 @@ class NavbarDashboard extends Component<Props, State> {
         }
     };
     onShowNav = () => {
-        this.setState({ showNav: !this.state.showNav, showNav1: true, showNav2:true });
+        this.setState({ showNav: !this.state.showNav, showNav1: true, showNav2: true });
     };
 
     onShowThongBao = () => {
-        this.setState({showNav1: !this.state.showNav1, showNav: true, showNav2: true});
+        this.setState({ showNav1: !this.state.showNav1, showNav: true, showNav2: true });
     }
 
     focusedTimKiem = () => {
-        this.setState({ focused: !this.state.focused, showNav:true, showNav1: true, showNav2:true });
+        this.setState({ focused: !this.state.focused, showNav: true, showNav1: true, showNav2: true });
     }
 
     onNavbar = () => {
@@ -88,6 +88,16 @@ class NavbarDashboard extends Component<Props, State> {
         }, 500);
     };
 
+    onSearch (valueSearch : string){
+
+        clearInterval(timeOut);
+        timeOut = setInterval(()=>{
+            this.props.search(valueSearch);
+            clearInterval(timeOut);
+        }, 500)
+        
+    }
+
     render() {
         return (
             /* Topnav */
@@ -101,7 +111,7 @@ class NavbarDashboard extends Component<Props, State> {
                                     <div className="input-group-prepend">
                                         <span className="input-group-text"><SearchIcon /></span>
                                     </div>
-                                    <input className="form-control" placeholder="Tìm kiếm" type="text" />
+                                    <input className="form-control" placeholder="Tìm kiếm" type="text" onChange = {(e)=> this.onSearch(e.target.value || "")} />
                                 </div>
                             </div>
                             <button type="button" className="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close" onClick={this.closeSearch}>
@@ -112,8 +122,8 @@ class NavbarDashboard extends Component<Props, State> {
                         <ul className="navbar-nav align-items-center ml-md-auto" >
                             <li className="nav-item d-xl-none">
                                 {/* Sidenav toggler */}
-                                <div className= {this.state.sidebar ? "pr-3 sidenav-toggler sidenav-toggler-dark" : "pr-3 sidenav-toggler sidenav-toggler-dark active"} data-action="sidenav-pin" data-target="#sidenav-main" onClick={this.onNavbar} onMouseEnter={this.onMouseEnterSidenav}
-                onMouseLeave={this.onMouseLeaveSidenav}>
+                                <div className={this.state.sidebar ? "pr-3 sidenav-toggler sidenav-toggler-dark" : "pr-3 sidenav-toggler sidenav-toggler-dark active"} data-action="sidenav-pin" data-target="#sidenav-main" onClick={this.onNavbar} onMouseEnter={this.onMouseEnterSidenav}
+                                    onMouseLeave={this.onMouseLeaveSidenav}>
                                     <div className="sidenav-toggler-inner">
                                         <i className="sidenav-toggler-line"></i>
                                         <i className="sidenav-toggler-line"></i>
@@ -127,7 +137,7 @@ class NavbarDashboard extends Component<Props, State> {
                                 </a>
                             </li>
                             <li className="nav-item dropdown">
-                                <a className="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick = {this.onShowThongBao}>
+                                <a className="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={this.onShowThongBao}>
                                     <NotificationsIcon />
                                 </a>
                                 <div className={this.state.showNav1 ? "dropdown-menu dropdown-menu-xl dropdown-menu-right py-0 overflow-hidden" : "dropdown-menu dropdown-menu-xl dropdown-menu-right py-0 overflow-hidden show"}>
@@ -239,7 +249,7 @@ class NavbarDashboard extends Component<Props, State> {
                             </li>
                             <li className="nav-item dropdown" onClick={(event) => {
 
-                                this.setState({ showNav2: !this.state.showNav2, showNav: true, showNav1: true});
+                                this.setState({ showNav2: !this.state.showNav2, showNav: true, showNav1: true });
 
                             }}>
                                 <a className="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -339,7 +349,9 @@ class NavbarDashboard extends Component<Props, State> {
     }
 }
 
-type Props = {}
+type Props = {
+    search :(value : string) => void
+}
 type State = {
     sidebar: boolean,
     showNav: boolean,
