@@ -1,21 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 // thành phần phản ứng được sử dụng để tạo cảnh báo ngọt ngào
-import ReactBSAlert from "react-bootstrap-sweetalert";
-import Button from 'react-bootstrap/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
-import ImageIcon from '@material-ui/icons/Image';
-import FaceIcon from '@material-ui/icons/Face';
-import PhoneIcon from '@material-ui/icons/Phone';
-import BrandingWatermarkIcon from '@material-ui/icons/BrandingWatermark';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import RecentActorsIcon from '@material-ui/icons/RecentActors';
 import AddIcon from '@material-ui/icons/Add';
-import { Staff } from "../../share/base-ticket/base-carOwner/Staff";
-import FormNhanVien from './FormPostionStaff';
 import { PostionStaff } from '../../share/base-ticket/base-carOwner/PostionStaff';
 
 type Props = {
@@ -28,11 +16,10 @@ export default function TablesPostionStaff(props : Props) {
     return (
         <div className="card">
             {/* Card header */}
-
             <div className="card-header border-0">
                 <div className="row">
                     <div className="col-6">
-                        <h3 className="mb-0">Danh sách nhân viên</h3>
+                        <h3 className="mb-0">Danh sách chuc vu</h3>
                     </div>
 
                     <div className="col-6 text-right">

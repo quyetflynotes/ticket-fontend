@@ -27,6 +27,10 @@ type Props = {
 
 export default function TripForm(props: Props) {
     const [trip, setTrip] = useState<Trip>(props.trip);
+
+    const textButtonEdit = props.trip._id ? "Sua" : "Them"
+
+
     useEffect(() => {
         setTrip(props.trip);
     }, [props])
@@ -40,7 +44,7 @@ export default function TripForm(props: Props) {
                                 <div className="card bg-secondary border-0 mb-0">
                                     <div className="card-body px-lg-5 py-lg-5">
                                         <div className="text-center text-muted mb-4">
-                                            <small>Thêm lộ trình</small>
+                                            <small>{textButtonEdit} lộ trình</small>
                                         </div>
                                         <form role="form">
 
@@ -128,7 +132,7 @@ export default function TripForm(props: Props) {
                                                     onClick={() => {
                                                         props.onTrip(trip);
                                                     }}
-                                                >Thêm</Button>
+                                                >{textButtonEdit}</Button>
                                                 <Button
                                                     color="warning"
                                                     className="btn-warning"

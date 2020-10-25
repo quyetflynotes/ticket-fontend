@@ -1,24 +1,11 @@
 import React, { useState, useEffect } from 'react';
 // thành phần phản ứng được sử dụng để tạo cảnh báo ngọt ngào
-import ReactBSAlert from "react-bootstrap-sweetalert";
 import Button from 'react-bootstrap/Button';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
-import ImportExportIcon from '@material-ui/icons/ImportExport';
-import ImageIcon from '@material-ui/icons/Image';
 import FaceIcon from '@material-ui/icons/Face';
 import PhoneIcon from '@material-ui/icons/Phone';
-import BrandingWatermarkIcon from '@material-ui/icons/BrandingWatermark';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import RecentActorsIcon from '@material-ui/icons/RecentActors';
-import AddIcon from '@material-ui/icons/Add';
 import { Staff } from "../../share/base-ticket/base-carOwner/Staff";
 import { Route } from '../../share/base-ticket/base-carOwner/Route';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import { Car } from '../../share/base-ticket/base-carOwner/Car';
-import { FormControl, Input, InputLabel, OutlinedInput, TextField } from '@material-ui/core';
+import { FormControl, InputLabel, OutlinedInput } from '@material-ui/core';
 import { HelpTime } from '../../Helpers/HelpTime';
 
 type Props = {
@@ -133,7 +120,7 @@ export default function RouteForm(props: Props) {
                                                 <Button
                                                     color="warning"
                                                     className="btn-warning"
-                                                    onClick={(event) => {
+                                                    onClick={() => {
                                                         props.onCancel()
                                                     }}
                                                 >Hủy</Button>

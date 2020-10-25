@@ -15,6 +15,10 @@ type Props = {
 
 function FormTypeCar(props: Props) {
     const [typeCar, setTypeCar] = useState<TypeCar>({})
+
+    const textButtonEdit = props.typeCar._id ? "Sua" : "Them"
+
+
     useEffect(() => {
         setTypeCar(props.typeCar);
     }, [props])
@@ -28,7 +32,7 @@ function FormTypeCar(props: Props) {
                                 <div className="card bg-secondary border-0 mb-0">
                                     <div className="card-body px-lg-5 py-lg-5">
                                         <div className="text-center text-muted mb-4">
-                                            <small>Thêm nhân viên</small>
+                                            <small>{textButtonEdit} nhân viên</small>
                                         </div>
                                         <form role="form">
 
@@ -74,7 +78,7 @@ function FormTypeCar(props: Props) {
                                                     onClick={() => {
                                                         props.onTypeCar(typeCar);
                                                     }}
-                                                >Thêm</Button>
+                                                >{textButtonEdit}</Button>
                                                 <Button
                                                     color="warning"
                                                     className="btn-warning"

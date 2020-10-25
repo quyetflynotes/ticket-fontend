@@ -14,12 +14,6 @@ import { PositionStaffCarService } from '../Services/PositionStaffCarService';
 
 
 
-type State = {
-    staffs: Paging<Staff>,
-    showForm: boolean,
-    staffForm: Staff,
-    listPostion: PostionStaff[], 
-}
 
 
 
@@ -28,88 +22,78 @@ type State = {
 
 
 export default function NhanVien() {
-    const [state, setState] = useState<State>({
-        staffs: { page: 1, total: 1, totalPages: 1, rows: [], pageSize: 1 },
-        showForm: false,
-        staffForm: {},
-        listPostion: [], 
-    })
-    const [search , setSearch] = useState<string>("")
+
+    const [staffs, setStaff] = useState<Paging<Staff>>({page: 1, total: 1, totalPages: 1, rows: [], pageSize: 1 });
+    const [staffForm, setStaffForm] = useState<Staff>({});
+    const [listPostion, setListPostion] = useState<PostionStaff[]>([]);
+
+    const [isShowForm, setShowForm] = useState(false);
+    const [search, setSearch] = useState<string>("")
 
     useEffect(() => {
         PositionStaffCarService.list().then((res: Paging<PostionStaff>) => {
-            setState({
-                ...state,
-                listPostion: res.rows
-            })
+            
+            setListPostion(res.rows);
+            getData(1);
         })
-        getData(1);
         
-    },[])
 
-    
+    }, [])
 
 
-    async function getData(page: number = 1, search : string = "") {
+
+
+    async function getData(page: number = 1, search: string = "") {
         StaffService.list(page, search).then((staffPaging: Paging<Staff>) => {
             if (staffPaging) {
-                setState({
-                    ...state,
-                    staffs: staffPaging
-                })
+                console.log("on data affter set state   s")
+                setStaff(staffPaging)
+
             }
         })
     }
 
-    function staffForm(staff: Staff) {
-        setState({
-            ...state,
-            staffForm: staff,
-            showForm: true
-        })
+    function setForm(staff: Staff) {
+
+        setStaffForm(staff)
+        setShowForm(true)
     }
 
     function staffFormCreate(staff: Staff) {
         StaffService.create(staff).then((res: any) => {
             if (res) {
-                getData(state.staffs.page);
+                getData(staffs.page);
             }
         })
-        setState({
-            ...state,
-            showForm: false
-        })
+        setShowForm(false);
     }
 
     function staffDelete(id: string) {
         StaffService.delete(id).then((res: any) => {
             if (res) {
-                getData(state.staffs.page);
+                getData(staffs.page);
             }
         })
     }
 
-    function onCancel() {
-        setState({
-            ...state,
-            showForm: false
-        })
-    }
 
-    function onSearch(search : any) {
-        getData(1, search).then(((res : any)=>{
+
+    function onSearch(search: any) {
+        getData(1, search).then(((res: any) => {
             setSearch(search)
         }))
     }
 
+
     return (
         <div>
+            {console.log(listPostion)}
             <FormNhanVien
-                formModal={state.showForm}
-                staff={state.staffForm}
+                formModal={isShowForm}
+                staff={staffForm}
                 onStaff={staffFormCreate}
-                listPostion={state.listPostion}
-                onCancel={onCancel}
+                listPostion={listPostion}
+                onCancel={() => setShowForm(false)}
             ></FormNhanVien>
             <Sidebar></Sidebar>
 
@@ -124,11 +108,11 @@ export default function NhanVien() {
                 </div>
                 <div className="container-fluid mt--6">
                     <Tables
-                        staffs={state.staffs.rows}
-                        onStaffs={staffForm}
+                        staffs={staffs.rows}
+                        onStaffs={setForm}
                         onDeleteStaff={staffDelete}
                     ></Tables>
-                    <Pagination count={state.staffs.totalPages} onChange={(event, value) => {
+                    <Pagination count={staffs.totalPages} onChange={(event, value) => {
                         getData(value);
                     }} color="primary" />
                     <FooterDashboard></FooterDashboard>

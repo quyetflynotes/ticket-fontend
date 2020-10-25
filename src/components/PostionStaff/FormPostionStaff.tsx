@@ -1,20 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // thành phần phản ứng được sử dụng để tạo cảnh báo ngọt ngào
-import ReactBSAlert from "react-bootstrap-sweetalert";
 import Button from 'react-bootstrap/Button';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
-import ImportExportIcon from '@material-ui/icons/ImportExport';
-import ImageIcon from '@material-ui/icons/Image';
 import FaceIcon from '@material-ui/icons/Face';
-import PhoneIcon from '@material-ui/icons/Phone';
-import BrandingWatermarkIcon from '@material-ui/icons/BrandingWatermark';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import RecentActorsIcon from '@material-ui/icons/RecentActors';
-import AddIcon from '@material-ui/icons/Add';
-import { Staff } from "../../share/base-ticket/base-carOwner/Staff";
 import { PostionStaff } from '../../share/base-ticket/base-carOwner/PostionStaff';
 import { FormControl, InputLabel, OutlinedInput } from '@material-ui/core';
 
@@ -28,8 +15,13 @@ type Props = {
 
 
 
+
+
 export default function FormPostionStaff(props: Props) {
     const [postion, setPostion] = useState<PostionStaff>(props.postion)
+
+    const textButtonEdit = props.postion._id ? "Sua" : "Them"
+
     useEffect(() => {
         setPostion(props.postion);
     }, [props])
@@ -42,16 +34,14 @@ export default function FormPostionStaff(props: Props) {
                             <div className="card bg-secondary border-0 mb-0">
                                 <div className="card-body px-lg-5 py-lg-5">
                                     <div className="text-center text-muted mb-4">
-                                        <small>Thêm nhân viên</small>
+                                        <small>{textButtonEdit} nhan vien</small>
                                     </div>
                                     <form role="form">
-
-
                                         <div className="form-group">
                                             <div className="input-group input-group-merge input-group-alternative">
 
                                                 <FormControl variant="outlined" fullWidth>
-                                                    <InputLabel >Tên chức vụ</InputLabel>
+                                                    <InputLabel>Tên chức vụ</InputLabel>
                                                     <OutlinedInput
                                                         endAdornment={<FaceIcon />}
                                                         fullWidth
@@ -66,9 +56,9 @@ export default function FormPostionStaff(props: Props) {
                                         </div>
                                         <div className="form-group">
                                             <div className="input-group input-group-merge input-group-alternative">
-  
+
                                                 <FormControl variant="outlined" fullWidth>
-                                                    <InputLabel >Mô tả</InputLabel>
+                                                    <InputLabel>Mô tả</InputLabel>
                                                     <OutlinedInput
                                                         endAdornment={<FaceIcon />}
                                                         fullWidth
@@ -87,11 +77,11 @@ export default function FormPostionStaff(props: Props) {
                                                 onClick={() => {
                                                     props.onPostion(postion);
                                                 }}
-                                            >Thêm</Button>
+                                            >{textButtonEdit}</Button>
                                             <Button
                                                 color="warning"
                                                 className="btn-warning"
-                                                onClick={(event) => {
+                                                onClick={() => {
                                                     props.onCancel()
                                                 }}
                                             >Hủy</Button>
