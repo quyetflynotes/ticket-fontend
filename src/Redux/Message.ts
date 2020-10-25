@@ -2,7 +2,7 @@ import { createModel } from "@rematch/core";
 
 export enum typeMessenge{
   error = "Error",
-  network = "Network",
+  warning = "Warning",
   success = "Success",
 };
 
@@ -15,13 +15,16 @@ export type message = {
 const initState = {
   type : typeMessenge.error,
   message : "Nguyễn Văn Lương",
-  show : true
+  show : false
 };
 
 export const message = createModel<message>({
   state: initState,
   reducers: {
     fetchData(state: message, data: any = {}) {
+      console.log("=============")
+      console.log(state);
+      console.log(data);
       state = {
         ...state,
         ...data,
@@ -30,9 +33,16 @@ export const message = createModel<message>({
     },
   },
   effects: (dispatch: any) => ({
-    test(value: string, state : any ) {
-
-        dispatch.authen.fetchData("fdafdsaf");
+    close(value :boolean, state : any){
+        dispatch.message.fetchData({show : value});
+    },
+    showError(value : any, state : any ){
+      let params = {
+        show : true,
+        message : value
+      }
+      dispatch.message.fetchData(params);
     }
+
   }),
 });

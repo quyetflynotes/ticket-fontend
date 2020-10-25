@@ -15,6 +15,9 @@ export const authen = createModel<AuthenModel>({
   state: initState,
   reducers: {
     fetchData(state: AuthenModel, data: any = {}) {
+      console.log(state);
+      console.log(data)
+
       state = {
         ...state,
         ...data,
@@ -24,7 +27,7 @@ export const authen = createModel<AuthenModel>({
   },
   effects: (dispatch: any) => ({
     test(value: string, state : any ) {
-
+      
         dispatch.authen.fetchData("authen");
     }
   }),

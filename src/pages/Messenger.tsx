@@ -16,6 +16,8 @@ import RecentActorsIcon from '@material-ui/icons/RecentActors';
 import AddIcon from '@material-ui/icons/Add';
 import Swal from 'sweetalert2'
 import { useSelector, useDispatch } from 'react-redux';
+import {dispatch} from "../Redux/Store"
+import { typeMessenge } from '../Redux/Message';
 
 
 
@@ -28,38 +30,35 @@ type State = {
 
 
 export default function Messenger() {
-    console.log("")
-
-
-    const [state, setState] = useState<State>({
-        formModal: true
-    })
-
-    const dispatch = useDispatch();
-    console.log(dispatch);
+    
 
     const stateRedux = useSelector((state: any) => state.message);
-    useEffect(() => {
-        console.log(stateRedux)
-        return () => {
-
+    function getTitle(type  : typeMessenge){
+        if(type == typeMessenge.error){
+            return "Lỗi"
         }
-    }, [stateRedux])
-
-
-
+        if(type == typeMessenge.success){
+            return "Thành công"
+        }
+        if(type == typeMessenge.warning){
+            return "Cảnh báo"
+        }
+    }
+    
     return (
         <div>
             <ReactBSAlert
-                
+                warning = {stateRedux.type == typeMessenge.warning ? true : false}
+                error = {stateRedux.type == typeMessenge.error ? true : false}
+                success ={stateRedux.type == typeMessenge.success ? true : false} 
                 style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-                title="Cảnh báo"
+                title={getTitle(stateRedux.type)}
                 show={stateRedux.show}
                 onConfirm={() => {
-
+                    dispatch.message.close(false)
                 }}
-                onCancel={() => setState({ formModal: false })}
-                confirmBtnBsStyle="success"
+                onCancel={() => dispatch.message.close(false)}
+                confirmBtnBsStyle={(stateRedux.type == typeMessenge.success) ? "success" : "warning"}
                 confirmBtnText="Ok"
                 btnSize=""
             >

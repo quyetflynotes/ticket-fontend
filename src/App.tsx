@@ -34,7 +34,7 @@ function App() {
     <div>
       <div>
         <div>
-      {/* <Messenger></Messenger> */}
+      <Messenger></Messenger>
         </div>
         <Router>
           <div>
