@@ -26,11 +26,12 @@ import Ve from './pages/TripHomeContainer';
 import Messenger from './pages/Messenger';
 
 import Diagram from './components/DiagramsTicket/Diagram';
-
-
+import DateFnsUtils from '@date-io/date-fns';
+// import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 function App() {
   return (
+    // <MuiPickersUtilsProvider utils={DateFnsUtils}>
     <div>
       <div>
         <div>
@@ -39,7 +40,6 @@ function App() {
         <Router>
           <div>
             <Switch>
-
               <Route path="/formilk">
                 <StyleDemo />
               </Route>

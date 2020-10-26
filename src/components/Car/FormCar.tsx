@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 // thành phần phản ứng được sử dụng để tạo cảnh báo ngọt ngào
-import ReactBSAlert from "react-bootstrap-sweetalert";
 import Button from 'react-bootstrap/Button';
 
 import FaceIcon from '@material-ui/icons/Face';
@@ -103,7 +102,7 @@ export default function FormCar(props: Props) {
                                             <div className="input-group input-group-merge input-group-alternative">
 
                                                 <FormControl variant="outlined" fullWidth>
-                                                    <InputLabel >Xuất xứ</InputLabel>
+                                                    <InputLabel >Ngay nhap</InputLabel>
                                                     <OutlinedInput
                                                         fullWidth
                                                         labelWidth={200}
@@ -121,13 +120,10 @@ export default function FormCar(props: Props) {
                                         {/* //phần này là trạng thái xe */}
                                         <div className="form-group">
                                             <div className="input-group input-group-merge input-group-alternative">
-
-
                                                 <FormControl variant="outlined" fullWidth >
                                                     <InputLabel id="demo-simple-select-outlined-label">Trạng thái</InputLabel>
                                                     <Select
                                                         defaultValue = {statusCar.using}
-                                                        
                                                         onChange={(event, value : any ) => {
                                                             setCar({ ...car, statusCar: value })
                                                         }}
@@ -158,7 +154,7 @@ export default function FormCar(props: Props) {
                                                         console.log(newValue)
                                                         setCar({ ...car, typeCarId: newValue?._id || "" })
                                                     }}
-                                                    renderInput={(params) => <TextField {...params} label="Chức vụ" variant="outlined" />}
+                                                    renderInput={(params) => <TextField {...params} label="Loai xe" variant="outlined" />}
                                                 />
                                             </div>
                                         </div>
@@ -168,14 +164,16 @@ export default function FormCar(props: Props) {
                                                 onClick={() => {
                                                     props.onCar(car);
                                                 }}
-                                            >Thêm</Button>
+                                            >Thêm
+                                            </Button>
                                             <Button
                                                 color="warning"
                                                 className="btn-warning"
-                                                onClick={(event) => {
+                                                onClick={() => {
                                                     props.onCancel()
                                                 }}
-                                            >Hủy</Button>
+                                            >Hủy
+                                            </Button>
                                         </div>
                                     </form>
                                 </div>

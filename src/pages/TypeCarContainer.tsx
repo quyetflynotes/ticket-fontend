@@ -4,16 +4,12 @@ import HeaderDashboard from '../components/HeaderDashboard';
 import NavbarDashboard from '../components/NavbarDashboard';
 import Sidebar from '../components/Sidebar';
 import TableTypeCar from '../components/typeCar/TableTypeCar';
-import { StaffService } from '../Services/StaffService';
-import { Staff } from '../share/base-ticket/base-carOwner/Staff';
 import { Paging } from '../share/base-ticket/Paging';
 import Pagination from '@material-ui/lab/Pagination';
 import FormTypeCar from '../components/typeCar/FormTypeCar';
 import { TypeCarService } from '../Services/TypeCarService';
-import { Car } from '../share/base-ticket/base-carOwner/Car';
 import { TypeCar } from '../share/base-ticket/base-carOwner/TypeCar';
 
-var self: TypeCarContainer;
 class TypeCarContainer extends Component<Props, State> {
     constructor(props: any) {
         super(props);
@@ -22,14 +18,13 @@ class TypeCarContainer extends Component<Props, State> {
             showForm: false,
             typeCarForm: {}
         }
-        self = this
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
         this.getData(1);
     }
 
-    getData(page: number = 1) {
+    getData = (page: number = 1) => {
         TypeCarService.list(page).then((typeCarPaging: Paging<TypeCar>) => {
             if (typeCarPaging) {
                 this.setState({
@@ -39,34 +34,33 @@ class TypeCarContainer extends Component<Props, State> {
         })
     }
 
-    typeCarForm(typeCar : TypeCar) {
-        console.log(typeCar);
-        self.setState({
+    typeCarForm = (typeCar: TypeCar) => {
+        this.setState({
             typeCarForm: typeCar,
             showForm: true
         })
     }
 
-    typeCarFormCreate(typeCar:TypeCar) {
+    typeCarFormCreate = (typeCar: TypeCar) => {
         TypeCarService.create(typeCar).then((res: any) => {
             if (res) {
-                self.getData(self.state.typeCars.page);
+                this.getData(this.state.typeCars.page);
             }
         })
-        self.setState({
+        this.setState({
             showForm: false
         })
     }
 
-    carDelete(id: string) {
+    carDelete = (id: string) => {
         TypeCarService.delete(id).then((res: any) => {
             if (res) {
-                self.getData(self.state.typeCars.page);
+                this.getData(this.state.typeCars.page);
             }
         })
     }
-    onCancel(){
-        self.setState({showForm : false});
+    onCancel = () => {
+        this.setState({ showForm: false });
     }
 
     render() {
@@ -76,12 +70,12 @@ class TypeCarContainer extends Component<Props, State> {
                     formModal={this.state.showForm}
                     typeCar={this.state.typeCarForm}
                     onTypeCar={this.typeCarFormCreate}
-                    onCancel = {this.onCancel}
+                    onCancel={this.onCancel}
                 ></FormTypeCar>
                 <Sidebar></Sidebar>
                 <div className="main-content" id="panel">
                     <NavbarDashboard
-                        search = {()=>{}}
+                        search={() => { }}
                     ></NavbarDashboard >
                     <div className="header bg-primary pb-6">
                         <div className="container-fluid">

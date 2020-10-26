@@ -1,22 +1,13 @@
-import React, { Component } from 'react';
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React from 'react';
 // thành phần phản ứng được sử dụng để tạo cảnh báo ngọt ngào
-import ReactBSAlert from "react-bootstrap-sweetalert";
-import Button from 'react-bootstrap/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
-import ImageIcon from '@material-ui/icons/Image';
-import FaceIcon from '@material-ui/icons/Face';
-import PhoneIcon from '@material-ui/icons/Phone';
-import BrandingWatermarkIcon from '@material-ui/icons/BrandingWatermark';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import RecentActorsIcon from '@material-ui/icons/RecentActors';
 import AddIcon from '@material-ui/icons/Add';
-import { Staff } from "../../share/base-ticket/base-carOwner/Staff";
-import FormNhanVien from './FormCustomer';
 import { Customer } from '../../share/base-ticket/base-carOwner/Customer';
+import moment from 'moment';
 
 type Props = {
     customer: Customer[],
@@ -26,7 +17,7 @@ type Props = {
 
 
 
-export default function TablesCustomer(props : Props) {
+export default function TablesCustomer(props: Props) {
     return (
         <div className="card">
             {/* Card header */}
@@ -34,7 +25,7 @@ export default function TablesCustomer(props : Props) {
             <div className="card-header border-0">
                 <div className="row">
                     <div className="col-6">
-                        <h3 className="mb-0">Danh sách nhân viên</h3>
+                        <h3 className="mb-0">Danh sách khach hang</h3>
                     </div>
 
                     <div className="col-6 text-right">
@@ -65,11 +56,11 @@ export default function TablesCustomer(props : Props) {
                     <thead className="thead-light">
                         <tr>
                             <th scope="col" className="sort" data-sort="name">Ảnh & Tên</th>
-                            <th scope="col" className="sort" data-sort="birthday">CMND</th>
-                            <th scope="col" className="sort" data-sort="address">Số điện thoại</th>
-                            <th scope="col" className="sort" data-sort="numberphone">Ngày sinh</th>
                             <th scope="col" className="sort" data-sort="cmnd">CMND</th>
-                            <th scope="col" className="sort" data-sort="chucVu">Chức vụ</th>
+                            <th scope="col" className="sort" data-sort="numberphone">Số điện thoại</th>
+                            <th scope="col" className="sort" data-sort="address">Ngày sinh</th>
+                            <th scope="col" className="sort" data-sort="email">Email</th>
+                            <th scope="col" className="sort" data-sort="gender">Gioi tinh</th>
                             <th scope="col" className="sort" data-sort="action">Thao tác</th>
                         </tr>
                     </thead>
@@ -90,10 +81,10 @@ export default function TablesCustomer(props : Props) {
                                             <span className="text-muted">{customerItem.phoneNumber}</span>
                                         </td>
                                         <td>
-                                            <span className="text-muted">{customerItem.email}</span>
+                                            <span className="text-muted">{moment(customerItem.BirthAt).format("DD-MM-YYYY") }</span>
                                         </td>
                                         <td>
-                                            <span className="text-muted">{customerItem.BirthAt}</span>
+                                            <span className="text-muted">{customerItem.email}</span>
                                         </td>
 
                                         <td>
