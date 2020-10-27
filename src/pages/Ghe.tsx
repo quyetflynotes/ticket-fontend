@@ -30,9 +30,10 @@ export default function Ghe() {
         console.log(floor)
         console.log("on push");
         let getListChair = [...listChair];
-        console.log(getListChair[getListChair.length-1].length);
-        let row = getListChair[getListChair.length-1].length +1;
-        getListChair[getListChair.length-1].push([{ localColumn: 1, localRow: row, CarId: idCar, localFloor: floor },
+        let row = getListChair[getListChair.length - 1].length + 1;
+        
+
+        getListChair[floor-1].push([{ localColumn: 1, localRow: row, CarId: idCar, localFloor: floor },
         { localColumn: 2, localRow:row, CarId: idCar, localFloor: floor },
         { localColumn: 3, localRow: row, CarId: idCar, localFloor: floor },
         { localColumn: 4, localRow: row, CarId: idCar, localFloor: floor },

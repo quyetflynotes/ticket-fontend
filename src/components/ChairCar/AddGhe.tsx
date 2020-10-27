@@ -23,7 +23,7 @@ export default function AddGhe(props: Props) {
                         <h3 className="mb-0">Danh sách ghế</h3>
                     </div>
 
-                    <div className="col-6 text-right">
+                    {/* <div className="col-6 text-right">
                         <button className="btn btn-sm btn-primary btn-round btn-icon" data-toggle="tooltip" data-original-title="Edit product" >
                             <span className="btn-inner--icon"><AddIcon /></span>
                             <span className="btn-inner--text">Thêm tầng</span>
@@ -33,7 +33,7 @@ export default function AddGhe(props: Props) {
                             <span className="btn-inner--icon"><DeleteIcon /></span>
                             <span className="btn-inner--text">Xóa tầng</span>
                         </button>
-                    </div>
+                    </div> */}
                     <div className="col-12 text-center mt-4">
                         <span>Chú thích:</span>
                         <svg className="ml-5" xmlns="http://www.w3.org/2000/svg" width="24" height="34" viewBox="0 0 28 44"><g fill="#fff" stroke="#000" stroke-width=".5"><g><rect width="28" height="44" rx="4" stroke="none"></rect><rect x=".25" y=".25" width="27.5" height="43.5" rx="3.75" fill="none"></rect></g><g transform="translate(2)"><rect width="24" height="34" rx="2" stroke="none"></rect><rect x=".25" y=".25" width="23.5" height="33.5" rx="1.75" fill="none"></rect></g><g transform="translate(6 36)"><rect width="16" height="8" rx="2" stroke="none"></rect><rect x=".25" y=".25" width="15.5" height="7.5" rx="1.75" fill="none"></rect></g></g></svg>
@@ -47,10 +47,11 @@ export default function AddGhe(props: Props) {
 
                         {
                             props.listChair.map((floor: any) => {
+                                console.log(floor[0][0].localFloor)
                                 return (
                                     <div className="tang">
                                         <div className="text-center text-gray-dark">
-                                            <span>Tầng 1</span>
+                                            <span>Tầng {floor[0][0].localFloor}</span>
                                         </div>
                                         <div className="danhSachGhe">
                                             <div className="ghe">

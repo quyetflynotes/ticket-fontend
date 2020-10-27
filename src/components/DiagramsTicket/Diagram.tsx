@@ -5,9 +5,12 @@ import { Ticket } from "../../share/base-ticket/base-carOwner/Ticket"
 import { TripService } from '../../Services/TripService'
 import {HelpRouter} from "../../Helpers/HelpRouter"
 import { TicketService } from '../../Services/TicketService'
+import { useHistory } from "react-router-dom";
 
 
 export default function Diagram() {
+    const history = useHistory();
+
     const [showFormInput, setShowFormInput] = useState<boolean>(false)
     const [selectedItem, setSelectedItem] = useState<Ticket>();
     const [listChair, setListChair] = useState<Array<any>>([]);
@@ -133,7 +136,11 @@ export default function Diagram() {
                                         </div>
                                     </div>
                                 </div>
-                                <Button color="warning" className="btn-warning float-right" onClick={() => {}}>Hủy</Button>
+                                <Button color="warning" className="btn-warning float-right" onClick={() => {
+                                    history.push(
+                                        `/quan-ly-ve`
+                                    );
+                                }}>Hủy</Button>
                             </div>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ import ImportExportIcon from '@material-ui/icons/ImportExport';
 import AddIcon from '@material-ui/icons/Add';
 import { Staff } from "../../share/base-ticket/base-carOwner/Staff";
 import moment from 'moment';
+import { Account } from '../../share/base-ticket/base-carOwner/Account';
 
 
 
@@ -99,6 +100,18 @@ export default function TablesNhanVien(props: Props) {
                                                     }}
                                                 />
                                             </a>
+
+                                            <a href="#!" className="table-action" data-toggle="tooltip" data-original-title="Edit product">
+                                                <EditIcon
+                                                    onClick={() => {
+                                                        props.onAccount({
+                                                            ...staffItem.account,
+                                                            staffId : staffItem._id
+                                                        })
+                                                    }}
+                                                />
+                                            </a>
+
                                         </td>
                                     </tr>
                                 )
@@ -123,6 +136,7 @@ type Props = {
     staffs: Staff[],
     onStaffs: (staff: Staff) => void,
     onDeleteStaff: (id: string) => void
+    onAccount : (account : Account) => void
 };
 
 

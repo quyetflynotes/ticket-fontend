@@ -13,6 +13,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import SearchIcon from '@material-ui/icons/Search';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
+
 var timeOut : any;
 class NavbarDashboard extends Component<Props, State> {
     constructor(props: any) {
@@ -334,7 +335,11 @@ class NavbarDashboard extends Component<Props, State> {
                                         <span>Hỗ trợ</span>
                                     </a>
                                     <div className="dropdown-divider"></div>
-                                    <a href="#!" className="dropdown-item">
+                                    <a href="/login" className="dropdown-item"
+                                        onClick={() => {
+                                            localStorage.setItem("jwt", "");
+                                        }}
+                                    >
                                         <DirectionsRunIcon style={{ fontSize: "20px" }} />
                                         <span>Đăng xuất</span>
                                     </a>

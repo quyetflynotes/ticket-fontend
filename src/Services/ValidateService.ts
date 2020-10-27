@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useSelector } from "react-redux";
-import {dispatch} from "../Redux/Store"
+import { dispatch } from "../Redux/Store"
+import { useHistory } from 'react-router-dom';
+
 
 
 
@@ -21,13 +23,13 @@ export const getAxios = async () => {
         },
         err => {
             console.log(err.message);
-            if (err.message == "Network Error") {
+            if (err.message === "Network Error") {
                 dispatch.message.showError("Lỗi kết nối máy chủ")
             }
-            if (err.response.status == 404) {
+            if (err.response.status === 404) {
             }
-            if (err.response.status == 401) {
-
+            if (err.response.status === 401) {
+                dispatch.message.showWarning("Vui lòng đăng nhập lại")
             }
     
     
@@ -44,7 +46,7 @@ export const getAxios = async () => {
             }
         }
     )
-    axios.defaults.headers.common["Authorization"] = `LQN 5f78812aeb8ac1182da0ddfd`
+    axios.defaults.headers.common["Authorization"] = localStorage.getItem("jwt");
     return axios;
 }
 

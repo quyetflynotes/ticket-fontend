@@ -22,9 +22,7 @@ export const message = createModel<message>({
   state: initState,
   reducers: {
     fetchData(state: message, data: any = {}) {
-      console.log("=============")
-      console.log(state);
-      console.log(data);
+
       state = {
         ...state,
         ...data,
@@ -39,7 +37,17 @@ export const message = createModel<message>({
     showError(value : any, state : any ){
       let params = {
         show : true,
-        message : value
+        message: value,
+        type : typeMessenge.error
+      }
+      dispatch.message.fetchData(params);
+    },
+
+    showWarning(value : any, state : any ){
+      let params = {
+        show : true,
+        message: value,
+        type : typeMessenge.warning
       }
       dispatch.message.fetchData(params);
     }

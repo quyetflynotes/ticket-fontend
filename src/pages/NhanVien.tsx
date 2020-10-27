@@ -11,6 +11,9 @@ import Pagination from '@material-ui/lab/Pagination';
 import FormNhanVien from '../components/Staff/FormNhanVien';
 import { PostionStaff } from '../share/base-ticket/base-carOwner/PostionStaff';
 import { PositionStaffCarService } from '../Services/PositionStaffCarService';
+import FormAccount from '../components/Staff/FormAccount';
+import { AccountService } from '../Services/AccountService';
+import { Account } from '../share/base-ticket/base-carOwner/Account';
 
 
 
@@ -23,20 +26,24 @@ import { PositionStaffCarService } from '../Services/PositionStaffCarService';
 
 export default function NhanVien() {
 
-    const [staffs, setStaff] = useState<Paging<Staff>>({page: 1, total: 1, totalPages: 1, rows: [], pageSize: 1 });
+    const [staffs, setStaff] = useState<Paging<Staff>>({ page: 1, total: 1, totalPages: 1, rows: [], pageSize: 1 });
     const [staffForm, setStaffForm] = useState<Staff>({});
     const [listPostion, setListPostion] = useState<PostionStaff[]>([]);
 
+    const [acccountForm, setAccountForm] = useState<Staff>({});
+
+
     const [isShowForm, setShowForm] = useState(false);
+    const [isShowFormAccount, setShowFormAccount] = useState(false);
     const [search, setSearch] = useState<string>("")
 
     useEffect(() => {
         PositionStaffCarService.list().then((res: Paging<PostionStaff>) => {
-            
+
             setListPostion(res.rows);
             getData(1);
         })
-        
+
 
     }, [])
 
@@ -76,14 +83,38 @@ export default function NhanVien() {
         })
     }
 
-
-
     function onSearch(search: any) {
         getData(1, search).then(((res: any) => {
             setSearch(search)
         }))
     }
 
+
+
+    // acccount
+    function setFormAccount(account: Account) {
+
+        setAccountForm(account)
+        setShowFormAccount(true)
+        // crewate state account
+    }
+
+    function FormCreateAccount(accountNew: Account) {
+        AccountService.create(accountNew).then((res: any) => {
+            if (res) {
+                getData(staffs.page);
+                setShowForm(false);
+            }
+        })
+    }
+
+    function staffDeleteAccount(id: string) {
+        AccountService.delete(id).then((res: any) => {
+            if (res) {
+                getData(staffs.page);
+            }
+        })
+    }
 
     return (
         <div>
@@ -95,6 +126,15 @@ export default function NhanVien() {
                 listPostion={listPostion}
                 onCancel={() => setShowForm(false)}
             ></FormNhanVien>
+
+
+            <FormAccount
+                account= {acccountForm}
+                formModal={isShowFormAccount}
+                onSave = {FormCreateAccount}
+                onCancel={() => setShowFormAccount(false)}
+            ></FormAccount>
+
             <Sidebar></Sidebar>
 
             <div className="main-content" id="panel">
@@ -111,6 +151,7 @@ export default function NhanVien() {
                         staffs={staffs.rows}
                         onStaffs={setForm}
                         onDeleteStaff={staffDelete}
+                        onAccount={setFormAccount}
                     ></Tables>
                     <Pagination count={staffs.totalPages} onChange={(event, value) => {
                         getData(value);

@@ -26,9 +26,11 @@ export const authen = createModel<AuthenModel>({
     },
   },
   effects: (dispatch: any) => ({
-    test(value: string, state : any ) {
-      
-        dispatch.authen.fetchData("authen");
-    }
+    login(value: string, state : any ) {
+        dispatch.authen.fetchData({isAuthenticated: true});
+    },
+    logout(value: string, state : any ) {
+      dispatch.authen.fetchData({isAuthenticated: false});
+  },
   }),
 });
