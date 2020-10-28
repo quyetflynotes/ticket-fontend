@@ -1,18 +1,19 @@
-import React, { useEffect, Component , useState} from "react";
+import React, { useEffect, Component, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { Ticket } from "../../share/base-ticket/base-carOwner/Ticket";
+import DiemDonTra from "../DiemDonTra";
 
 type Props = {
   showForm: boolean;
   infoTicket: Ticket;
   onClose: () => void;
-  onSave : (infoTicket: Ticket) => void;
+  onSave: (infoTicket: Ticket) => void;
 };
 export default function NhapThongTinVe(props: Props) {
 
-  const [infoTicket , setInfoTicket] = useState<Ticket>({})
+  const [infoTicket, setInfoTicket] = useState<Ticket>({})
   useEffect(() => {
     setInfoTicket(props.infoTicket);
     return () => {
@@ -47,18 +48,13 @@ export default function NhapThongTinVe(props: Props) {
                 Ghế: &nbsp;
                 <div className="footer-total">{infoTicket?.ChairCar?.codeChair}</div>
               </div>
-              {/* <div>
-                Giá tiền: &nbsp;
-                <div className="footer-total">200000</div>
-              </div>
-              <div>
-                Điểm đón: &nbsp;
-                <div className="footer-total">Hà Nội</div>
-              </div>
-              <div>
-                Điểm trả: &nbsp;
-                <div className="footer-total">Đắk Lắk</div>
-              </div> */}
+
+              <DiemDonTra
+                infoTicket={infoTicket}
+                onChange={(ticket: Ticket) => { setInfoTicket(ticket) }}
+              ></DiemDonTra>
+
+
             </div>
             <div className="khung">
               <h3 className="text-center">NHẬP THÔNG TIN KHÁCH HÀNG</h3>
@@ -76,8 +72,8 @@ export default function NhapThongTinVe(props: Props) {
                     className="form-control"
                     id="exampleFormControlInput1"
                     placeholder="Nhập họ và tên"
-                    value = {infoTicket?.customer?.name || ""}
-                    onChange={(e)=> setInfoTicket({...infoTicket, customer : {...infoTicket.customer, name : e.target.value}})}
+                    value={infoTicket?.customer?.name || ""}
+                    onChange={(e) => setInfoTicket({ ...infoTicket, customer: { ...infoTicket.customer, name: e.target.value } })}
                   />
                 </div>
                 <div className="form-group">
@@ -88,7 +84,8 @@ export default function NhapThongTinVe(props: Props) {
                     Số điện thoại
                     <span></span>
                   </label>
-                  <ReactPhoneInput country={"vn"} value = {infoTicket?.customer?.phoneNumer}/>
+                  <ReactPhoneInput country={"vn"} onChange={(value : string) => setInfoTicket({ ...infoTicket, customer: { ...infoTicket.customer, phoneNumer: value } })}
+                    value={infoTicket?.customer?.phoneNumer} />
                 </div>
                 {/* <div className="form-group">
                   <label
@@ -151,7 +148,7 @@ export default function NhapThongTinVe(props: Props) {
             </div>
           </div>
           <div className="khungButton">
-            <Button color="success" className="btn-success" onClick  = {(e)=> props.onSave(infoTicket)}>
+            <Button color="success" className="btn-success" onClick={(e) => props.onSave(infoTicket)}>
               Thêm
             </Button>
             <Button color="warning" className="btn-warning float-right" onClick={(e) => props.onClose()}>

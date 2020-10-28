@@ -33,7 +33,7 @@ function App() {
   return (
     <div >
       <h3>Export data to CSV in React - <a href="https://cluemediator.com" target="_blank" rel="noopener noreferrer">Clue Mediator</a></h3>
-      <CSVLink csvReport = {csvReport}>Export to CSV</CSVLink>
+      {/* <CSVLink csvReport = {csvReport}>Export to CSV</CSVLink> */}
     </div>
   );
 }
