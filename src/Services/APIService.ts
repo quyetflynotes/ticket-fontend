@@ -31,7 +31,6 @@ export class APIService{
     }
 
     public static create(url : string, data : any) : Promise<any>{
-        console.log(data);
         return getAxios().then(axios=>{
             return axios({
                 method : "POST",
@@ -59,7 +58,6 @@ export class APIService{
     }
 
     public static listByQuery(url : string, data : any) : Promise<any>{
-        console.log(data);
         return getAxios().then(axios=>{
             return axios({
                 method : "GET",

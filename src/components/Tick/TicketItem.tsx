@@ -71,7 +71,7 @@ export default function ListTripItem(props : Props) {
                         <div className="khungChoTrong">
                             <div className="info">
                                 <div className="choTrong">
-                                    38 chỗ trống
+                                    {/* 38 chỗ trống */}
                                         </div>
                                 <div className="action">
                                     <button type="button" className="btn btn-success "

@@ -54,7 +54,7 @@ export default function MainDashboard(props: Props) {
                 {
                     type: "bar",
                     label: "Số vé bán ra",
-                    data: props.statistic.charTicket?.map(item => {
+                    data: props?.statistic?.charTicket?.map(item => {
                         return item.data
                     }),
                     fill: false,
@@ -71,7 +71,7 @@ export default function MainDashboard(props: Props) {
                 {
                     type: "line",
                     label: "Doanh Thu Mang Về",
-                    data: props.statistic.charRevenue?.map(item => {
+                    data: props?.statistic?.charRevenue?.map(item => {
                         return item.data
                     }),
                     fill: false,

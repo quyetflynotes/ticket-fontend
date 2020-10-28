@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 // thành phần phản ứng được sử dụng để tạo cảnh báo ngọt ngào
 import Button from 'react-bootstrap/Button';
 import FaceIcon from '@material-ui/icons/Face';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 import { FormControl, InputLabel, OutlinedInput } from '@material-ui/core';
+import ViewWeekIcon from '@material-ui/icons/ViewWeek';
+import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline';
 
 type Props = {
     formModal: boolean,
@@ -29,7 +32,7 @@ export default function AutoChairCar(props: Props) {
                                                 <FormControl variant="outlined" fullWidth>
                                                     <InputLabel >Số tầng</InputLabel>
                                                     <OutlinedInput
-                                                        endAdornment={<FaceIcon />}
+                                                        endAdornment={<ListAltIcon />}
                                                         fullWidth
                                                         labelWidth={200}
                                                         type = {"number"}
@@ -58,7 +61,7 @@ export default function AutoChairCar(props: Props) {
                                                 <FormControl variant="outlined" fullWidth>
                                                     <InputLabel >Số hàng</InputLabel>
                                                     <OutlinedInput
-                                                        endAdornment={<FaceIcon />}
+                                                        endAdornment={<ViewHeadlineIcon />}
                                                         fullWidth
                                                         labelWidth={200}
                                                         defaultValue={""}
@@ -80,7 +83,7 @@ export default function AutoChairCar(props: Props) {
                                                 <FormControl variant="outlined" fullWidth>
                                                     <InputLabel >Số luồng</InputLabel>
                                                     <OutlinedInput
-                                                        endAdornment={<FaceIcon />}
+                                                        endAdornment={<ViewWeekIcon />}
                                                         fullWidth
                                                         labelWidth={200}
                                                         type = {"number"}

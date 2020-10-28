@@ -16,23 +16,24 @@ const initState = {
 export const authen = createModel<AuthenModel>({
   state: initState,
   reducers: {
-    fetchData(state: AuthenModel, data: any = {}) {
-      console.log(state);
-      console.log(data)
+    fetchData(state: any, data: any) {
+
+      console.log(state)
 
       state = {
         ...state,
         ...data,
       };
-      return state;
+
+      return state
     },
   },
   effects: (dispatch: any) => ({
-    login(value: string, state : any ) {
-        dispatch.authen.fetchData({isAuthenticated: true, info : value});
+    login(value: string, state: any) {
+      dispatch.authen.fetchData({ isAuthenticated: true, info: value });
     },
-    logout(value: string, state : any ) {
-      dispatch.authen.fetchData({isAuthenticated: false});
-  },
+    logout(value: string, state: any) {
+      dispatch.authen.fetchData({ isAuthenticated: false });
+    },
   }),
 });

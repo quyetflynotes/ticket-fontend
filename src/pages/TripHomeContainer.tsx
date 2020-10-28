@@ -47,12 +47,12 @@ export default function TripHomeContainer() {
                 <div className="container-fluid mt--6">
                     <InputTimVe></InputTimVe>
                     <div className="rowVe">
-                        <FillterVe></FillterVe>
+                        {/* <FillterVe></FillterVe> */}
                         <div className="columnVe mt-4">
                             <div>
-                                <h3>Vé xe từ Hà Nội đi Quảng Ninh: 1976 chuyến</h3>
+                                <h3>DANH SÁCH CHUYẾN ĐI KỂ TỪ HÔM NAY</h3>
                             </div>
-                            <div className="sortVe">
+                            {/* <div className="sortVe">
                                 <span style={{ fontSize: "14px" }} className="font-weight-500">Sắp xếp theo:</span>
                                 <div className="groupButton">
                                     <button type="button" className="btn btn-sm btn-outline-primary">
@@ -68,7 +68,7 @@ export default function TripHomeContainer() {
                                         <span>Giá cao nhất</span>
                                     </button>
                                 </div>
-                            </div>
+                            </div> */}
                             <div>
                                 {trips?.rows?.map((trip: Trip) => {
                                     return (

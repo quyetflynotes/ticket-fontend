@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import LaunchIcon from '@material-ui/icons/Launch';
 import PersonIcon from '@material-ui/icons/Person';
@@ -15,8 +15,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import { AppModel } from '../Redux';
 import { useSelector } from 'react-redux';
-
-var timeOut: any;
+import { Notifination, NotifinationFirebase } from '../Redux/NotifinationFirebase';
+import { store } from '../Redux/Store';
 
 
 type State = {
@@ -28,14 +28,20 @@ type State = {
 }
 
 type Props = {
-    search ? (value: string): void
+    search?(value: string): void
 }
 
 
 
 export default function NavbarDashboard(props: Props) {
 
-    const authen: any = useSelector((state: AppModel) => state.authen)
+
+
+    const store: AppModel = useSelector((state: AppModel) => state);
+
+
+    const authen: any = store.authen;
+    const NotifinationFirebase: any = store.NotifinationFirebase || [];
 
     const [state, setState] = useState<State>({
         sidebar: true,
@@ -47,16 +53,17 @@ export default function NavbarDashboard(props: Props) {
 
 
 
-    const onShowNav= () => {
-        setState({ ...state,showNav: !state.showNav, showNav1: true, showNav2: true });
+    const onShowNav = () => {
+        setState({ ...state, showNav: !state.showNav, showNav1: true, showNav2: true });
     };
 
-    const onShowThongBao= () => {
-        setState({ ...state,showNav1: !state.showNav1, showNav: true, showNav2: true });
+    const onShowThongBao = () => {
+        setState({ ...state, showNav1: !state.showNav1, showNav: true, showNav2: true });
+
     }
 
     const focusedTimKiem = () => {
-        setState({...state, focused: state.focused, showNav: true, showNav1: true, showNav2: true });
+        setState({ ...state, focused: state.focused, showNav: true, showNav1: true, showNav2: true });
     }
 
     const onNavbar = () => {
@@ -125,7 +132,7 @@ export default function NavbarDashboard(props: Props) {
                                 <div className="input-group-prepend">
                                     <span className="input-group-text"><SearchIcon /></span>
                                 </div>
-                                <input className="form-control" placeholder="Tìm kiếm" type="text"  />
+                                <input className="form-control" placeholder="Tìm kiếm" type="text" />
                             </div>
                         </div>
                         <button type="button" className="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close" onClick={closeSearch}>
@@ -157,105 +164,40 @@ export default function NavbarDashboard(props: Props) {
                             <div className={state.showNav1 ? "dropdown-menu dropdown-menu-xl dropdown-menu-right py-0 overflow-hidden" : "dropdown-menu dropdown-menu-xl dropdown-menu-right py-0 overflow-hidden show"}>
                                 {/* Dropdown header */}
                                 <div className="px-3 py-3">
-                                    <h6 className="text-sm text-muted m-0">Bạn có <strong className="text-primary">13</strong> thông báo.</h6>
+                                    <h6 className="text-sm text-muted m-0">Bạn có <strong className="text-primary">{NotifinationFirebase?.nationality?.length || 0}</strong> thông báo.</h6>
                                 </div>
                                 {/* List group */}
                                 <div className="list-group list-group-flush">
-                                    <a href="#!" className="list-group-item list-group-item-action">
-                                        <div className="row align-items-center">
-                                            <div className="col-auto">
-                                                {/* Avatar */}
-                                                <img alt="Image placeholder" src="/images/huynhvannam.jpg" className="avatar rounded-circle" />
-                                            </div>
-                                            <div className="col ml--2">
-                                                <div className="d-flex justify-content-between align-items-center">
-                                                    <div>
-                                                        <h4 className="mb-0 text-sm">{authen.info.name || "Nguyễn Văn Lương"}</h4>
+
+                                    {NotifinationFirebase?.nationality?.map((item: Notifination) => {
+                                        return (
+                                            <a href="#!" className="list-group-item list-group-item-action">
+                                                <div className="row align-items-center">
+                                                    <div className="col-auto">
+                                                        {/* Avatar */}
+                                                        <img alt="Image placeholder" src={authen.info?.avt || "images/use.png"} className="avatar rounded-circle" />
                                                     </div>
-                                                    <div className="text-right text-muted">
-                                                        <small>2 giờ trước</small>
-                                                    </div>
-                                                </div>
-                                                <p className="text-sm mb-0">Tôi muốn gặp bạn?</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="#!" className="list-group-item list-group-item-action">
-                                        <div className="row align-items-center">
-                                            <div className="col-auto">
-                                                {/* Avatar */}
-                                                <img alt="Image placeholder" src="/images/huynhvannam.jpg" className="avatar rounded-circle" />
-                                            </div>
-                                            <div className="col ml--2">
-                                                <div className="d-flex justify-content-between align-items-center">
-                                                    <div>
-                                                        <h4 className="mb-0 text-sm">{authen.info.name}</h4>
-                                                    </div>
-                                                    <div className="text-right text-muted">
-                                                        <small>3 giờ trước</small>
+                                                    <div className="col ml--2">
+                                                        <div className="d-flex justify-content-between align-items-center">
+                                                            <div>
+                                                                <h4 className="mb-0 text-sm">{item.title || "Nguyễn Văn Lương"}</h4>
+                                                            </div>
+                                                            <div className="text-right text-muted">
+                                                                <small></small>
+                                                            </div>
+                                                        </div>
+                                                        <p className="text-sm mb-0">{item.nationality}</p>
                                                     </div>
                                                 </div>
-                                                <p className="text-sm mb-0">Tôi muốn gặp bạn?</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="#!" className="list-group-item list-group-item-action">
-                                        <div className="row align-items-center">
-                                            <div className="col-auto">
-                                                {/* Avatar */}
-                                                <img alt="Image placeholder" src="/images/huynhvannam.jpg" className="avatar rounded-circle" />
-                                            </div>
-                                            <div className="col ml--2">
-                                                <div className="d-flex justify-content-between align-items-center">
-                                                    <div>
-                                                        <h4 className="mb-0 text-sm">{authen.info.name || "Nguyễn Văn Lương"}</h4>
-                                                    </div>
-                                                    <div className="text-right text-muted">
-                                                        <small>5 giờ trước</small>
-                                                    </div>
-                                                </div>
-                                                <p className="text-sm mb-0">Tôi muốn gặp bạn?</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="#!" className="list-group-item list-group-item-action">
-                                        <div className="row align-items-center">
-                                            <div className="col-auto">
-                                                {/* Avatar */}
-                                                <img alt="Image placeholder" src="/images/huynhvannam.jpg" className="avatar rounded-circle" />
-                                            </div>
-                                            <div className="col ml--2">
-                                                <div className="d-flex justify-content-between align-items-center">
-                                                    <div>
-                                                        <h4 className="mb-0 text-sm">{authen.info.name || "Nguyễn Văn Lương"}</h4>
-                                                    </div>
-                                                    <div className="text-right text-muted">
-                                                        <small>2 giờ trước</small>
-                                                    </div>
-                                                </div>
-                                                <p className="text-sm mb-0">Tôi muốn gặp bạn?</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="#!" className="list-group-item list-group-item-action">
-                                        <div className="row align-items-center">
-                                            <div className="col-auto">
-                                                {/* Avatar */}
-                                                <img alt="Image placeholder" src="/images/huynhvannam.jpg" className="avatar rounded-circle" />
-                                            </div>
-                                            <div className="col ml--2">
-                                                <div className="d-flex justify-content-between align-items-center">
-                                                    <div>
-                                                        <h4 className="mb-0 text-sm">{authen.info.name || "Nguyễn Văn Lương"}</h4>
-                                                    </div>
-                                                    <div className="text-right text-muted">
-                                                        <small>3 giờ trước </small>
-                                                    </div>
-                                                </div>
-                                                <p className="text-sm mb-0">Tôi muốn gặp bạn?</p>
-                                            </div>
-                                        </div>
-                                    </a>
+                                            </a>
+                                        )
+                                    })}
+
+
+
+
+
+
                                 </div>
                                 {/* View all */}
                                 <a href="#!" className="dropdown-item text-center text-primary font-weight-bold py-3">Xem tất cả</a>
@@ -263,7 +205,7 @@ export default function NavbarDashboard(props: Props) {
                         </li>
                         <li className="nav-item dropdown" onClick={(event) => {
 
-                            setState({ ...state,showNav2: !state.showNav2, showNav: true, showNav1: true });
+                            setState({ ...state, showNav2: !state.showNav2, showNav: true, showNav1: true });
 
                         }}>
                             <a className="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -320,10 +262,10 @@ export default function NavbarDashboard(props: Props) {
                             <a className="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div className="media align-items-center">
                                     <span className="avatar avatar-sm rounded-circle">
-                                        <img alt="Image placeholder" src="/images/huynhvannam.jpg" />
+                                        <img alt="Image placeholder" src={authen.info?.avt || "images/use.png"} />
                                     </span>
                                     <div className="media-body ml-2 d-none d-lg-block">
-                                        <span className="mb-0 text-sm  font-weight-bold">{authen.info.name || "Nguyễn Văn Lương"}</span>
+                                        <span className="mb-0 text-sm  font-weight-bold">{authen?.info?.name || "Nguyễn Văn Lương"}</span>
                                     </div>
                                 </div>
                             </a>

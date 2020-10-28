@@ -29,6 +29,8 @@ import { AppModel } from './Redux';
 import Sidebar from './components/Sidebar';
 import FooterDashboard from './components/FooterDashboard';
 // import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { fireStoreFirebase } from "./config/FirebaseConfig"
+import Excel from './components/Excel/Excel';
 
 function App() {
   const authen: any = useSelector((state: AppModel) => state.authen)
@@ -36,7 +38,18 @@ function App() {
   console.log(authen);
   useEffect(() => {
     AccountService.getMe().then(res => {
-      (res) ? dispatch.authen.login(res) : dispatch.authen.logout()
+      (res) ? dispatch.authen.login(res) : dispatch.authen.logout();
+      var getBidProductFirebase = fireStoreFirebase.collection("notification").doc("notification");
+      getBidProductFirebase.onSnapshot({
+        includeMetadataChanges: true
+      }, function (doc: any) {
+        if (doc) {
+          var notification = doc.data();
+          dispatch.NotifinationFirebase.newNotification(notification);
+        }
+
+      });
+      
     });
   }, [])
 
@@ -103,6 +116,10 @@ function App() {
 
                     <Route path="/dashboard">
                       <Dashboard />
+                    </Route>
+
+                    <Route path="/ex">
+                      <Excel />
                     </Route>
 
                     <Route path="*">

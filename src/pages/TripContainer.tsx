@@ -82,20 +82,10 @@ class TripContainer extends Component<Props, State> {
         })
     }
 
-    /*
-    Todo : 
-    1. Lỗi không reset form khi tạo mới
-    2. Hàm fomat lại ngày
-    3. Khi tạo mới chuyến đi thì validate tạo ngày lớn hơn hoặc bằng thời gian hiện tại
-    4. Select ngày mặc định khi lấy vé là ngày hiện tại 
-    5. Tính năng lấy vé theo ngày
-    6. Lỗi không load lại được sau khi thêm mới vé xe 
-    7. Tính năng khách hàng theo số điện thoại 
-    8. 
-    */ 
+
+
 
     render() {
-        console.log("======this is page tripcontianer =========")
         return (
             <div>
                 <TripForm
