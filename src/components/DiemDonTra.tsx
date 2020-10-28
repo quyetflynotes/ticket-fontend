@@ -12,7 +12,7 @@ export default function DiemDonTra(props: Props) {
     const [localStart, setLocalStart] = useState<string>("")
     const [localEnd, setLocalEnd] = useState<string>("");
     useEffect(() => {
-        console.log(props.infoTicket.localPickup)
+        console.log("on render at efffect")
         if (props.infoTicket.trip?.Route?.localStart != props.infoTicket.localPickup) {
             setLocalStart(props.infoTicket.localPickup || "")
         }
@@ -30,7 +30,7 @@ export default function DiemDonTra(props: Props) {
                         Điểm đón
                     </div>
 
-                    <RadioGroup aria-label="gender" name="gender1" value={(props.infoTicket.localPickup == props.infoTicket.trip?.Route?.localStart) ? props.infoTicket.trip?.Route?.localStart : localStart} onClick={(e: any) => props.onChange({ ...props.infoTicket, localPickup: e.target.value })}
+                    <RadioGroup aria-label="gender" name="gender1" defaultValue={(props.infoTicket.localPickup == localStart) ? localStart: props.infoTicket.trip?.Route?.localStart } onClick={(e: any) => props.onChange({ ...props.infoTicket, localPickup: e.target.value })}
                     >
                         <FormControlLabel value={props.infoTicket.trip?.Route?.localStart} control={<Radio />} label={
                             <div>
@@ -61,7 +61,7 @@ export default function DiemDonTra(props: Props) {
                                                 value={localStart}
                                                 id="exampleFormControlInput1"
                                                 placeholder="Nơi đón khác"
-                                                onChange={(e) => props.onChange({ ...props.infoTicket, localPickup: e.target.value })}
+                                                onChange={(e) => setLocalStart(e.target.value)}
                                             />
                                         </div>
                                     </span>
