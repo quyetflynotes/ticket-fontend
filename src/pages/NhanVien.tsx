@@ -42,15 +42,9 @@ export default function NhanVien() {
 	async function getData(page: number = 1, search: string = "") {
 		StaffService.list(page, search).then((staffPaging: Paging<Staff>) => {
 			if (staffPaging) {
-				console.log("on data affter set state   s");
 				setStaff(staffPaging);
 			}
 		});
-	}
-
-	function setForm(staff: Staff) {
-		setStaffForm(staff);
-		setShowForm(true);
 	}
 
 	function staffFormCreate(staff: Staff) {
@@ -101,12 +95,12 @@ export default function NhanVien() {
 	}
 
 	const onChangeAvt = (staff: Staff) => {
-        StaffService.create(staff).then((res: any) => {
-            if (res) {
-                getData(staffs.page);
-            }
-        })
-    };
+		StaffService.create(staff).then((res: any) => {
+			if (res) {
+				getData(staffs.page);
+			}
+		});
+	};
 
 	return (
 		<div>
@@ -135,7 +129,10 @@ export default function NhanVien() {
 				<div className="container-fluid mt--6">
 					<Tables
 						staffs={staffs.rows}
-						onStaffs={setForm}
+						onStaffs={(staff) => {
+							setStaffForm(staff);
+							setShowForm(true);
+						}}
 						onChangeAvt={onChangeAvt}
 						onDeleteStaff={staffDelete}
 						onAccount={setFormAccount}

@@ -26,7 +26,6 @@ const csvReport:any = {
   data: data,
   headers: headers,
     filename: 'Clue_Mediator_Report.csv',
-  
 };
  
 function App() {
