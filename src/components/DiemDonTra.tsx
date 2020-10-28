@@ -30,7 +30,7 @@ export default function DiemDonTra(props: Props) {
                         Điểm đón
                     </div>
 
-                    <RadioGroup aria-label="gender" name="gender1" defaultValue={(props.infoTicket.localPickup == localStart) ? localStart: props.infoTicket.trip?.Route?.localStart } onClick={(e: any) => props.onChange({ ...props.infoTicket, localPickup: e.target.value })}
+                    <RadioGroup aria-label="gender" name="gender1" value={(props.infoTicket.localPickup == localStart) ? localStart: props.infoTicket.trip?.Route?.localStart } onClick={(e: any) => props.onChange({ ...props.infoTicket, localPickup: e.target.value })}
                     >
                         <FormControlLabel value={props.infoTicket.trip?.Route?.localStart} control={<Radio />} label={
                             <div>
