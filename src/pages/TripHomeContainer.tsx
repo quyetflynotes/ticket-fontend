@@ -71,7 +71,7 @@ export default function TripHomeContainer() {
                                 </div>
                             </div>
                             <div>
-                                {trips.rows.map((trip: Trip) => {
+                                {trips?.rows?.map((trip: Trip) => {
                                     return (
                                         <TicketItem
                                             trips = {trip}

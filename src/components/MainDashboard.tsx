@@ -1,71 +1,93 @@
 import React, { Component, useEffect, useState } from 'react';
-import { Bar } from '@reactchartjs/react-chart.js'
-import { setDate } from 'date-fns/esm';
+import { Bar } from "react-chartjs-2";
+import { Statistical } from '../share/base-ticket/Statistical/Statistical';
+import moment from "moment"
 
-const rand = () => Math.floor(Math.random() * 255)
-
-const genData = () => ({
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-        {
-            type: 'line',
-            label: 'Dataset 1',
-            borderColor: `rgb(${rand()}, ${rand()}, ${rand()})`,
-            borderWidth: 2,
-            fill: false,
-            data: [rand(), rand(), rand(), rand(), rand(), rand()],
-        },
-        {
-            type: 'bar',
-            label: 'Dataset 2',
-            backgroundColor: `rgb(${rand()}, ${rand()}, ${rand()})`,
-            data: [rand(), rand(), rand(), rand(), rand(), rand(), rand()],
-            borderColor: 'white',
-            borderWidth: 2,
-        },
-        {
-            type: 'bar',
-            label: 'Dataset 3',
-            backgroundColor: `rgb(${rand()}, ${rand()}, ${rand()})`,
-            data: [rand(), rand(), rand(), rand(), rand(), rand(), rand()],
-        },
-    ],
-})
-
-const options = {
-    scales: {
-        yAxes: [
-            {
-                ticks: {
-                    beginAtZero: true,
-                },
-            },
-        ],
-    },
+type Props = {
+    statistic: Statistical;
+    onTotalGet: (totalGet: number) => void;
 }
 
+export default function MainDashboard(props: Props) {
 
-export default function MainDashboard() {
+    const [dataTicket, setDataTicket] = useState<any>({
+        labels: [1, 2, 3, 4, 4, 5, 6, 6, 7],
+        datasets: [
+            {
+                type: "line",
+                label: "",
+                data: [1, 2, 3, 4, 4, 5, 6, 6, 7],
+                fill: false,
+                backgroundColor: "rgba(66, 135, 245,1)",
+                borderColor: "rgba(66, 135, 245,1)"
 
-    const [data, setData] = useState(genData())
+            }
+        ]
+    });
+
+    const [dataRevenue, setdataRevenue] = useState<any>({
+        labels: [1, 2, 3, 4, 4, 5, 6, 6, 7],
+        datasets: [
+            {
+                type: "line",
+                label: "",
+                data: [1, 2, 3, 4, 4, 5, 6, 6, 7],
+                fill: false,
+                backgroundColor: "rgba(66, 135, 245,1)",
+                borderColor: "rgba(66, 135, 245,1)"
+
+            }
+        ]
+    });
+
 
     useEffect(() => {
-        const interval = setInterval(() => setData(genData()), 5000)
+        console.log(props.statistic);
+        let labels = props.statistic?.charRevenue?.map(item => {
+            return moment(new Date(item.day || new Date)).format('MM/DD')
 
-        return () => clearInterval(interval)
-    }, [])
+        }) || []
 
-    // useEffect(() => {
-    //     setData({
-    //         ...data,
-    //         labels: [1, 2, 3, 4, 5, 6, 7],
+        setDataTicket({
+            labels: labels,
+            datasets: [
+                {
+                    type: "bar",
+                    label: "Số vé bán ra",
+                    data: props.statistic.charTicket?.map(item => {
+                        return item.data
+                    }),
+                    fill: false,
+                    backgroundColor: "rgba(232, 104, 100,1)",
+                    borderColor: "rgba(232, 104, 100,1)"
 
-    //     })
-    // }, [props])
-// 
+                }
+            ]
+        })
+
+        setdataRevenue({
+            labels: labels,
+            datasets: [
+                {
+                    type: "line",
+                    label: "Doanh Thu Mang Về",
+                    data: props.statistic.charRevenue?.map(item => {
+                        return item.data
+                    }),
+                    fill: false,
+                    backgroundColor: "rgba(66, 135, 245,1)",
+                    borderColor: "rgba(66, 135, 245,1)"
+
+                }
+            ]
+        })
+
+    }, [props])
+
+
     return (
         <div className="row">
-                                                {/* <Bar data={data} /> */}
+
 
             <div className="col-xl-8">
                 <div className="card bg-default">
@@ -78,31 +100,48 @@ export default function MainDashboard() {
                             <div className="col">
                                 <ul className="nav nav-pills justify-content-end">
                                     <li className="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales-dark" data-update='{"data":{"datasets":[{"data":[0, 20, 10, 30, 15, 40, 20, 60, 60]}]}}' data-prefix="$" data-suffix="k">
-                                        <a href="#" className="nav-link py-2 px-3 active" data-toggle="tab">
+                                        <div className="nav-link py-2 px-3 active"  onClick= {()=> props.onTotalGet(30)}>
                                             <span className="d-none d-md-block">Tháng</span>
-                                            <span className="d-md-none">M</span>
-                                        </a>
+                                            <span className="d-md-none" >M</span>
+                                        </div>
                                     </li>
                                     <li className="nav-item" data-toggle="chart" data-target="#chart-sales-dark" data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}' data-prefix="$" data-suffix="k">
-                                        <a href="#" className="nav-link py-2 px-3" data-toggle="tab">
+                                        <div  className="nav-link py-2 px-3" onClick= {()=> props.onTotalGet(7)}>
                                             <span className="d-none d-md-block">Tuần</span>
                                             <span className="d-md-none">W</span>
-                                        </a>
+                                        </div>
                                     </li>
                                 </ul>
                                 <div>
-                                    {/* <Bar data={data} /> */}
 
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="card-body">
-                        {/* Chart */}
-                        <div className="chart">
-                            {/* Chart wrapper */}
-                            <canvas id="chart-sales-dark" className="chart-canvas"></canvas>
-                        </div>
+
+                        <Bar
+                            data={dataTicket}
+                            options={
+                                {
+                                    title: {
+                                        display: true,
+                                        text: "Vé được bán trong tuần qua",
+                                        color: "white"
+                                    },
+                                    animation: {
+                                        duration: 3000
+                                    },
+                                    tooltips: {
+                                        mode: 'index',
+                                        axis: 'x'
+                                    },
+                                    responsive: true,
+                                    maintainAspectRatio: true,
+
+                                }
+                            }
+                        />
                     </div>
                 </div>
             </div>
@@ -117,10 +156,29 @@ export default function MainDashboard() {
                         </div>
                     </div>
                     <div className="card-body">
-                        Chart
-                    <div className="chart">
-                            <canvas id="chart-bars" className="chart-canvas"></canvas>
-                        </div>
+                        <Bar
+                            data={dataRevenue}
+                            options={
+                                {
+                                    title: {
+                                        display: true,
+                                        text: "Doanh Thu ",
+                                        color: "white"
+                                    },
+                                    animation: {
+                                        duration: 3000
+                                    },
+                                    tooltips: {
+                                        mode: 'index',
+                                        axis: 'x'
+                                    },
+                                    responsive: true,
+                                    maintainAspectRatio: true,
+
+                                }
+                            }
+                        />
+
                     </div>
                 </div>
             </div>
