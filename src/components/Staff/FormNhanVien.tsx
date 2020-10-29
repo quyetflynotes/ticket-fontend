@@ -18,14 +18,11 @@ type Props = {
 };
 
 export default function FormNhanVien(props: Props) {
-	const [staff, setStaff] = useState<Staff>(props.staff);
+	const [staff, setStaff] = useState<Staff>({} as Staff);
 
 	const textButtonEdit = props.staff._id ? "Sua nhân viên" : "Them nhân viên";
 
 	useEffect(() => {
-		console.log("props staff form");
-		console.log(props);
-
 		setStaff(props.staff);
 	}, [props]);
 	return (
@@ -135,12 +132,13 @@ export default function FormNhanVien(props: Props) {
 														variant="outlined"
 														id="date"
 														label="Ngay sinh"
+														// format={'DD/MM/YYYY'}
 														type="date"
-														// defaultValue="2017-05-24"
+														value={moment(staff.birthAt).format("YYYY-MM-DD")}
 														InputLabelProps={{
 															shrink: true,
-                                                        }}
-                                                        onChange={(event) => {
+														}}
+														onChange={(event) => {
 															setStaff({
 																...staff,
 																birthAt: new Date(
@@ -149,7 +147,6 @@ export default function FormNhanVien(props: Props) {
 															});
 														}}
 													/>
-												
 												</FormControl>
 											</div>
 										</div>

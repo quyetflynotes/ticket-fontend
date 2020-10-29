@@ -13,7 +13,6 @@ import moment from "moment";
 import { OverlayTrigger } from "react-bootstrap";
 import { Tooltip } from "react-bootstrap";
 
-
 type Props = {
 	car: Car[];
 	onCar: (car: Car) => void;
@@ -129,63 +128,82 @@ export default function TableCar(props: Props) {
 										<span className="text-muted">{carItem.statusCar}</span>
 									</td>
 									<td className="table-actions">
-										<OverlayTrigger
-											placement="right"
-											delay={{ show: 250, hide: 400 }}
-											overlay={<Tooltip id="button-tooltip-2">Check out this avatar</Tooltip>}
-										>
-                                            <EventSeatIcon
-												onClick={() => {
-													history.push(`/quan-ly-ghe/${carItem._id}`);
-												}}
-											/>
-                                        </OverlayTrigger>
+										<a type="button" className="table-action">
+											<OverlayTrigger
+												placement="top"
+												overlay={
+													<Tooltip id="button-tooltip-2">Sua ghe</Tooltip>
+												}
+											>
+												<EventSeatIcon
+													onClick={() => {
+														history.push(`/quan-ly-ghe/${carItem._id}`);
+													}}
+												/>
+											</OverlayTrigger>
+										</a>
+
 										<a
 											type="button"
 											className="table-action"
 											data-toggle="tooltip"
-											data-placement="top"
-											title="Tooltip on top"
 											data-original-title="Edit product"
 										>
-											
+											<OverlayTrigger
+												placement="top"
+												overlay={
+													<Tooltip id="button-tooltip-2">
+														Sua chuyen di
+													</Tooltip>
+												}
+											>
+												<LocationOnIcon
+													onClick={() => {
+														history.push(
+															`/quan-ly-chuyen-di/${carItem._id}`
+														);
+													}}
+												/>
+											</OverlayTrigger>
 										</a>
-
 										<a
+											type="button"
 											className="table-action"
 											data-toggle="tooltip"
 											data-original-title="Edit product"
 										>
-											<LocationOnIcon
-												onClick={() => {
-													history.push(
-														`/quan-ly-chuyen-di/${carItem._id}`
-													);
-												}}
-											/>
+											<OverlayTrigger
+												placement="top"
+												overlay={
+													<Tooltip id="button-tooltip-2">Sua thong tin xe</Tooltip>
+												}
+											>
+												<EditIcon
+													onClick={() => {
+														props.onCar(carItem);
+													}}
+												/>
+											</OverlayTrigger>
 										</a>
 										<a
-											className="table-action"
-											data-toggle="tooltip"
-											data-original-title="Edit product"
-										>
-											<EditIcon
-												onClick={() => {
-													props.onCar(carItem);
-												}}
-											/>
-										</a>
-										<a
+											type="button"
 											className="table-action table-action-delete"
 											data-toggle="tooltip"
 											data-original-title="Delete product"
 										>
-											<DeleteIcon
-												onClick={() => {
-													if (carItem && carItem._id)
-														props.onDeleteCar(carItem._id);
-												}}
-											/>
+											<OverlayTrigger
+												placement="top"
+												overlay={
+													<Tooltip id="button-tooltip-2">Xoa xe</Tooltip>
+												}
+											>
+												<DeleteIcon
+													onClick={() => {
+														if (carItem && carItem._id)
+															props.onDeleteCar(carItem._id);
+													}}
+												/>
+											</OverlayTrigger>
 										</a>
 									</td>
 								</tr>

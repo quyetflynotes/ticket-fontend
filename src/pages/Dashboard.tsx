@@ -27,9 +27,9 @@ export default function Dashboard() {
                     <div className="container-fluid">
                         <div className="header-body">
                             <HeaderDashboard></HeaderDashboard>
-                            <Thongke
+                            {/* <Thongke
                                  statistic = {statistic}
-                            ></Thongke>
+                            ></Thongke> */}
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from 'react';
-import { Bar } from '@reactchartjs/react-chart.js'
-import { setDate } from 'date-fns/esm';
+// import { Bar } from '@reactchartjs/react-chart.js'
+// import { setDate } from 'date-fns/esm';
 
 const rand = () => Math.floor(Math.random() * 255)
 
