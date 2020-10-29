@@ -8,6 +8,8 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import { FormControl, InputLabel, OutlinedInput, TextField } from "@material-ui/core";
 import { PostionStaff } from "../../share/base-ticket/base-carOwner/PostionStaff";
 import moment from "moment";
+import { storage } from "../../config/FirebaseConfig";
+import { uploadService } from "../../Services/UploadService";
 
 type Props = {
 	staff: Staff;
@@ -19,6 +21,8 @@ type Props = {
 
 export default function FormNhanVien(props: Props) {
 	const [staff, setStaff] = useState<Staff>({} as Staff);
+
+	
 
 	const textButtonEdit = props.staff._id ? "Sua nhân viên" : "Them nhân viên";
 
@@ -47,6 +51,7 @@ export default function FormNhanVien(props: Props) {
 										<small>{textButtonEdit}</small>
 									</div>
 									<form role="form">
+
 										<div className="form-group">
 											<div className="input-group input-group-merge input-group-alternative bg-white">
 												<FormControl variant="outlined" fullWidth>
@@ -134,7 +139,9 @@ export default function FormNhanVien(props: Props) {
 														label="Ngay sinh"
 														// format={'DD/MM/YYYY'}
 														type="date"
-														value={moment(staff.birthAt).format("YYYY-MM-DD")}
+														value={moment(staff.birthAt).format(
+															"YYYY-MM-DD"
+														)}
 														InputLabelProps={{
 															shrink: true,
 														}}
@@ -187,6 +194,8 @@ export default function FormNhanVien(props: Props) {
 												color="success"
 												onClick={() => {
 													props.onStaff(staff);
+													console.log(staff);
+													
 												}}
 											>
 												{textButtonEdit}

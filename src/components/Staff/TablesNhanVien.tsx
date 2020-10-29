@@ -10,8 +10,21 @@ import { Account } from "../../share/base-ticket/base-carOwner/Account";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { Tooltip } from "react-bootstrap";
 import { OverlayTrigger } from "react-bootstrap";
+import { uploadService } from "../../Services/UploadService";
 
 export default function TablesNhanVien(props: Props) {
+	const changeAvt = async (e: any , staffItem: Staff) => {
+		const image: File = e.target.files[0];
+        console.log(image);
+        console.log(staffItem._id);
+        
+		if (image) {
+			const url = await uploadService.upload("images", staffItem._id || "undefined", image);
+            console.log(url);
+           props.onChangeAvt({...staffItem, avt: url});
+		}
+	};
+
 	return (
 		<div className="card">
 			{/* Card header */}
@@ -93,11 +106,49 @@ export default function TablesNhanVien(props: Props) {
 							return (
 								<tr>
 									<td className="table-user">
-										<img
-											src="/images/huynhvannam.jpg"
-											className="avatar rounded-circle mr-3"
-										/>
-										<b>{staffItem.name}</b>
+										<div style={{ position: "relative" }}>
+											<img
+												src={staffItem.avt}
+												className="avatar rounded-circle mr-3"
+											/>{" "}
+											<input
+												type="file"
+												id={`upload-${staffItem._id}`}
+												style={{ display: "none" }}
+												onChange={(e) => changeAvt(e, staffItem)}
+											/>
+											<OverlayTrigger
+												placement="top"
+												overlay={
+													<Tooltip id="button-tooltip-2">
+														Sua anh dai dien
+													</Tooltip>
+												}
+											>
+												<label
+													htmlFor={`upload-${staffItem._id}`}
+													style={{
+														background: "#5e72e4",
+														borderRadius: "50%",
+														width: "25px",
+														height: "25px",
+														padding: "0.2rem",
+														cursor: "pointer",
+														position: "absolute",
+														display: "flex",
+														alignItems: "center",
+														justifyContent: "center",
+														left: 30,
+														bottom: -15,
+													}}
+												>
+													<EditIcon
+														style={{ fontSize: "1rem", color: "#fff" }}
+													/>
+												</label>
+											</OverlayTrigger>
+											<b>{staffItem.name}</b>
+										</div>
 									</td>
 									<td>
 										<span className="text-muted">
@@ -204,7 +255,8 @@ export default function TablesNhanVien(props: Props) {
 }
 
 type Props = {
-	staffs: Staff[];
+    staffs: Staff[];
+    onChangeAvt(staff: Staff) : void;
 	onStaffs: (staff: Staff) => void;
 	onDeleteStaff: (id: string) => void;
 	onAccount: (account: Account) => void;
