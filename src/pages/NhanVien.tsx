@@ -136,6 +136,8 @@ export default function NhanVien() {
 						onChangeAvt={onChangeAvt}
 						onDeleteStaff={staffDelete}
 						onAccount={setFormAccount}
+						search={onSearch}
+						textSearch ={search}
 					></Tables>
 					<Pagination
 						count={staffs.totalPages}

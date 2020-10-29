@@ -9,14 +9,17 @@ type Props = {
     onChange: (infoTicket: Ticket) => void;
 }
 export default function DiemDonTra(props: Props) {
+
     const [localStart, setLocalStart] = useState<string>("")
     const [localEnd, setLocalEnd] = useState<string>("");
     useEffect(() => {
-        console.log("on render at efffect")
+        console.log("-------")
+        console.log((props.infoTicket.localPickup==props.infoTicket.trip?.Route?.localStart || !props.infoTicket.localPickup));
         if (props.infoTicket.trip?.Route?.localStart != props.infoTicket.localPickup) {
             setLocalStart(props.infoTicket.localPickup || "")
         }
-        else setLocalStart(props.infoTicket.localPickup|| "")
+        
+        else setLocalStart("")
         if (props.infoTicket.trip?.Route?.localEnd != props.infoTicket.localDrop) {
             setLocalEnd(props.infoTicket.localDrop || "")
         }
@@ -30,9 +33,14 @@ export default function DiemDonTra(props: Props) {
                         Điểm đón
                     </div>
 
-                    <RadioGroup aria-label="gender" name="gender1" value={(props.infoTicket.localPickup == localStart) ? localStart: props.infoTicket.trip?.Route?.localStart } onClick={(e: any) => props.onChange({ ...props.infoTicket, localPickup: e.target.value })}
+                    <RadioGroup aria-label="gender" name="gender1" value={(props.infoTicket.localPickup==props.infoTicket.trip?.Route?.localStart || !props.infoTicket.localPickup) ? props.infoTicket.trip?.Route?.localStart : localStart } 
+                        onChange={(e: any, value) => {
+                            console.log(value)
+                            props.onChange({ ...props.infoTicket, localPickup: value })
+                        }}
                     >
-                        <FormControlLabel value={props.infoTicket.trip?.Route?.localStart} control={<Radio />} label={
+
+                        <FormControlLabel value={props.infoTicket.trip?.Route?.localStart}  control={<Radio />} label={
                             <div>
                                 <div className="groupsItem ">
                                     <span className="timeAndDiaDiem" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>

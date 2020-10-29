@@ -27,10 +27,14 @@ export default function TripHomeContainer() {
     }, [])
 
     async function getData(page: number = 1) {
-        let getTrip: Paging<Trip> = await TripService.list(1);
+        let getTrip: Paging<Trip> = await TripService.list(1, "", new Date(), new Date());
         // let getRoute: Paging<Car> = await RouteService.list();
         // let getStaff: Paging<Staff> = await StaffService.list();
         setTrip(getTrip);
+    }
+
+    async function searchTicket(search: any) {
+        let getTrip: Paging<Trip> = await TripService.list(1, search, new Date(), new Date());
     }
 
     return (

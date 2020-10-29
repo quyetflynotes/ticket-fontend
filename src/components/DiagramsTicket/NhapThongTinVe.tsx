@@ -1,3 +1,4 @@
+import { Dialog } from "@material-ui/core";
 import React, { useEffect, Component, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import ReactPhoneInput from "react-phone-input-2";
@@ -36,11 +37,10 @@ export default function NhapThongTinVe(props: Props) {
       aria-modal="true"
       onClick={() => { }}
     >
-      <div
-        className=""
-        role="document"
-      >
-        <div className="card bg-secondary border-0 mb-0">
+
+
+      <Dialog fullScreen open={props.showForm} >
+      <div className="card bg-secondary border-0 mb-0">
           <div className="khungDatVe">
             <div className="khung">
               <h3 className="text-center">THÔNG TIN GHẾ</h3>
@@ -51,7 +51,10 @@ export default function NhapThongTinVe(props: Props) {
 
               <DiemDonTra
                 infoTicket={infoTicket}
-                onChange={(ticket: Ticket) => { setInfoTicket(ticket) }}
+                onChange={(ticket: Ticket) => { 
+                  console.log(ticket);
+                  setInfoTicket({...ticket})
+                 }}
               ></DiemDonTra>
 
 
@@ -156,6 +159,21 @@ export default function NhapThongTinVe(props: Props) {
             </Button>
           </div>
         </div>
+      </Dialog>
+
+
+
+
+
+
+
+
+
+      <div
+        className=""
+        role="document"
+      >
+
       </div>
     </div>
   );
