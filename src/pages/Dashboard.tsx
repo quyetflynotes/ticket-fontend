@@ -12,10 +12,16 @@ import {Statistical } from "../share/base-ticket/Statistical/Statistical"
 export default function Dashboard() {
     const [statistic, setstatistic] = useState<Statistical>({totalCustomer : 0, charRevenue: [],charTicket : [],totalRevenue : 0,totalTicket : 0  });
     useEffect(() => {
-        StatisticService.get().then(res => {
+        StatisticService.get(18, "").then(res => {
             setstatistic(res);
         })
     }, [])
+
+    function changeTypeGet(totalGet: number) {
+        StatisticService.get(totalGet, "").then(res => {
+            setstatistic(res);
+        })
+    }
     return (
         <div>
             <Sidebar></Sidebar>
@@ -34,7 +40,10 @@ export default function Dashboard() {
                     </div>
                 </div>
                 <div className="container-fluid mt--6">
-                    <MainDashboard></MainDashboard>
+                    <MainDashboard
+                        statistic={statistic}
+                        onTotalGet = {changeTypeGet}
+                    ></MainDashboard>
                     <FooterDashboard></FooterDashboard>
                 </div>
             </div>
