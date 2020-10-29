@@ -2,10 +2,7 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import logo from './logo.svg';
+  Route} from "react-router-dom";
 import './App.css';
 import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
@@ -17,16 +14,12 @@ import TypeCarContainer from './pages/TypeCarContainer';
 import CustomerContainer from './pages/CustomerContainer';
 import RouteContainer from './pages/RouteContainer';
 import TripContainer from './pages/TripContainer';
-import CalcMoney from './pages/CalcMoney';
-import TestFormMilk from './components/TestFormMilk';
 import StyleDemo from './pages/StyleDemo';
 import Ghe from './pages/Ghe';
 import SettingsNhanVien from './pages/SettingsNhanVien';
 import Ve from './pages/TripHomeContainer';
-import Messenger from './pages/Messenger';
 
 import Diagram from './components/DiagramsTicket/Diagram';
-import DateFnsUtils from '@date-io/date-fns';
 // import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 function App() {
