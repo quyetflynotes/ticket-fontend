@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { AccountService } from '../Services/AccountService';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { dispatch } from '../Redux/Store';
 
 
 type Account = {
@@ -14,13 +15,15 @@ type Account = {
 export default function MainLogin() {
     const history = useHistory();
     const state = useSelector(state => state)
-    console.log(state);
+    
     useEffect(()=>{
         
     }, [])
     const [userName , setUserName]  = useState<Account>({});
     function login(){
-        AccountService.login(userName).then(res =>{
+        AccountService.login(userName).then(res => {
+            localStorage.setItem("jwt", res);
+            dispatch.authen.login()
             if(res){
                 history.push("/dashboard")
             }

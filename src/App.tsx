@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,21 +18,34 @@ import StyleDemo from './pages/StyleDemo';
 import Ghe from './pages/Ghe';
 import SettingsNhanVien from './pages/SettingsNhanVien';
 import Ve from './pages/TripHomeContainer';
-
+import Messenger from './pages/Messenger';
+import { dispatch } from "./Redux/Store"
 import Diagram from './components/DiagramsTicket/Diagram';
+import DateFnsUtils from '@date-io/date-fns';
+import { AccountService } from './Services/AccountService';
+import { useSelector } from 'react-redux';
+import { AppModel } from './Redux';
 // import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 function App() {
-  return (
-    // <MuiPickersUtilsProvider utils={DateFnsUtils}>
-    <div>
+  const isAuthent:any = useSelector((state: AppModel )=> state.authen)
+
+  useEffect(() => {
+    let getMe = AccountService.getMe().then(res => {
+      (res)? dispatch.authen.login() :dispatch.authen.logout() 
+    });
+  }, [])
+
+  return(
       <div>
         <div>
-      {/* <Messenger></Messenger> */}
-        </div>
-        <Router>
           <div>
-            <Switch>
+            <Messenger></Messenger>
+          </div>
+          <Router>
+            <div>
+            {(isAuthent.isAuthenticated) ? (
+              <Switch>
               <Route path="/formilk">
                 <StyleDemo />
               </Route>
@@ -84,6 +97,10 @@ function App() {
               <Route path="/dashboard">
                 <Dashboard />
               </Route>
+
+              <Route path="*">
+                <Dashboard />
+              </Route>
               <Route path="/dang-ky">
                 <Register />
               </Route>
@@ -91,11 +108,17 @@ function App() {
                 <LoginQL />
               </Route>
             </Switch>
-          </div>
-        </Router >
+            ) : 
+              (<Switch><Route path="/">
+              <LoginQL />
+            </Route></Switch>)
+              
+              }
+            </div>
+          </Router >
+        </div>
       </div>
-    </div>
-  );
+    ) 
 }
 
 export default App;
