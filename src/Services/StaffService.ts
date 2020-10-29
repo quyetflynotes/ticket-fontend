@@ -10,7 +10,7 @@ export class StaffService{
             search : [
                 { 
                     content : search,
-                    fields : ["name"]
+                    fields : ["name", "identityCard", "address", "phoneNumer"]
                 }
             ]
         }

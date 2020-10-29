@@ -23,7 +23,7 @@ export default function MainLogin() {
     function login(){
         AccountService.login(userName).then(res => {
             localStorage.setItem("jwt", res);
-            dispatch.authen.login()
+            dispatch.authen.login(res)
             if(res){
                 history.push("/dashboard")
             }

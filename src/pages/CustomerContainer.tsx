@@ -28,8 +28,8 @@ class CustomerContainer extends Component<Props, State> {
         this.getData(1);
     }
 
-    getData(page: number = 1) {
-        CustomerService.list(page).then((customerPaging : Paging<Customer>) => {
+    getData(page: number = 1, search : string = "") {
+        CustomerService.list(page, search).then((customerPaging : Paging<Customer>) => {
             if (customerPaging) {
                 this.setState({
                     customer: customerPaging
@@ -70,6 +70,10 @@ class CustomerContainer extends Component<Props, State> {
         })
     }
 
+    onSearch = (search: any)=> {
+        this.getData(1, search)
+    }
+
     render() {
         return (
             <div>
@@ -79,7 +83,6 @@ class CustomerContainer extends Component<Props, State> {
                     onCustomer={this.customerFormCreate}
                     onCancel = {this.onCancel}
                 ></FormCustomer>
-                <Sidebar></Sidebar>
                 <div className="main-content" id="panel">
                     <NavbarDashboard
                         search = {()=>{}}
@@ -94,6 +97,7 @@ class CustomerContainer extends Component<Props, State> {
                             customer={this.state.customer.rows}
                             onCustomer={this.customerForm}
                             onDeleteCustomer={this.customerDelete}
+                            search ={this.onSearch}
                         ></TablesCustomer>
                         <Pagination count={this.state.customer.totalPages} onChange={(event, value) => {
                             this.getData(value);

@@ -107,7 +107,6 @@ class TripContainer extends Component<Props, State> {
                     // cars={this.state.cars.rows}
                     staff={this.state.staff.rows}
                 ></TripForm>
-                <Sidebar></Sidebar>
                 <div className="main-content" id="panel">
                     <NavbarDashboard
                         search = {()=>{}}

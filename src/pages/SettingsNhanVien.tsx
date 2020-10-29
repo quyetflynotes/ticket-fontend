@@ -10,7 +10,6 @@ class SettingsNhanVien extends Component {
     render() {
         return (
             <div>
-                <Sidebar></Sidebar>
                 <div className="main-content" id="panel">
                     <NavbarDashboard
                     search = {()=>{}}

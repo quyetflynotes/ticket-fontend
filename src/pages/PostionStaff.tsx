@@ -27,8 +27,8 @@ class PostionStaff extends Component<Props, State> {
         this.getData(1);
     }
 
-    getData(page: number = 1) {
-        PositionStaffCarService.list(page).then((staffPaging: Paging<PostionStaffModel>) => {
+    getData(page: number = 1, search : string = "") {
+        PositionStaffCarService.list(page, search).then((staffPaging: Paging<any>) => {
             if (staffPaging) {
                 this.setState({
                     staffs: staffPaging
@@ -68,6 +68,11 @@ class PostionStaff extends Component<Props, State> {
         });
     }
 
+    onSearch = (search: any)=> {
+        this.getData(1, search)
+    }
+    
+
     render() {
         return (
             <div>
@@ -77,7 +82,6 @@ class PostionStaff extends Component<Props, State> {
                     onPostion={this.staffFormCreate}
                     onCancel={this.onCancel}
                 ></FormPostionStaff>
-                <Sidebar></Sidebar>
                 <div className="main-content" id="panel">
                     <NavbarDashboard
                         search = {()=>{}}
@@ -92,6 +96,7 @@ class PostionStaff extends Component<Props, State> {
                             postion={this.state.staffs.rows}
                             onPostionStaffs={this.staffForm}
                             onDeletePositonStaff={this.staffDelete}
+                            search ={this.onSearch}
                         ></TablesPostionStaff>
                         <Pagination count={this.state.staffs.totalPages} onChange={(event, value) => {
                             this.getData(value);

@@ -75,7 +75,6 @@ export default function Ghe() {
                 onCancel={() => { setShowForm(false) }}
                 onChairCar={onSave}
             ></FormChairCar>
-            <Sidebar></Sidebar>
             <div className="main-content" id="panel">
                 <NavbarDashboard
                     search = {()=>{}}

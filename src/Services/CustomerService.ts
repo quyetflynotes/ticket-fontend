@@ -10,7 +10,12 @@ export class CustomerService{
     public static list(page : number = 0, search : string = "") : Promise<Paging<Customer>>{
         let params = {page : page,
             query : {},
-            
+            search : [
+                { 
+                    content : search,
+                    fields : ["name", "CMND", "phoneNumber", "email"]
+                }
+            ]
         }
         return APIService.listByQuery( `${URL}/manager/customer`,params)
     }

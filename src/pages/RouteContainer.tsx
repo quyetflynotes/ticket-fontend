@@ -34,8 +34,8 @@ class RouteContainer extends Component<Props, State> {
         this.getData(1);
     }
 
-    async getData(page: number = 1) {
-        let getTrip : Paging<Route> = await RouteService.list(page);
+    async getData(page: number = 1, search : string = "") {
+        let getTrip : Paging<Route> = await RouteService.list(page, search);
 
         let getCar : Paging<Car> = await CarService.list();
         let getStaff : Paging<Staff> = await StaffService.list();
@@ -78,6 +78,10 @@ class RouteContainer extends Component<Props, State> {
         })
     }
 
+    onSearch = (search: any)=> {
+        this.getData(1, search)
+    }
+
     render() {
         return (
             <div>
@@ -88,7 +92,6 @@ class RouteContainer extends Component<Props, State> {
                     onCancel = {this.onCancel}
                     staff = {this.state.staff.rows}
                 ></RouteForm>
-                <Sidebar></Sidebar>
                 <div className="main-content" id="panel">
                     <NavbarDashboard
                         search = {()=>{}}
@@ -103,6 +106,7 @@ class RouteContainer extends Component<Props, State> {
                             trip={this.state.trips.rows}
                             onTrip={this.tripForm}
                             onDeleteTrip={this.tripDelete}
+                            search ={this.onSearch}
                         ></RouteTables>
                         <Pagination count={this.state.trips.totalPages} onChange={(event, value) => {
                             this.getData(value);

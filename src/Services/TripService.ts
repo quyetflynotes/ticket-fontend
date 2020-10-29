@@ -6,10 +6,15 @@ import { Paging } from "../share/base-ticket/Paging";
 import { APIService } from "./APIService";
 export class TripService{
 
-    public static list(page : number = 0, search : string = "") : Promise<Paging<Staff> >{
+    public static list(page : number = 0, search : string = "") : Promise<Paging<Trip> >{
         let params = {page : page,
             query : {},
-            
+            search : [
+                { 
+                    content : search,
+                    fields : ["name"]
+                }
+            ]
         }
         return APIService.listByQuery(  `${URL}/manager/trip`,params)
     }

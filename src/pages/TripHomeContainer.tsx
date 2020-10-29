@@ -35,7 +35,6 @@ export default function TripHomeContainer() {
 
     return (
         <div>
-            <Sidebar></Sidebar>
             <div className="main-content" id="panel">
                 <NavbarDashboard
                     search = {()=>{}}

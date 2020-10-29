@@ -1,10 +1,12 @@
 import { createModel } from "@rematch/core";
+import { Staff } from "../share/base-ticket/base-carOwner/Staff";
 
 
 
 export type AuthenModel = {
   isAuthenticated?: boolean;
   jwt?: any;
+  info?: Staff;
 };
 
 const initState = {
@@ -27,7 +29,7 @@ export const authen = createModel<AuthenModel>({
   },
   effects: (dispatch: any) => ({
     login(value: string, state : any ) {
-        dispatch.authen.fetchData({isAuthenticated: true});
+        dispatch.authen.fetchData({isAuthenticated: true, info : value});
     },
     logout(value: string, state : any ) {
       dispatch.authen.fetchData({isAuthenticated: false});

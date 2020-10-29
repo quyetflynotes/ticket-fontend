@@ -3,13 +3,19 @@ import  {getAxios} from "./ValidateService"
 import URL from "../config/URLConfig"
 import { Paging } from "../share/base-ticket/Paging";
 import { APIService } from "./APIService";
+import { Ticket } from "../share/base-ticket/base-carOwner/Ticket";
 export class TicketService{
 
 
-    public static list(page : number = 0, search : string = "") : Promise<Paging<Staff> >{
+    public static list(page : number = 0, search : string = "") : Promise<Paging<Ticket> >{
         let params = {page : page,
             query : {},
-            
+            search : [
+                { 
+                    content : search,
+                    fields : []
+                }
+            ]
         }
         return APIService.listByQuery(  `${URL}/manager/ticket`,params)
     }

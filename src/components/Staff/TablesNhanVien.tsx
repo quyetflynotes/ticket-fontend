@@ -11,7 +11,20 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { Tooltip } from "react-bootstrap";
 import { OverlayTrigger } from "react-bootstrap";
 
+
+var timeOut : any
 export default function TablesNhanVien(props: Props) {
+	function onSearch(valueSearch: string) {
+
+        clearInterval(timeOut);
+        timeOut = setInterval(() => {
+			if (props.search) {
+				props.search(valueSearch);
+			}
+            clearInterval(timeOut);
+        }, 500)
+
+    }
 	return (
 		<div className="card">
 			{/* Card header */}
@@ -54,6 +67,7 @@ export default function TablesNhanVien(props: Props) {
 									type="search"
 									placeholder="Tìm kiếm"
 									id="example-search-input"
+									onChange= {(e)=>{ onSearch(e.target.value)}}
 								/>
 							</div>
 						</div>
@@ -207,5 +221,6 @@ type Props = {
 	staffs: Staff[];
 	onStaffs: (staff: Staff) => void;
 	onDeleteStaff: (id: string) => void;
+	search?(value: string): void;
 	onAccount: (account: Account) => void;
 };

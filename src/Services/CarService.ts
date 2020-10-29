@@ -6,10 +6,15 @@ import { APIService } from "./APIService";
 import { Car } from "../share/base-ticket/base-carOwner/Car";
 export class CarService{
 
-    public static list(page : number = 0, search : string = "") : Promise<Paging<any> >{
+    public static list(page : number = 0, search : string = "") : Promise<Paging<Car> >{
         let params = {page : page,
             query : {},
-            
+            search : [
+                { 
+                    content : search,
+                    fields : ["name", "licensePlates", "origin", "statusCar"]
+                }
+            ]
         }
         return APIService.listByQuery( `${URL}/manager/car`,params)
     }

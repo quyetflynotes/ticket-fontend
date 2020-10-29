@@ -52,7 +52,6 @@ export class APIService{
                 url : `${url}`,
                 data : {_id : data}
             }).then(res=>{
-                console.log(res)
                 return res.data;
             })
             .catch(err => null)
@@ -67,7 +66,6 @@ export class APIService{
                 url : `${url}`,
                 params: data
             }).then(res=>{
-                console.log(res.data)
                 return res.data;
             })
             .catch(err => null)

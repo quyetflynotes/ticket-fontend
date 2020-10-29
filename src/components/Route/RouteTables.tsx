@@ -15,9 +15,21 @@ type Props = {
 	onTrip: Function;
 	trip: Route[];
 	onDeleteTrip: Function;
+	search?(value: string): void;
 };
-
+var timeOut: any;
 export default function RouteTables(props: Props) {
+	function onSearch(valueSearch: string) {
+
+        clearInterval(timeOut);
+        timeOut = setInterval(() => {
+			if (props.search) {
+				props.search(valueSearch);
+			}
+            clearInterval(timeOut);
+        }, 500)
+
+    }
 	return (
 		<div className="card">
 			{/* Card header */}
@@ -60,6 +72,7 @@ export default function RouteTables(props: Props) {
 									type="search"
 									placeholder="Tìm kiếm"
 									id="example-search-input"
+									onChange = {(e)=> onSearch(e.target.value)}
 								/>
 							</div>
 						</div>
