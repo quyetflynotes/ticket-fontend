@@ -58,10 +58,10 @@ class RouteContainer extends Component<Props, State> {
         RouteService.create(trip).then((res: any) => {
             if (res) {
                 self.getData(self.state.trips.page);
+                self.setState({
+                    showForm: false
+                })
             }
-        })
-        self.setState({
-            showForm: false
         })
     }
 
@@ -90,7 +90,7 @@ class RouteContainer extends Component<Props, State> {
                     trip={this.state.tripForm}
                     onTrip={this.tripFormCreate}
                     onCancel = {this.onCancel}
-                    staff = {this.state.staff.rows}
+                    staff = {this.state?.staff?.rows}
                 ></RouteForm>
                 <div className="main-content" id="panel">
                     <NavbarDashboard

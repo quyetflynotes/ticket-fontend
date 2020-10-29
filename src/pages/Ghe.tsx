@@ -47,14 +47,15 @@ export default function Ghe() {
         setShowForm(true);
     }
     function onSave(chairCar: ChairCar) {
-        console.log("======save=======")
-        console.log(chairCar);
+
         ChairCarService.create(chairCar).then(res => {
             ChairCarService.getByCarid(idCar).then(res => {
                 setListChair(res);
             })
+            if (res) {
+                setShowForm(false);
+            }
         })
-        setShowForm(false);
     }
     function autoChairCar(params: any) {
         ChairCarService.autoCreate({ ...params, carId: idCar }).then(res => {

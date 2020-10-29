@@ -59,9 +59,12 @@ export default function CarContainer() {
     }
 
     function onCarFormCreate(carCreate: Car) {
+        console.log(carCreate)
         CarService.create(carCreate).then((res: any) => {
-            getData(car.page)
+            if (res) {
+                getData(car.page)
             setShowForm(false)
+            }
         })
 
     }

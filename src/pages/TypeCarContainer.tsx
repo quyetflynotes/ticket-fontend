@@ -46,9 +46,11 @@ class TypeCarContainer extends Component<Props, State> {
             if (res) {
                 this.getData(this.state.typeCars.page);
             }
-        })
-        this.setState({
-            showForm: false
+            if (res) {
+                this.setState({
+                    showForm: false
+                })
+            }
         })
     }
 

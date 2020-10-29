@@ -34,6 +34,7 @@ export const authen = createModel<AuthenModel>({
     },
     logout(value: string, state: any) {
       dispatch.authen.fetchData({ isAuthenticated: false });
+      localStorage.removeItem("jwt");
     },
   }),
 });

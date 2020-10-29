@@ -48,11 +48,12 @@ class PostionStaff extends Component<Props, State> {
         PositionStaffCarService.create(staff).then((res: any) => {
             if (res) {
                 self.getData(self.state.staffs.page);
+                self.setState({
+                    showForm: false
+                })
             }
         })
-        self.setState({
-            showForm: false
-        })
+        
     }
 
     staffDelete(id: string) {

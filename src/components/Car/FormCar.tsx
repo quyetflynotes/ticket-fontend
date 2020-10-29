@@ -16,6 +16,9 @@ import {
 	TextField,
 } from "@material-ui/core";
 import moment from "moment";
+import LocalTaxiIcon from '@material-ui/icons/LocalTaxi';
+import ClassIcon from '@material-ui/icons/Class';
+import RoomIcon from '@material-ui/icons/Room';
 
 type Props = {
 	car: Car;
@@ -31,10 +34,9 @@ export default function FormCar(props: Props) {
 	const textButton: string = props.car._id ? "Sua" : "Them";
 
 	useEffect(() => {
-		console.log(props.car.TypeCar);
-		console.log(props.typeCar);
-
-		setCar(props.car);
+		let getCar:Car ={...props.car};
+		getCar.entryAt = new Date(getCar.entryAt || new Date());
+		setCar(getCar);
 	}, [props]);
 	return (
 		<div>
@@ -63,7 +65,7 @@ export default function FormCar(props: Props) {
 												<FormControl variant="outlined" fullWidth>
 													<InputLabel>Tên xe</InputLabel>
 													<OutlinedInput
-														endAdornment={<FaceIcon />}
+														endAdornment={<LocalTaxiIcon />}
 														fullWidth
 														label="Tên xe"
 														defaultValue={""}
@@ -84,7 +86,7 @@ export default function FormCar(props: Props) {
 												<FormControl variant="outlined" fullWidth>
 													<InputLabel>Biển số xe</InputLabel>
 													<OutlinedInput
-														endAdornment={<FaceIcon />}
+														endAdornment={<ClassIcon />}
 														fullWidth
 														label="Biển số xe"
 														value={car.licensePlates || ""}
@@ -104,7 +106,7 @@ export default function FormCar(props: Props) {
 												<FormControl variant="outlined" fullWidth>
 													<InputLabel>Xuất xứ</InputLabel>
 													<OutlinedInput
-														endAdornment={<FaceIcon />}
+														endAdornment={<RoomIcon />}
 														fullWidth
 														label="Xuất xứ"
 														defaultValue={""}
@@ -160,7 +162,8 @@ export default function FormCar(props: Props) {
 													<Select
 														defaultValue={statusCar.using}
 														onChange={(event, value: any) => {
-															setCar({ ...car, statusCar: value });
+															
+															setCar({ ...car, statusCar: event.target.value as any });
 														}}
 														label="Trạng thái"
 													>
@@ -182,15 +185,19 @@ export default function FormCar(props: Props) {
 												{/* <div className="input-group-prepend">
                                                 <span className="input-group-text"><RecentActorsIcon /></span>
                                             </div> */}
-												{console.log(car.TypeCar)}
 												<Autocomplete
-													value={props.typeCar[1]}
+													value={
+														props.typeCar.find((item) => {
+															return item._id == car.typeCarId
+														})
+													}
 													options={props.typeCar}
 													getOptionLabel={(option: TypeCar) =>
 														option.nameTypeCar || ""
 													}
 													fullWidth
 													onChange={(event: any, value: any) => {
+														console.log(value)
 														setCar({
 															...car,
 															typeCarId: value?._id || "",

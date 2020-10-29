@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import FaceIcon from '@material-ui/icons/Face';
 import { PostionStaff } from '../../share/base-ticket/base-carOwner/PostionStaff';
-import { FormControl, InputLabel, OutlinedInput } from '@material-ui/core';
+import { Checkbox, FormControl, FormControlLabel, InputLabel, OutlinedInput } from '@material-ui/core';
 
 
 type Props = {
@@ -71,6 +71,27 @@ export default function FormPostionStaff(props: Props) {
                                                 </FormControl>
                                             </div>
                                         </div>
+
+                                        <div className="form-group">
+                                            <div className="input-group input-group-merge input-group-alternative">
+                                                <FormControlLabel
+                                                    control={
+                                                        <Checkbox
+                                                            checked = {postion.useLogin || false}
+                                                            onChange={(e, value) => {
+                                                                setPostion({ ...postion, useLogin : value })
+                                                            }}
+                                                            name="checkedB"
+                                                            color="primary"
+                                                        />
+                                                    }
+                                                    label="Quyền sử dụng hệ thống"
+                                                />
+
+                                            </div>
+                                        </div>
+
+
 
                                         <div className="text-center">
                                             <Button color="success"

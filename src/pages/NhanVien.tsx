@@ -34,7 +34,7 @@ export default function NhanVien() {
 
 	useEffect(() => {
 		PositionStaffCarService.list().then((res: Paging<any>) => {
-			setListPostion(res.rows);
+			setListPostion(res?.rows);
 			getData(1);
 		});
 	}, []);
@@ -51,9 +51,9 @@ export default function NhanVien() {
 		StaffService.create(staff).then((res: any) => {
 			if (res) {
 				getData(staffs.page);
+				setShowForm(false);
 			}
 		});
-		setShowForm(false);
 	}
 
 	function staffDelete(id: string) {

@@ -51,10 +51,10 @@ export default function TablesCustomer(props: Props) {
                             <span className="btn-inner--icon"><AddIcon /></span>
                             <span className="btn-inner--text">Thêm</span>
                         </button>
-                        <a href="#" className="btn btn-sm btn-primary btn-round btn-icon" data-toggle="tooltip" data-original-title="Edit product">
+                        {/* <a href="#" className="btn btn-sm btn-primary btn-round btn-icon" data-toggle="tooltip" data-original-title="Edit product">
                             <span className="btn-inner--icon"><ImportExportIcon /></span>
                             <span className="btn-inner--text">Export</span>
-                        </a>
+                        </a> */}
                         <div className="form-group row float-right">
                             <div className="col-md-auto">
                                 <input className="form-control form-control-default" type="search" placeholder="Tìm kiếm" id="example-search-input"

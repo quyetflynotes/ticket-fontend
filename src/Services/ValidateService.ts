@@ -23,17 +23,17 @@ export const getAxios = async () => {
         },
         err => {
             console.log(err.message);
-            if (err.message === "Network Error") {
-                dispatch.message.showError("Lỗi kết nối máy chủ")
+            if (err?.message === "Network Error") {
+                dispatch?.message?.showError("Lỗi kết nối máy chủ")
             }
-            if (err.response.status === 404) {
+            if (err?.response?.status === 404) {
             }
-            if (err.response.status === 401) {
+            if (err?.response?.status === 401) {
                 dispatch.message.showWarning("Vui lòng đăng nhập lại")
             }
     
     
-            if (err.response.status == 500) {
+            if (err?.response?.status == 500) {
                 if (err.response.message) {
                     dispatch.message.showError(err.response.message)
                 }

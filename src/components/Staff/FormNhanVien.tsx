@@ -18,6 +18,8 @@ import { storage } from "../../config/FirebaseConfig";
 import { uploadService } from "../../Services/UploadService";
 import { useFormik } from "formik";
 import validator from "validator";
+import PhoneIcon from '@material-ui/icons/Phone';
+import RoomIcon from '@material-ui/icons/Room';
 
 type Props = {
 	staff: Staff;
@@ -30,36 +32,36 @@ type Props = {
 const validate = (staff: Staff) => {
 	const errors: Staff = {};
 	if (!staff.name) {
-		errors.name = "Vui long nhap ho ten";
+		errors.name = "Vui lòng nhập họ tên ";
 	}
 
 	if (!staff.phoneNumer) {
-		errors.phoneNumer = "Vui long nhap so dien thoai";
+		errors.phoneNumer = "Vui lòng nhập số điện thoại";
 	} else if (!validator.isMobilePhone(staff.phoneNumer || "", "vi-VN")) {
-		errors.phoneNumer = "Vui long nhap dung so dien thoai";
+		errors.phoneNumer = "Vui lòng nhập đúng số điện thoại";
 	}
 
 	if (!staff.identityCard) {
-		errors.identityCard = "Vui long nhap CMND";
-	} else if (!validator.isNumeric(staff.identityCard, { no_symbols: true })) {
-		errors.identityCard = "Vui long nhap dung CMND";
+		errors.identityCard = "Vui lòng nhập chứng minh nhân dân";
+	} else if (!validator.isNumeric(staff.identityCard, { no_symbols: true }) || staff.identityCard.length <9 || staff.identityCard.length >13) {
+		errors.identityCard = "Vui lòng nhập đúng chứng minh nhân dân";
 	}
 
-	// 	else if (values.firstName.length > 15) {
-	// 		errors.firstName = "Must be 15 characters or less";
-	// 	}
-	//
-	// 	if (!values.lastName) {
-	// 		errors.lastName = "Required";
-	// 	} else if (values.lastName.length > 20) {
-	// 		errors.lastName = "Must be 20 characters or less";
-	// 	}
+		// else if (staff.firstName.length > 15) {
+		// 	errors.firstName = "Must be 15 characters or less";
+		// }
+	
+		// if (!staff.lastName) {
+		// 	errors.lastName = "Required";
+		// } else if (values.lastName.length > 20) {
+		// 	errors.lastName = "Must be 20 characters or less";
+		// }
 
-	// 	if (!values.email) {
-	// 		errors.email = "Required";
-	// 	} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-	// 		errors.email = "Invalid email address";
-	// 	}
+		// if (!values.email) {
+		// 	errors.email = "Required";
+		// } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+		// 	errors.email = "Invalid email address";
+		// }
 
 	return errors;
 };
@@ -70,7 +72,7 @@ export default function FormNhanVien(props: Props) {
 
 	// setStaff({...props.staff})
 
-	const textButtonEdit = props.staff._id ? "Sua nhân viên" : "Them nhân viên";
+	const textButtonEdit = props.staff._id ? "Sửa Nhân Viên" : "Thêm nhân viên";
 	const init: Staff = {
 		name: "",
 		address: "",
@@ -82,8 +84,9 @@ export default function FormNhanVien(props: Props) {
 		initialValues: { name: "", address: "", identityCard: "", phoneNumer: "" },
 		validate,
 		onSubmit: (values) => {
+			values.birthAt = new Date(staff.birthAt || new Date());
+			values.address = staff.address;
 			props.onStaff(values)
-			alert(JSON.stringify(values, null, 2));
 		},
 	});
 
@@ -91,8 +94,11 @@ export default function FormNhanVien(props: Props) {
 		// console.log(props.staff);
 		// console.log(props.staff);
 		// gais trij truyen vao la trong;
-		setStaff(props.staff);
+		setStaff({...props.staff,birthAt : new Date(props.staff.birthAt || new Date())});
 		// console.log(props.staff.name)
+		formik.setErrors({});
+		formik.errors = {};
+		formik.resetForm();
 		if (props.staff._id) {
 			formik.setValues(props.staff);
 		} else {
@@ -106,7 +112,9 @@ export default function FormNhanVien(props: Props) {
 			});
 		}
 	}, [props, props.staff]);
-	console.log(formik.values);
+
+
+
 	return (
 		<form onSubmit={formik.handleSubmit}>
 			<div
@@ -173,7 +181,7 @@ export default function FormNhanVien(props: Props) {
 												>
 													<InputLabel>Số điện thoai</InputLabel>
 													<OutlinedInput
-														endAdornment={<FaceIcon />}
+														endAdornment={<PhoneIcon />}
 														fullWidth
 														name="phoneNumer"
 														label="Số điện thoai"
@@ -236,12 +244,16 @@ export default function FormNhanVien(props: Props) {
 												>
 													<InputLabel>Địa chỉ</InputLabel>
 													<OutlinedInput
-														endAdornment={<BrandingWatermarkIcon />}
+														endAdornment={<RoomIcon />}
 														fullWidth
 														label="Địa chỉ"
-														value={formik.values.address}
-														onChange={formik.handleChange}
-														onBlur={formik.handleBlur}
+														value={staff.address}
+														onChange={(e) => { 
+															setStaff({...staff, address: e.target.value})
+														}}
+														onBlur={(e) => { 
+															setStaff({...staff, address: e.target.value})
+														}}
 													/>
 													<FormHelperText>
 														{formik.touched.address &&
@@ -262,13 +274,15 @@ export default function FormNhanVien(props: Props) {
 														label="Ngay sinh"
 														// format={'DD/MM/YYYY'}
 														type="date"
-														value={moment(formik.values.birthAt).format(
+														value={moment(staff.birthAt).format(
 															"YYYY-MM-DD"
 														)}
 														InputLabelProps={{
 															shrink: true,
 														}}
-														onChange={formik.handleChange}
+														onChange={(e) => { 
+															setStaff({...staff, birthAt : new Date(e.target.value)})
+														}}
 													/>
 												</FormControl>
 											</div>

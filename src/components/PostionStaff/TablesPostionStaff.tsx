@@ -50,7 +50,7 @@ export default function TablesPostionStaff(props: Props) {
 							</span>
 							<span className="btn-inner--text">Thêm</span>
 						</button>
-						<a
+						{/* <a
 							href="#"
 							className="btn btn-sm btn-primary btn-round btn-icon"
 							data-toggle="tooltip"
@@ -60,7 +60,7 @@ export default function TablesPostionStaff(props: Props) {
 								<ImportExportIcon />
 							</span>
 							<span className="btn-inner--text">Export</span>
-						</a>
+						</a> */}
 						<div className="form-group row float-right">
 							<div className="col-md-auto">
 								<input

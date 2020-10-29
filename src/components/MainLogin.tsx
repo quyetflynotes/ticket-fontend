@@ -22,9 +22,9 @@ export default function MainLogin() {
     const [userName , setUserName]  = useState<Account>({});
     function login(){
         AccountService.login(userName).then(res => {
-            localStorage.setItem("jwt", res);
-            dispatch.authen.login(res)
             if(res){
+                localStorage.setItem("jwt", res);
+                dispatch.authen.login(res)
                 history.push("/dashboard")
             }
         })
