@@ -19,7 +19,7 @@ export default function Thongke(props : Props) {
                         <div className="row">
                             <div className="col">
                                 <h5 className="card-title text-uppercase text-muted mb-0">Tổng số lượng khách hàng</h5>
-                                <span className="h2 font-weight-bold mb-0">{props.statistic.totalCustomer}</span>
+                                <span className="h2 font-weight-bold mb-0">{props?.statistic?.totalCustomer|| 0}</span>
                             </div>
                             <div className="col-auto">
                                 <div className="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
@@ -41,7 +41,7 @@ export default function Thongke(props : Props) {
                         <div className="row">
                             <div className="col">
                                 <h5 className="card-title text-uppercase text-muted mb-0">Tổng số vé được bán</h5>
-                                <span className="h2 font-weight-bold mb-0">{props.statistic.totalTicket}</span>
+                                <span className="h2 font-weight-bold mb-0">{props.statistic.totalTicket|| 0}</span>
                             </div>
                             <div className="col-auto">
                                 <div className="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
@@ -63,7 +63,7 @@ export default function Thongke(props : Props) {
                         <div className="row">
                             <div className="col">
                                 <h5 className="card-title text-uppercase text-muted mb-0">Tổng số chuyến đi đã khởi hành</h5>
-                                <span className="h2 font-weight-bold mb-0">{props.statistic.totalTrip}</span>
+                                <span className="h2 font-weight-bold mb-0">{props?.statistic?.totalTrip|| 0}</span>
                             </div>
                             <div className="col-auto">
                                 <div className="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
@@ -85,7 +85,7 @@ export default function Thongke(props : Props) {
                         <div className="row">
                             <div className="col">
                                 <h5 className="card-title text-uppercase text-muted mb-0">Tổng doanh thu</h5>
-                                <span className="h2 font-weight-bold mb-0">{props.statistic.totalRevenue}</span>
+                                <span className="h2 font-weight-bold mb-0">{props?.statistic?.totalRevenue || 0}</span>
                             </div>
                             <div className="col-auto">
                                 <div className="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
