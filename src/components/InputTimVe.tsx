@@ -41,7 +41,7 @@ class InputTimVe extends Component {
                         }
                     />
                 </div>
-                <div >
+                {/* <div >
                     <Autocomplete
                         options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
                         groupBy={(option) => option.firstLetter}
@@ -55,6 +55,9 @@ class InputTimVe extends Component {
                             </div>
                         }
                     />
+                </div> */}
+                <div className="col-2">
+                    <input className="form-control"   type="date" id="example-date-input" />
                 </div>
                 <div className="col-2">
                     <input className="form-control" type="date" id="example-date-input" />

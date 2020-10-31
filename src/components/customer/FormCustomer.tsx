@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 // thành phần phản ứng được sử dụng để tạo cảnh báo ngọt ngào
 import Button from 'react-bootstrap/Button';
 import FaceIcon from '@material-ui/icons/Face';
+import BrandingWatermarkIcon from '@material-ui/icons/BrandingWatermark';
 import { Customer } from '../../share/base-ticket/base-carOwner/Customer';
 import { FormControl, InputLabel, MenuItem, OutlinedInput, Select } from '@material-ui/core';
-
+import EmailIcon from '@material-ui/icons/Email';
+import PhoneIcon from '@material-ui/icons/Phone';
+import WcIcon from '@material-ui/icons/Wc';
 type Props = {
     customer: Customer
     formModal: boolean,
@@ -54,7 +57,7 @@ export default function FormCustomer(props: Props) {
                                                 <FormControl variant="outlined" fullWidth>
                                                     <InputLabel >CMND</InputLabel>
                                                     <OutlinedInput
-                                                        endAdornment={<FaceIcon />}
+                                                        endAdornment={<BrandingWatermarkIcon />}
                                                         fullWidth
                                                         labelWidth={200}
                                                         value={customer.CMND || ""}
@@ -71,7 +74,7 @@ export default function FormCustomer(props: Props) {
                                                 <FormControl variant="outlined" fullWidth>
                                                     <InputLabel >Email</InputLabel>
                                                     <OutlinedInput
-                                                        endAdornment={<FaceIcon />}
+                                                        endAdornment={<EmailIcon />}
                                                         fullWidth
                                                         labelWidth={200}
                                                         value={customer.email || ""}
@@ -86,9 +89,9 @@ export default function FormCustomer(props: Props) {
                                         <div className="form-group">
                                             <div className="input-group input-group-merge input-group-alternative">
                                                 <FormControl variant="outlined" fullWidth>
-                                                    <InputLabel >Email</InputLabel>
+                                                    <InputLabel >Số điện thoại </InputLabel>
                                                     <OutlinedInput
-                                                        endAdornment={<FaceIcon />}
+                                                        endAdornment={<PhoneIcon />}
                                                         fullWidth
                                                         labelWidth={200}
                                                         value={customer.phoneNumber || ""}
@@ -105,9 +108,8 @@ export default function FormCustomer(props: Props) {
                                         <div className="form-group">
                                             <div className="input-group input-group-merge input-group-alternative">
                                                 <FormControl variant="outlined" fullWidth>
-                                                    <InputLabel >Email</InputLabel>
+                                                    <InputLabel >Ngày sinh</InputLabel>
                                                     <OutlinedInput
-                                                        endAdornment={<FaceIcon />}
                                                         fullWidth
                                                         labelWidth={200}
                                                         defaultValue={"2020-10-14"} 

@@ -33,7 +33,7 @@ export default function NhanVien() {
 	const [search, setSearch] = useState<string>("");
 
 	useEffect(() => {
-		PositionStaffCarService.list().then((res: Paging<PostionStaff>) => {
+		PositionStaffCarService.list().then((res: Paging<any>) => {
 			setListPostion(res.rows);
 			getData(1);
 		});
@@ -110,7 +110,6 @@ export default function NhanVien() {
 
 	return (
 		<div>
-			{console.log(listPostion)}
 			<FormNhanVien
 				formModal={isShowForm}
 				staff={staffForm}
@@ -125,8 +124,6 @@ export default function NhanVien() {
 				onSave={FormCreateAccount}
 				onCancel={() => setShowFormAccount(false)}
 			></FormAccount>
-
-			<Sidebar></Sidebar>
 
 			<div className="main-content" id="panel">
 				<NavbarDashboard search={onSearch}></NavbarDashboard>

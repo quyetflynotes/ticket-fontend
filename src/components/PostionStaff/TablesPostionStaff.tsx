@@ -11,9 +11,22 @@ type Props = {
 	postion: PostionStaff[];
 	onPostionStaffs: (postion: PostionStaff) => void;
 	onDeletePositonStaff: (id: string) => void;
-};
+	search?(value: string): void;
 
+};
+var timeOut: any;
 export default function TablesPostionStaff(props: Props) {
+	function onSearch(valueSearch: string) {
+
+        clearInterval(timeOut);
+        timeOut = setInterval(() => {
+			if (props.search) {
+				props.search(valueSearch);
+			}
+            clearInterval(timeOut);
+        }, 500)
+
+    }
 	return (
 		<div className="card">
 			{/* Card header */}
@@ -55,6 +68,7 @@ export default function TablesPostionStaff(props: Props) {
 									type="search"
 									placeholder="Tìm kiếm"
 									id="example-search-input"
+									onChange = {(e)=> onSearch(e.target.value)}
 								/>
 							</div>
 						</div>

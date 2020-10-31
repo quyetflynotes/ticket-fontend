@@ -31,7 +31,6 @@ export class APIService{
     }
 
     public static create(url : string, data : any) : Promise<any>{
-        console.log(data);
         return getAxios().then(axios=>{
             return axios({
                 method : "POST",
@@ -52,7 +51,6 @@ export class APIService{
                 url : `${url}`,
                 data : {_id : data}
             }).then(res=>{
-                console.log(res)
                 return res.data;
             })
             .catch(err => null)
@@ -60,14 +58,12 @@ export class APIService{
     }
 
     public static listByQuery(url : string, data : any) : Promise<any>{
-        console.log(data);
         return getAxios().then(axios=>{
             return axios({
                 method : "GET",
                 url : `${url}`,
                 params: data
             }).then(res=>{
-                console.log(res.data)
                 return res.data;
             })
             .catch(err => null)

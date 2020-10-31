@@ -35,7 +35,7 @@ export default function CarContainer() {
 
 
 
-    function getData(page: number = 1) {
+    function getData(page: number = 1, search : string = "") {
         CarService.list(page).then((carPaging: Paging<Staff>) => {
             if (carPaging) {
                 setCar(carPaging)
@@ -78,6 +78,10 @@ export default function CarContainer() {
         setShowForm(false)
     }
 
+    function onSearch(search: any) {
+        getData(1, search);
+    }
+
     return (
         <div>
             <FormCar
@@ -87,7 +91,6 @@ export default function CarContainer() {
                 typeCar={typeCar}
                 onCancel={onCancel}
             ></FormCar>
-            <Sidebar></Sidebar>
             <div className="main-content" id="panel">
                 <NavbarDashboard
                     search = {()=>{}}
@@ -102,6 +105,7 @@ export default function CarContainer() {
                         car={car.rows}
                         onCar={onCarForm}
                         onDeleteCar={onStaffDelete}
+                        search ={onSearch}
                     ></TablesCar>
                     <Pagination count={car.totalPages} onChange={(event, value) => {
                         getData(value);

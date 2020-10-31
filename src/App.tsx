@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route} from "react-router-dom";
+  Route
+} from "react-router-dom";
 import './App.css';
 import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
@@ -25,100 +26,130 @@ import DateFnsUtils from '@date-io/date-fns';
 import { AccountService } from './Services/AccountService';
 import { useSelector } from 'react-redux';
 import { AppModel } from './Redux';
+import Sidebar from './components/Sidebar';
+import FooterDashboard from './components/FooterDashboard';
 // import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { fireStoreFirebase } from "./config/FirebaseConfig"
+import Excel from './components/Excel/Excel';
 
 function App() {
-  const isAuthent:any = useSelector((state: AppModel )=> state.authen)
+  const authen: any = useSelector((state: AppModel) => state.authen)
 
+  console.log(authen);
   useEffect(() => {
-    let getMe = AccountService.getMe().then(res => {
-      (res)? dispatch.authen.login() :dispatch.authen.logout() 
+    AccountService.getMe().then(res => {
+      (res) ? dispatch.authen.login(res) : dispatch.authen.logout();
+      var getBidProductFirebase = fireStoreFirebase.collection("notification").doc("notification");
+      getBidProductFirebase.onSnapshot({
+        includeMetadataChanges: true
+      }, function (doc: any) {
+        if (doc) {
+          var notification = doc.data();
+          dispatch.NotifinationFirebase.newNotification(notification);
+        }
+
+      });
+      
     });
   }, [])
 
-  return(
+  return (
+    <div>
       <div>
         <div>
-          <div>
-            <Messenger></Messenger>
-          </div>
-          <Router>
-            <div>
-            {(isAuthent.isAuthenticated) ? (
-              <Switch>
-              <Route path="/formilk">
-                <StyleDemo />
-              </Route>
-
-              <Route path="/quan-ly-nhan-vien">
-                <NhanVien />
-              </Route>
-
-              <Route path="/quan-ly-chuc-vu">
-                <PostionStaff />
-              </Route>
-
-              <Route path="/quan-ly-xe">
-                <CarContainer />
-              </Route>
-
-              <Route path="/quan-ly-loai-xe">
-                <TypeCarContainer />
-              </Route>
-
-              <Route path="/quan-ly-khach-hang">
-                <CustomerContainer />
-              </Route>
-
-              <Route path="/quan-ly-lo-trinh">
-                <RouteContainer />
-              </Route>
-
-              <Route path="/quan-ly-ghe/:id">
-                <Ghe />
-              </Route>
-
-              <Route path="/quan-ly-chuyen-di/:id">
-                <TripContainer />
-              </Route>
-
-              <Route path="/quan-ly-ve">
-                <Ve />
-              </Route>
-
-              <Route path="/saleTicket/:id">
-                <Diagram />
-              </Route>
-
-              <Route path="/setting-nhan-vien">
-                <SettingsNhanVien />
-              </Route>
-
-              <Route path="/dashboard">
-                <Dashboard />
-              </Route>
-
-              <Route path="*">
-                <Dashboard />
-              </Route>
-              <Route path="/dang-ky">
-                <Register />
-              </Route>
-              <Route path="/">
-                <LoginQL />
-              </Route>
-            </Switch>
-            ) : 
-              (<Switch><Route path="/">
-              <LoginQL />
-            </Route></Switch>)
-              
-              }
-            </div>
-          </Router >
+          <Messenger></Messenger>
         </div>
+        <Router>
+          <div>
+            {(authen.isAuthenticated) ? (
+              <div>
+                <Sidebar></Sidebar>
+                <div className="main-content" id="panel">
+                  <Switch>
+                    <Route path="/formilk">
+                      <StyleDemo />
+                    </Route>
+
+                    <Route path="/quan-ly-nhan-vien">
+                      <NhanVien />
+                    </Route>
+
+                    <Route path="/quan-ly-chuc-vu">
+                      <PostionStaff />
+                    </Route>
+
+                    <Route path="/quan-ly-xe">
+                      <CarContainer />
+                    </Route>
+
+                    <Route path="/quan-ly-loai-xe">
+                      <TypeCarContainer />
+                    </Route>
+
+                    <Route path="/quan-ly-khach-hang">
+                      <CustomerContainer />
+                    </Route>
+
+                    <Route path="/quan-ly-lo-trinh">
+                      <RouteContainer />
+                    </Route>
+
+                    <Route path="/quan-ly-ghe/:id">
+                      <Ghe />
+                    </Route>
+
+                    <Route path="/quan-ly-chuyen-di/:id">
+                      <TripContainer />
+                    </Route>
+
+                    <Route path="/quan-ly-ve">
+                      <Ve />
+                    </Route>
+
+                    <Route path="/saleTicket/:id">
+                      <Diagram />
+                    </Route>
+
+                    <Route path="/setting-nhan-vien">
+                      <SettingsNhanVien />
+                    </Route>
+
+                    <Route path="/dashboard">
+                      <Dashboard />
+                    </Route>
+
+                    <Route path="/ex">
+                      <Excel />
+                    </Route>
+
+                    <Route path="*">
+                      <Dashboard />
+                    </Route>
+                    <Route path="/dang-ky">
+                      <Register />
+                    </Route>
+                    <Route path="/">
+                      <LoginQL />
+                    </Route>
+                  </Switch>
+
+                </div>
+
+
+
+
+              </div>
+            ) :
+              (<Switch><Route path="/">
+                <LoginQL />
+              </Route></Switch>)
+
+            }
+          </div>
+        </Router >
       </div>
-    ) 
+    </div>
+  )
 }
 
 export default App;

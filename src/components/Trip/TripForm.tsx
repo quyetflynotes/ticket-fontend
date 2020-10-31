@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // thành phần phản ứng được sử dụng để tạo cảnh báo ngọt ngào
 import ReactBSAlert from "react-bootstrap-sweetalert";
 import Button from 'react-bootstrap/Button';
-
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import FaceIcon from '@material-ui/icons/Face';
 import PhoneIcon from '@material-ui/icons/Phone';
 
@@ -54,7 +54,7 @@ export default function TripForm(props: Props) {
                                                         <InputLabel >Giá Vé</InputLabel>
                                                         <OutlinedInput
                                                             endAdornment={
-                                                                <FaceIcon />
+                                                                <MonetizationOnIcon />
                                                             }
                                                             fullWidth
                                                             value={trip.price || ""}
@@ -74,7 +74,6 @@ export default function TripForm(props: Props) {
                                                     <FormControl variant="outlined" fullWidth>
                                                         <InputLabel >Thời gian chạy</InputLabel>
                                                         <OutlinedInput
-                                                            endAdornment={<PhoneIcon />}
                                                             fullWidth
                                                             defaultValue={"2001-01-01"}
                                                             type={"date"}
@@ -100,7 +99,7 @@ export default function TripForm(props: Props) {
                                                             console.log(newValue)
                                                             setTrip({ ...trip, driveId: newValue._id })
                                                         }}
-                                                        renderInput={(params) => <TextField {...params} label="Chức vụ" variant="outlined" />}
+                                                        renderInput={(params) => <TextField {...params} label="Tài xế" variant="outlined" />}
                                                     />
                                                 </div>
                                             </div>

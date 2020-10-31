@@ -1,21 +1,22 @@
 
 import firebase from "firebase";
 
+
  const firebaseConfig = {
-    apiKey: "AIzaSyAOA0xYQ2QH0876B-JVjTl8dTqE1o01fM8",
-    authDomain: "ticket-5846c.firebaseapp.com",
-    databaseURL: "https://ticket-5846c.firebaseio.com",
-    projectId: "ticket-5846c",
-    storageBucket: "ticket-5846c.appspot.com",
-    messagingSenderId: "867526371109",
-    appId: "1:867526371109:web:80c07ee384ee76ce73dccc",
-    measurementId: "G-2VG7L9ZBGH"
+  apiKey: "AIzaSyCCg3XAqljQNsnhzjGTuGUsDWCzytKwUPs",
+  authDomain: "ticket-9a286.firebaseapp.com",
+  databaseURL: "https://ticket-9a286.firebaseio.com",
+  projectId: "ticket-9a286",
+  storageBucket: "ticket-9a286.appspot.com",
+  messagingSenderId: "347308509861",
+  appId: "1:347308509861:web:fbc03e98b07b274c09db4c",
+  measurementId: "G-S8MMVQCF1J"
   };
 
   firebase.initializeApp(firebaseConfig);
-
+  const fireStoreFirebase = firebase.firestore();
   const storage = firebase.storage();
 
   export  {
-    storage, firebase as default
+    storage,fireStoreFirebase , firebase as default
   }

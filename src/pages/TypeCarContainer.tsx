@@ -24,8 +24,8 @@ class TypeCarContainer extends Component<Props, State> {
         this.getData(1);
     }
 
-    getData = (page: number = 1) => {
-        TypeCarService.list(page).then((typeCarPaging: Paging<TypeCar>) => {
+    getData = (page: number = 1, search : string = "") => {
+        TypeCarService.list(page, search).then((typeCarPaging: Paging<TypeCar>) => {
             if (typeCarPaging) {
                 this.setState({
                     typeCars: typeCarPaging
@@ -63,6 +63,10 @@ class TypeCarContainer extends Component<Props, State> {
         this.setState({ showForm: false });
     }
 
+    onSearch = (search: any)=> {
+        this.getData(1, search)
+    }
+
     render() {
         return (
             <div>
@@ -72,7 +76,6 @@ class TypeCarContainer extends Component<Props, State> {
                     onTypeCar={this.typeCarFormCreate}
                     onCancel={this.onCancel}
                 ></FormTypeCar>
-                <Sidebar></Sidebar>
                 <div className="main-content" id="panel">
                     <NavbarDashboard
                         search={() => { }}
@@ -86,6 +89,7 @@ class TypeCarContainer extends Component<Props, State> {
                         <TableTypeCar
                             typeCar={this.state.typeCars.rows}
                             onTypeCar={this.typeCarForm}
+                            search ={this.onSearch}
                             onDeleteTypeCar={this.carDelete}
                         ></TableTypeCar>
                         <Pagination count={this.state.typeCars.totalPages} onChange={(event, value) => {

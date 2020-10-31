@@ -18,12 +18,12 @@ class Sidebar extends Component<Props, State> {
   }
 
   onClickSideNavOpen = () => {
-    this.setState({ sidenavOpen: !this.state.sidenavOpen });
-    if (!document.body.classList.contains("g-sidenav-pinned")) {
-      document.body.classList.add("g-sidenav-pinned");
-    } else {
-      document.body.classList.remove("g-sidenav-pinned");
-    }
+    // this.setState({ sidenavOpen: !this.state.sidenavOpen });
+    // if (!document.body.classList.contains("g-sidenav-pinned")) {
+    //   document.body.classList.add("g-sidenav-pinned");
+    // } else {
+    //   document.body.classList.remove("g-sidenav-pinned");
+    // }
   }
 
   // làm cho sidenav bình thường khi di chuột (thực tế là khi chuột vào trên đó)
@@ -73,47 +73,51 @@ class Sidebar extends Component<Props, State> {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link collapsed" href="/quan-ly-nhan-vien">
+                  <Link className="nav-link collapsed" to="/quan-ly-nhan-vien">
                     <AssignmentIndIcon className="text-green" style={{ fontSize: "18px" }} />
                     <span className="nav-link-text" style={{ marginLeft: "22px" }}>Quản lý nhân viên</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link collapsed" href="/quan-ly-chuc-vu">
+                  <Link
+                    className="nav-link"
+                  to = "/quan-ly-chuc-vu"
+                  >
                     <RecentActorsIcon className="text-danger" style={{ fontSize: "18px" }} />
                     <span className="nav-link-text" style={{ marginLeft: "22px" }}>Quản lý chức vụ</span>
-                  </a>
+                  </Link>
+
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link collapsed" href="/quan-ly-loai-xe">
+                  <Link className="nav-link collapsed" to="/quan-ly-loai-xe">
                     <CommuteIcon className="text-dark" style={{ fontSize: "18px" }} />
                     <span className="nav-link-text" style={{ marginLeft: "22px" }}>Quản lý loại xe</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link collapsed" href="/quan-ly-xe">
+                  <Link className="nav-link collapsed" to="/quan-ly-xe">
                     <DirectionsBusIcon className="text-info" style={{ fontSize: "18px" }} />
                     <span className="nav-link-text" style={{ marginLeft: "22px" }}>Quản lý xe</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link collapsed" href="/quan-ly-lo-trinh">
+                  <Link className="nav-link collapsed" to="/quan-ly-lo-trinh">
                     <FeaturedPlayListIcon className="text-orange" style={{ fontSize: "18px" }} />
                     <span className="nav-link-text" style={{ marginLeft: "22px" }}>Quản lý lộ trình</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link collapsed" href="/quan-ly-khach-hang">
+                  <Link className="nav-link collapsed" to="/quan-ly-khach-hang">
                     <GroupAddIcon className="text-pink" style={{ fontSize: "18px" }} />
                     <span className="nav-link-text" style={{ marginLeft: "22px" }}>Quản lý khách hàng</span>
-                  </a>
+                  </Link>
                 </li>
                
                 <li className="nav-item">
-                  <a className="nav-link collapsed" href="/quan-ly-ve">
+                  <Link className="nav-link collapsed" to="/quan-ly-ve">
                     <FeaturedPlayListIcon className="text-orange" style={{ fontSize: "18px" }} />
                     <span className="nav-link-text" style={{ marginLeft: "22px" }}>Quản lý vé</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

@@ -12,8 +12,25 @@ import { Tooltip } from "react-bootstrap";
 import { OverlayTrigger } from "react-bootstrap";
 import { uploadService } from "../../Services/UploadService";
 
+
+var timeOut : any
 export default function TablesNhanVien(props: Props) {
+<<<<<<< HEAD
 	const changeAvt = async (e: any, staffItem: Staff) => {
+=======
+	function onSearch(valueSearch: string) {
+
+        clearInterval(timeOut);
+        timeOut = setInterval(() => {
+			if (props.search) {
+				props.search(valueSearch);
+			}
+            clearInterval(timeOut);
+        }, 500)
+
+    }
+	const changeAvt = async (e: any , staffItem: Staff) => {
+>>>>>>> e6dbdaf37bd1ad158870c5cf2133b8889fe04547
 		const image: File = e.target.files[0];
 		console.log(image);
 		console.log(staffItem._id);
@@ -67,6 +84,7 @@ export default function TablesNhanVien(props: Props) {
 									type="search"
 									placeholder="Tìm kiếm"
 									id="example-search-input"
+									onChange= {(e)=>{ onSearch(e.target.value)}}
 								/>
 							</div>
 						</div>
@@ -108,7 +126,7 @@ export default function TablesNhanVien(props: Props) {
 									<td className="table-user">
 										<div style={{ position: "relative" }}>
 											<img
-												src={staffItem.avt}
+												src={staffItem.avt || "images/use.png"}
 												className="avatar rounded-circle mr-3"
 											/>{" "}
 											<input
@@ -259,5 +277,6 @@ type Props = {
 	onChangeAvt(staff: Staff): void;
 	onStaffs: (staff: Staff) => void;
 	onDeleteStaff: (id: string) => void;
+	search?(value: string): void;
 	onAccount: (account: Account) => void;
 };
