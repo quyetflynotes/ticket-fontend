@@ -15,11 +15,7 @@ import { uploadService } from "../../Services/UploadService";
 
 var timeOut : any
 export default function TablesNhanVien(props: Props) {
-<<<<<<< HEAD
-	const changeAvt = async (e: any, staffItem: Staff) => {
-=======
 	function onSearch(valueSearch: string) {
-
         clearInterval(timeOut);
         timeOut = setInterval(() => {
 			if (props.search) {
@@ -30,14 +26,9 @@ export default function TablesNhanVien(props: Props) {
 
     }
 	const changeAvt = async (e: any , staffItem: Staff) => {
->>>>>>> e6dbdaf37bd1ad158870c5cf2133b8889fe04547
 		const image: File = e.target.files[0];
-		console.log(image);
-		console.log(staffItem._id);
-
 		if (image) {
 			const url = await uploadService.upload("images", staffItem._id || "undefined", image);
-			console.log(url);
 			props.onChangeAvt({ ...staffItem, avt: url });
 		}
 	};
