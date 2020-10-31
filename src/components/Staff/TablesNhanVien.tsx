@@ -13,15 +13,15 @@ import { OverlayTrigger } from "react-bootstrap";
 import { uploadService } from "../../Services/UploadService";
 
 export default function TablesNhanVien(props: Props) {
-	const changeAvt = async (e: any , staffItem: Staff) => {
+	const changeAvt = async (e: any, staffItem: Staff) => {
 		const image: File = e.target.files[0];
-        console.log(image);
-        console.log(staffItem._id);
-        
+		console.log(image);
+		console.log(staffItem._id);
+
 		if (image) {
 			const url = await uploadService.upload("images", staffItem._id || "undefined", image);
-            console.log(url);
-           props.onChangeAvt({...staffItem, avt: url});
+			console.log(url);
+			props.onChangeAvt({ ...staffItem, avt: url });
 		}
 	};
 
@@ -255,8 +255,8 @@ export default function TablesNhanVien(props: Props) {
 }
 
 type Props = {
-    staffs: Staff[];
-    onChangeAvt(staff: Staff) : void;
+	staffs: Staff[];
+	onChangeAvt(staff: Staff): void;
 	onStaffs: (staff: Staff) => void;
 	onDeleteStaff: (id: string) => void;
 	onAccount: (account: Account) => void;
