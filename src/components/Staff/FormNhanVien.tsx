@@ -17,6 +17,7 @@ import moment from "moment";
 import { storage } from "../../config/FirebaseConfig";
 import { uploadService } from "../../Services/UploadService";
 import { useFormik } from "formik";
+import validator from "validator";
 
 type Props = {
 	staff: Staff;
@@ -29,8 +30,21 @@ type Props = {
 const validate = (staff: Staff) => {
 	const errors: Staff = {};
 	if (!staff.name) {
-		errors.name = "Required";
+		errors.name = "Vui long nhap ho ten";
 	}
+
+	if (!staff.phoneNumer) {
+		errors.phoneNumer = "Vui long nhap so dien thoai";
+	} else if (!validator.isMobilePhone(staff.phoneNumer || "", "vi-VN")) {
+		errors.phoneNumer = "Vui long nhap dung so dien thoai";
+	}
+
+	if (!staff.identityCard) {
+		errors.identityCard = "Vui long nhap CMND";
+	} else if (!validator.isNumeric(staff.identityCard, { no_symbols: true })) {
+		errors.identityCard = "Vui long nhap dung CMND";
+	}
+
 	// 	else if (values.firstName.length > 15) {
 	// 		errors.firstName = "Must be 15 characters or less";
 	// 	}
@@ -40,7 +54,7 @@ const validate = (staff: Staff) => {
 	// 	} else if (values.lastName.length > 20) {
 	// 		errors.lastName = "Must be 20 characters or less";
 	// 	}
-	//
+
 	// 	if (!values.email) {
 	// 		errors.email = "Required";
 	// 	} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -57,13 +71,18 @@ export default function FormNhanVien(props: Props) {
 	// setStaff({...props.staff})
 
 	const textButtonEdit = props.staff._id ? "Sua nhân viên" : "Them nhân viên";
-
+	const init: Staff = {
+		name: "",
+		address: "",
+		identityCard: "",
+		phoneNumer: "",
+		
+	};
 	const formik = useFormik({
-		initialValues: {
-			
-		},
+		initialValues: { name: "", address: "", identityCard: "", phoneNumer: "" },
 		validate,
 		onSubmit: (values) => {
+			props.onStaff(values)
 			alert(JSON.stringify(values, null, 2));
 		},
 	});
@@ -73,18 +92,22 @@ export default function FormNhanVien(props: Props) {
 		// console.log(props.staff);
 		// gais trij truyen vao la trong;
 		setStaff(props.staff);
-		console.log(props.staff.name)
-		if(props.staff.name){
-			formik.setValues({...props.staff,name : props.staff.name});
-		}else {
-			formik.setValues({...props.staff,name : ""});
+		// console.log(props.staff.name)
+		if (props.staff._id) {
+			formik.setValues(props.staff);
+		} else {
+			formik.setValues({
+				...props.staff,
+				name: "",
+				address: "",
+				identityCard: "",
+				phoneNumer: "",
+				birthAt: new Date(),
+			});
 		}
-		
-		
 	}, [props, props.staff]);
-	console.log(formik.values)
+	console.log(formik.values);
 	return (
-		
 		<form onSubmit={formik.handleSubmit}>
 			<div
 				className={
@@ -109,19 +132,24 @@ export default function FormNhanVien(props: Props) {
 									<form role="form">
 										<div className="form-group">
 											{/* <div className="input-group input-group-merge input-group-alternative bg-white"> */}
-											<FormControl variant="outlined" fullWidth>
+											<FormControl
+												error={
+													formik.touched.name && formik.errors.name
+														? true
+														: false
+												}
+												variant="outlined"
+												fullWidth
+											>
 												<InputLabel>Tên nhân viên</InputLabel>
 												<OutlinedInput
-													error={
-														formik.touched.name && formik.errors.name
-															? true
-															: false
-													}
 													endAdornment={<FaceIcon />}
 													fullWidth
+													name="name"
 													label="Tên nhân viên"
 													value={formik.values.name}
 													onChange={formik.handleChange}
+													onBlur={formik.handleBlur}
 												/>
 												<FormHelperText>
 													{formik.touched.name && formik.errors.name
@@ -133,59 +161,94 @@ export default function FormNhanVien(props: Props) {
 										</div>
 										<div className="form-group">
 											<div className="input-group input-group-merge input-group-alternative bg-white">
-												<FormControl variant="outlined" fullWidth>
+												<FormControl
+													error={
+														formik.touched.phoneNumer &&
+														formik.errors.phoneNumer
+															? true
+															: false
+													}
+													variant="outlined"
+													fullWidth
+												>
 													<InputLabel>Số điện thoai</InputLabel>
 													<OutlinedInput
 														endAdornment={<FaceIcon />}
 														fullWidth
+														name="phoneNumer"
 														label="Số điện thoai"
-														value={staff.phoneNumer || ""}
-														onChange={(event) => {
-															setStaff({
-																...staff,
-																phoneNumer: event.target.value,
-															});
-														}}
+														value={formik.values.phoneNumer}
+														onChange={formik.handleChange}
+														onBlur={formik.handleBlur}
 													/>
+													<FormHelperText>
+														{formik.touched.phoneNumer &&
+														formik.errors.phoneNumer
+															? formik.errors.phoneNumer
+															: null}
+													</FormHelperText>
 												</FormControl>
 											</div>
 										</div>
 										<div className="form-group">
 											<div className="input-group input-group-merge input-group-alternative">
-												<FormControl variant="outlined" fullWidth>
+												<FormControl
+													error={
+														formik.touched.identityCard &&
+														formik.errors.identityCard
+															? true
+															: false
+													}
+													variant="outlined"
+													fullWidth
+												>
 													<InputLabel>CMND</InputLabel>
 													<OutlinedInput
 														endAdornment={<BrandingWatermarkIcon />}
 														fullWidth
+														name="identityCard"
 														label="CMND"
-														value={staff.identityCard || ""}
-														onChange={(event) => {
-															setStaff({
-																...staff,
-																identityCard: event.target.value,
-															});
-														}}
+														value={formik.values.identityCard}
+														onChange={formik.handleChange}
+														onBlur={formik.handleBlur}
 													/>
+													<FormHelperText>
+														{formik.touched.identityCard &&
+														formik.errors.identityCard
+															? formik.errors.identityCard
+															: null}
+													</FormHelperText>
 												</FormControl>
 											</div>
 										</div>
 
 										<div className="form-group">
 											<div className="input-group input-group-merge input-group-alternative">
-												<FormControl variant="outlined" fullWidth>
+												<FormControl
+													error={
+														formik.touched.address &&
+														formik.errors.address
+															? true
+															: false
+													}
+													variant="outlined"
+													fullWidth
+												>
 													<InputLabel>Địa chỉ</InputLabel>
 													<OutlinedInput
 														endAdornment={<BrandingWatermarkIcon />}
 														fullWidth
 														label="Địa chỉ"
-														value={staff.address || ""}
-														onChange={(event) => {
-															setStaff({
-																...staff,
-																address: event.target.value,
-															});
-														}}
+														value={formik.values.address}
+														onChange={formik.handleChange}
+														onBlur={formik.handleBlur}
 													/>
+													<FormHelperText>
+														{formik.touched.address &&
+														formik.errors.address
+															? formik.errors.address
+															: null}
+													</FormHelperText>
 												</FormControl>
 											</div>
 										</div>
@@ -199,20 +262,13 @@ export default function FormNhanVien(props: Props) {
 														label="Ngay sinh"
 														// format={'DD/MM/YYYY'}
 														type="date"
-														value={moment(staff.birthAt).format(
+														value={moment(formik.values.birthAt).format(
 															"YYYY-MM-DD"
 														)}
 														InputLabelProps={{
 															shrink: true,
 														}}
-														onChange={(event) => {
-															setStaff({
-																...staff,
-																birthAt: new Date(
-																	event.target.value
-																),
-															});
-														}}
+														onChange={formik.handleChange}
 													/>
 												</FormControl>
 											</div>

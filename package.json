@@ -48,7 +48,8 @@
     "react-scripts": "^4.0.0",
     "reactchartjs": "^0.7.3",
     "sweetalert2": "^10.6.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "validator": "^13.1.17"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -72,6 +73,7 @@
     ]
   },
   "devDependencies": {
+    "@types/validator": "^13.1.0",
     "gulp-csso": "^4.0.1"
   }
 }
