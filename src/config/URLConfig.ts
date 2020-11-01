@@ -1,2 +1,2 @@
-const URL= "http://localhost:8080";
+const URL= "https://apivexedat.afivn.com";
 export default URL
