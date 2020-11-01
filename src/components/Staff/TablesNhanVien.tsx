@@ -11,6 +11,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { Tooltip } from "react-bootstrap";
 import { OverlayTrigger } from "react-bootstrap";
 import { uploadService } from "../../Services/UploadService";
+import { getHighlightedText } from "../../Helpers/StringUtils";
 
 
 var timeOut : any
@@ -156,7 +157,7 @@ export default function TablesNhanVien(props: Props) {
 													/>
 												</label>
 											</OverlayTrigger>
-											<b>{staffItem.name}</b>
+											<b>{getHighlightedText(staffItem.name, props.textSearch) }</b>
 										</div>
 									</td>
 									<td>
@@ -165,19 +166,24 @@ export default function TablesNhanVien(props: Props) {
 										</span>
 									</td>
 									<td>
-										<span className="text-muted">{staffItem.address}</span>
+										<span className="text-muted">
+										{getHighlightedText(staffItem.address, props.textSearch) }
+										</span>
 									</td>
 									<td>
-										<span className="text-muted">{staffItem.phoneNumer}</span>
+										<span className="text-muted">
+										{getHighlightedText(staffItem.phoneNumer, props.textSearch) }
+										</span>
 									</td>
 									<td>
 										<span className="text-muted">{staffItem.identityCard}</span>
 									</td>
 									<td>
 										<span className="text-muted">
-											{staffItem.position?.name
+											
+											{getHighlightedText(staffItem.position?.name
 												? staffItem.position.name
-												: "Nhân Viên"}
+												: "Nhân Viên", props.textSearch) }
 										</span>
 									</td>
 									<td className="table-actions">
@@ -270,4 +276,5 @@ type Props = {
 	onDeleteStaff: (id: string) => void;
 	search?(value: string): void;
 	onAccount: (account: Account) => void;
+	textSearch : string;
 };

@@ -6,9 +6,16 @@ import { Paging } from "../share/base-ticket/Paging";
 import { APIService } from "./APIService";
 export class TripService{
 
-    public static list(page : number = 0, search : string = "") : Promise<Paging<Trip> >{
+    public static list(page : number = 0, search : string = "", fromDate ?: Date, endDate ?: Date) : Promise<Paging<Trip> >{
+
         let params = {page : page,
-            query : {}
+            query: {},
+            params: {
+                selectDate : {
+                    fromDate: fromDate,
+                    endDate : endDate
+                }
+            },
         }
         return APIService.listByQuery(  `${URL}/manager/trip`,params)
     }
