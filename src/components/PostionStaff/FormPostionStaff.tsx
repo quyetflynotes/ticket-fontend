@@ -20,7 +20,7 @@ type Props = {
 export default function FormPostionStaff(props: Props) {
     const [postion, setPostion] = useState<PostionStaff>(props.postion)
 
-    const textButtonEdit = props.postion._id ? "Sua" : "Them"
+    const textButtonEdit = props.postion._id ? "Sửa" : "Thêm"
 
     useEffect(() => {
         setPostion(props.postion);
@@ -34,7 +34,7 @@ export default function FormPostionStaff(props: Props) {
                             <div className="card bg-secondary border-0 mb-0">
                                 <div className="card-body px-lg-5 py-lg-5">
                                     <div className="text-center text-muted mb-4">
-                                        <small>{textButtonEdit} nhan vien</small>
+                                        <h3>{textButtonEdit} nhân viên</h3>
                                     </div>
                                     <form role="form">
                                         <div className="form-group">

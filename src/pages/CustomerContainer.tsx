@@ -85,7 +85,7 @@ class CustomerContainer extends Component<Props, State> {
                 ></FormCustomer>
                 <div className="main-content" id="panel">
                     <NavbarDashboard
-                        search = {()=>{}}
+                        search={this.onSearch}
                     ></NavbarDashboard >
                     <div className="header bg-primary pb-6">
                         <div className="container-fluid">

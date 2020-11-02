@@ -96,7 +96,7 @@ export default function CarContainer() {
             ></FormCar>
             <div className="main-content" id="panel">
                 <NavbarDashboard
-                    search = {()=>{}}
+                    search={onSearch}
                 ></NavbarDashboard >
                 <div className="header bg-primary pb-6">
                     <div className="container-fluid">

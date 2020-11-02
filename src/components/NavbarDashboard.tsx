@@ -32,7 +32,7 @@ type Props = {
 }
 
 
-
+var timeOut: any;
 export default function NavbarDashboard(props: Props) {
 
 
@@ -118,6 +118,18 @@ export default function NavbarDashboard(props: Props) {
         }, 500);
     };
 
+    function onSearch(valueSearch: string) {
+
+        clearInterval(timeOut);
+        timeOut = setInterval(() => {
+			if (props.search) {
+				props.search(valueSearch);
+			}
+            clearInterval(timeOut);
+        }, 500)
+
+    }
+
 
 
 
@@ -132,7 +144,7 @@ export default function NavbarDashboard(props: Props) {
                                 <div className="input-group-prepend">
                                     <span className="input-group-text"><SearchIcon /></span>
                                 </div>
-                                <input className="form-control" placeholder="Tìm kiếm" type="text" />
+                                <input className="form-control" placeholder="Tìm kiếm" type="text" onChange= {(e)=> onSearch(e.target.value)} />
                             </div>
                         </div>
                         <button type="button" className="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close" onClick={closeSearch}>

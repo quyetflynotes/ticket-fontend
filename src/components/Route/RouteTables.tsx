@@ -118,7 +118,7 @@ export default function RouteTables(props: Props) {
 
 									<td>
 										<span className="text-muted">
-											{moment(tripItem.startAt).format("HH:MM:SS")}
+											{moment(tripItem.startAt).format("HH:MM")}
 										</span>
 									</td>
 									<td>

@@ -25,13 +25,13 @@ export default function FormCustomer(props: Props) {
     return (
         <div>
             <div className={props.formModal ? "modal fade show show-dialog" : "modal fade hidden-dialog"} id="modal-form" tabIndex={-1} role="dialog" aria-labelledby="modal-form" aria-hidden="true" aria-modal="true">
-                <div className="modal-dialog modal- modal-dialog-centered modal-sm" role="document">
+                <div className="modal-dialog modal- modal-dialog-centered modal-xl" role="document">
                     <div className="modal-content">
                         <div className="modal-body p-0">
                             <div className="card bg-secondary border-0 mb-0">
                                 <div className="card-body px-lg-5 py-lg-5">
                                     <div className="text-center text-muted mb-4">
-                                        <small>Thêm Khách hàng</small>
+                                        <h3>Thêm Khách hàng</h3>
                                     </div>
                                     <form role="form">
                                         <div className="form-group">

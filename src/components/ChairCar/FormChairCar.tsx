@@ -30,13 +30,13 @@ export default function FormChairCar(props: Props) {
                             <div className="card bg-secondary border-0 mb-0">
                                 <div className="card-body px-lg-5 py-lg-5">
                                     <div className="text-center text-muted mb-4">
-                                        <small>{textButton} ghe</small>
+                                        <h3>{textButton} ghế</h3>
                                     </div>
                                     <form role="form">
                                         <div className="form-group">
                                             <div className="input-group input-group-merge input-group-alternative">
                                                 <FormControl variant="outlined" fullWidth>
-                                                    <InputLabel >Ma so ghe</InputLabel>
+                                                    <InputLabel >Mã số ghế</InputLabel>
                                                     <OutlinedInput
                                                         endAdornment={<FaceIcon />}
                                                         fullWidth

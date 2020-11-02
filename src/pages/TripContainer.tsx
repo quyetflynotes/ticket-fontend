@@ -62,10 +62,10 @@ class TripContainer extends Component<Props, State> {
         TripService.create(trip).then((res: any) => {
             if (res) {
                 self.getData(self.state.trips.page);
+                self.setState({
+                    showForm: false
+                })
             }
-        })
-        self.setState({
-            showForm: false
         })
     }
 
@@ -99,7 +99,7 @@ class TripContainer extends Component<Props, State> {
                 ></TripForm>
                 <div className="main-content" id="panel">
                     <NavbarDashboard
-                        search = {()=>{}}
+                        
                     ></NavbarDashboard >
                     <div className="header bg-primary pb-6">
                         <div className="container-fluid">

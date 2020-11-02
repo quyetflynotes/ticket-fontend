@@ -17,57 +17,63 @@ const options = top100Films.map((option) => {
     };
 });
 
-class InputTimVe extends Component {
-
-    render() {
-
-        return (
-            <div className="khungTimVe">
-                <div >
-                    <Autocomplete className="form-group"
-                        id="grouped-demo"
-                        size="medium"
-                        openText="Mở"
-                        options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-                        groupBy={(option) => option.firstLetter}
-                        getOptionLabel={(option) => option.title}
-                        style={{ width: 300 }}
-                        renderInput={(params) =>
-                            <div className="form-group mb-3" ref={params.InputProps.ref}>
-                                <div className="input-group input-group-merge input-group-alternative">
-                                    <input style={{ height: 46, borderRadius: ".25rem", outline: "none", border: "none", textIndent: 10}} className="form-control" placeholder="Nơi đi" type="text" {...params.inputProps} />
-                                </div>
-                            </div>
-                        }
-                    />
-                </div>
-                {/* <div >
-                    <Autocomplete
-                        options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-                        groupBy={(option) => option.firstLetter}
-                        getOptionLabel={(option) => option.title}
-                        style={{ width: 300 }}
-                        renderInput={(params) =>
-                            <div className="form-group mb-3" ref={params.InputProps.ref}>
-                                <div className="input-group input-group-merge input-group-alternative">
-                                    <input style={{ height: 46, borderRadius: ".25rem", outline: "none", border: "none", textIndent: 10 }} className="form-control focused" placeholder="Nơi đến" type="text" {...params.inputProps} />
-                                </div>
-                            </div>
-                        }
-                    />
-                </div> */}
-                <div className="col-2">
-                    <input className="form-control"   type="date" id="example-date-input" />
-                </div>
-                <div className="col-2">
-                    <input className="form-control" type="date" id="example-date-input" />
-                </div>
-                <div >
-                    <button style={{height: 46}} type="button" className="btn btn-success">TÌM VÉ</button>
-                </div>
-            </div>
-        );
-    }
+type Props = {
+    startTime: (date: Date) => void;
+    endTime: (date: Date) => void;
 }
 
-export default InputTimVe;
+
+export default function InputTimVe(props : Props) {
+    return (
+        <div className="khungTimVe">
+            <div >
+                <Autocomplete className="form-group"
+                    id="grouped-demo"
+                    size="medium"
+                    openText="Mở"
+                    options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+                    groupBy={(option) => option.firstLetter}
+                    getOptionLabel={(option) => option.title}
+                    style={{ width: 300 }}
+                    renderInput={(params) =>
+                        <div className="form-group mb-3" ref={params.InputProps.ref}>
+                            <div className="input-group input-group-merge input-group-alternative">
+                                <input style={{ height: 46, borderRadius: ".25rem", outline: "none", border: "none", textIndent: 10 }} className="form-control" placeholder="Nơi đi" type="text" {...params.inputProps} />
+                            </div>
+                        </div>
+                    }
+                />
+            </div>
+            {/* <div >
+                <Autocomplete
+                    options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+                    groupBy={(option) => option.firstLetter}
+                    getOptionLabel={(option) => option.title}
+                    style={{ width: 300 }}
+                    renderInput={(params) =>
+                        <div className="form-group mb-3" ref={params.InputProps.ref}>
+                            <div className="input-group input-group-merge input-group-alternative">
+                                <input style={{ height: 46, borderRadius: ".25rem", outline: "none", border: "none", textIndent: 10 }} className="form-control focused" placeholder="Nơi đến" type="text" {...params.inputProps} />
+                            </div>
+                        </div>
+                    }
+                />
+            </div> */}
+            <div className="col-2">
+                <input className="form-control" type="date" id="example-date-input" onChange={(e) => {
+                    props.startTime(new Date(e.target.value))
+                }} />
+            </div>
+            <div className="col-2">
+                <input className="form-control" type="date" id="example-date-input"
+                    onChange={(e) => {
+                        props.endTime(new Date(e.target.value))
+                    }}
+                />
+            </div>
+            <div >
+                <button style={{ height: 46 }} type="button" className="btn btn-success">TÌM VÉ</button>
+            </div>
+        </div>
+    );
+}

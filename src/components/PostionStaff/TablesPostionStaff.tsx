@@ -33,7 +33,7 @@ export default function TablesPostionStaff(props: Props) {
 			<div className="card-header border-0">
 				<div className="row">
 					<div className="col-6">
-						<h3 className="mb-0">Danh sách chuc vu</h3>
+						<h3 className="mb-0">Danh sách chức vụ</h3>
 					</div>
 
 					<div className="col-6 text-right">
@@ -115,7 +115,7 @@ export default function TablesPostionStaff(props: Props) {
 												placement="top"
 												overlay={
 													<Tooltip id="button-tooltip-2">
-														Sua chuc vu
+														Sửa chức vụ
 													</Tooltip>
 												}
 											>
@@ -136,7 +136,7 @@ export default function TablesPostionStaff(props: Props) {
 												placement="top"
 												overlay={
 													<Tooltip id="button-tooltip-2">
-														Xoa chuc vu
+														Xóa chức vụ
 													</Tooltip>
 												}
 											>

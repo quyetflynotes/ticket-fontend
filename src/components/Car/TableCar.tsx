@@ -145,7 +145,7 @@ export default function TableCar(props: Props) {
 											<OverlayTrigger
 												placement="top"
 												overlay={
-													<Tooltip id="button-tooltip-2">Sua ghe</Tooltip>
+													<Tooltip id="button-tooltip-2">Sửa ghế</Tooltip>
 												}
 											>
 												<EventSeatIcon
@@ -166,7 +166,7 @@ export default function TableCar(props: Props) {
 												placement="top"
 												overlay={
 													<Tooltip id="button-tooltip-2">
-														Sua chuyen di
+														Sửa chuyến đi
 													</Tooltip>
 												}
 											>
@@ -188,7 +188,7 @@ export default function TableCar(props: Props) {
 											<OverlayTrigger
 												placement="top"
 												overlay={
-													<Tooltip id="button-tooltip-2">Sua thong tin xe</Tooltip>
+													<Tooltip id="button-tooltip-2">Sửa thông tin xe</Tooltip>
 												}
 											>
 												<EditIcon
@@ -207,7 +207,7 @@ export default function TableCar(props: Props) {
 											<OverlayTrigger
 												placement="top"
 												overlay={
-													<Tooltip id="button-tooltip-2">Xoa xe</Tooltip>
+													<Tooltip id="button-tooltip-2">Xóa xe</Tooltip>
 												}
 											>
 												<DeleteIcon

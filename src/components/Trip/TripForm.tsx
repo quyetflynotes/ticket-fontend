@@ -13,6 +13,8 @@ import { Car } from '../../share/base-ticket/base-carOwner/Car';
 import { FormControl, Input, InputLabel, OutlinedInput, TextField } from '@material-ui/core';
 import { HelpTime } from '../../Helpers/HelpTime';
 import { Trip } from '../../share/base-ticket/base-carOwner/Trip';
+import moment from "moment";
+
 
 type Props = {
     trip: Trip
@@ -32,7 +34,7 @@ export default function TripForm(props: Props) {
 
 
     useEffect(() => {
-        setTrip(props.trip);
+        setTrip({...props.trip,timeStart : new Date(props.trip.timeStart || new Date())});
     }, [props])
     return (
         <div>
@@ -75,7 +77,9 @@ export default function TripForm(props: Props) {
                                                         <InputLabel >Thời gian chạy</InputLabel>
                                                         <OutlinedInput
                                                             fullWidth
-                                                            defaultValue={"2001-01-01"}
+                                                            value={moment(trip.timeStart).format(
+                                                                "YYYY-MM-DD"
+                                                            )}
                                                             type={"date"}
                                                             onChange={(event) => {
                                                                 setTrip({ ...trip, timeStart: new Date(event.target.value) })
@@ -92,6 +96,11 @@ export default function TripForm(props: Props) {
                                                 <span className="input-group-text"><RecentActorsIcon /></span>
                                             </div> */}
                                                     <Autocomplete
+                                                        value={
+                                                            props.staff.find(staff => {
+                                                                return staff._id == trip.driveId
+                                                            })
+                                                        }
                                                         options={props.staff}
                                                         getOptionLabel={(option: Staff) => option.name || ""}
                                                         fullWidth

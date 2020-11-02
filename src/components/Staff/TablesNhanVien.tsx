@@ -197,7 +197,7 @@ export default function TablesNhanVien(props: Props) {
 												placement="top"
 												overlay={
 													<Tooltip id="button-tooltip-2">
-														Sua thong tin
+														Sửa thông tin
 													</Tooltip>
 												}
 											>
@@ -219,7 +219,7 @@ export default function TablesNhanVien(props: Props) {
 												placement="top"
 												overlay={
 													<Tooltip id="button-tooltip-2">
-														Sua tai khoan
+														Sửa tài khoản
 													</Tooltip>
 												}
 											>
@@ -244,7 +244,7 @@ export default function TablesNhanVien(props: Props) {
 												placement="top"
 												overlay={
 													<Tooltip id="button-tooltip-2">
-														Xoa nhan vien
+														Xóa nhân viên
 													</Tooltip>
 												}
 											>

@@ -38,7 +38,7 @@ export default function TablesCustomer(props: Props) {
             <div className="card-header border-0">
                 <div className="row">
                     <div className="col-6">
-                        <h3 className="mb-0">Danh sách khach hang</h3>
+                        <h3 className="mb-0">Danh sách khách hàng</h3>
                     </div>
 
                     <div className="col-6 text-right">

@@ -31,7 +31,7 @@ type Props = {
 export default function FormCar(props: Props) {
 	const [car, setCar] = useState<Car>({});
 
-	const textButton: string = props.car._id ? "Sua" : "Them";
+	const textButton: string = props.car._id ? "Sửa" : "Thêm";
 
 	useEffect(() => {
 		let getCar:Car ={...props.car};
@@ -51,7 +51,7 @@ export default function FormCar(props: Props) {
 				aria-hidden="true"
 				aria-modal="true"
 			>
-				<div className="modal-dialog modal- modal-dialog-centered modal-sm" role="document">
+				<div className="modal-dialog modal- modal-dialog-centered modal-xl" role="document">
 					<div className="modal-content">
 						<div className="modal-body p-0">
 							<div className="card bg-secondary border-0 mb-0">

@@ -20,7 +20,8 @@ import { Car } from '../share/base-ticket/base-carOwner/Car';
 
 export default function TripHomeContainer() {
     const [trips, setTrip] = useState<Paging<Trip>>({ page: 1, total: 1, totalPages: 1, rows: [], pageSize: 1 })
-
+    const [startTime, setStartTime] = useState<Date>();
+    const [endTime , setEndTime] = useState<Date>();
     useEffect(() => {
         getData(1);
 
@@ -37,6 +38,20 @@ export default function TripHomeContainer() {
         let getTrip: Paging<Trip> = await TripService.list(1, search, new Date(), new Date());
     }
 
+    async function filterStart(startTime : any) {
+        let getTrip: Paging<Trip> = await TripService.list(1, "", startTime, endTime);
+        setStartTime(new Date(startTime))
+        setTrip(getTrip)
+    }
+
+    async function filterEnd(endTime : any) {
+        let getTrip: Paging<Trip> = await TripService.list(1, "", startTime, endTime);
+        setEndTime(new Date(endTime))
+        setTrip(getTrip)
+    }
+    
+    
+
     return (
         <div>
             <div className="main-content" id="panel">
@@ -49,7 +64,10 @@ export default function TripHomeContainer() {
                     </div>
                 </div>
                 <div className="container-fluid mt--6">
-                    <InputTimVe></InputTimVe>
+                    <InputTimVe
+                        endTime={filterEnd}
+                        startTime={filterStart}
+                    ></InputTimVe>
                     <div className="rowVe">
                         {/* <FillterVe></FillterVe> */}
                         <div className="columnVe mt-4">
