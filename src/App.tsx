@@ -37,20 +37,20 @@ function App() {
 
   console.log(authen);
   useEffect(() => {
-    AccountService.getMe().then(res => {
-      (res) ? dispatch.authen.login(res) : dispatch.authen.logout();
-      var getBidProductFirebase = fireStoreFirebase.collection("notification").doc("notification");
-      getBidProductFirebase.onSnapshot({
-        includeMetadataChanges: true
-      }, function (doc: any) {
-        if (doc) {
-          var notification = doc.data();
-          dispatch.NotifinationFirebase.newNotification(notification);
-        }
-
-      });
-      
-    });
+//     AccountService.getMe().then(res => {
+//       (res) ? dispatch.authen.login(res) : dispatch.authen.logout();
+//       var getBidProductFirebase = fireStoreFirebase.collection("notification").doc("notification");
+//       getBidProductFirebase.onSnapshot({
+//         includeMetadataChanges: true
+//       }, function (doc: any) {
+//         if (doc) {
+//           var notification = doc.data();
+//           dispatch.NotifinationFirebase.newNotification(notification);
+//         }
+// 
+//       });
+//       
+//     });
   }, [])
 
   return (
@@ -61,7 +61,7 @@ function App() {
         </div>
         <Router>
           <div>
-            {(authen.isAuthenticated) ? (
+            {(true) ? (
               <div>
                 <Sidebar></Sidebar>
                 <div className="main-content" id="panel">

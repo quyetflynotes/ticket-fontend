@@ -10,7 +10,7 @@ export type AuthenModel = {
 };
 
 const initState = {
-  isAuthenticated: false,
+  isAuthenticated: true,
 };
 
 export const authen = createModel<AuthenModel>({

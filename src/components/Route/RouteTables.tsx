@@ -102,59 +102,7 @@ export default function RouteTables(props: Props) {
 						</tr>
 					</thead>
 					<tbody>
-						{props?.trip?.map((tripItem: Route) => {
-							return (
-								<tr>
-									<td className="table-user">
-										{/* <img src="/images/huynhvannam.jpg" className="avatar rounded-circle mr-3" />I */}
-										<b>{tripItem.localStart}</b>
-									</td>
-
-									<td>
-										<b>
-											<span className="text-muted">{tripItem.localEnd}</span>
-										</b>
-									</td>
-
-									<td>
-										<span className="text-muted">
-											{moment(tripItem.startAt).format("HH:MM")}
-										</span>
-									</td>
-									<td>
-										<span className="text-muted">{tripItem.sumTimeRun}</span>
-									</td>
-
-									<td className="table-actions">
-										<a
-											href="#!"
-											className="table-action"
-											data-toggle="tooltip"
-											data-original-title="Edit product"
-										>
-											<EditIcon
-												onClick={() => {
-													props.onTrip(tripItem);
-												}}
-											/>
-										</a>
-										<a
-											href="#!"
-											className="table-action table-action-delete"
-											data-toggle="tooltip"
-											data-original-title="Delete product"
-										>
-											<DeleteIcon
-												onClick={() => {
-													if (tripItem && tripItem._id)
-														props.onDeleteTrip(tripItem._id);
-												}}
-											/>
-										</a>
-									</td>
-								</tr>
-							);
-						})}
+						
 					</tbody>
 				</table>
 			</div>

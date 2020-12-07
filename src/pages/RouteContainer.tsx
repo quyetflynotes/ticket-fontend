@@ -103,12 +103,12 @@ class RouteContainer extends Component<Props, State> {
                     </div>
                     <div className="container-fluid mt--6">
                         <RouteTables
-                            trip={this.state.trips.rows}
+                            trip={this.state.trips?.rows || []}
                             onTrip={this.tripForm}
                             onDeleteTrip={this.tripDelete}
                             search ={this.onSearch}
                         ></RouteTables>
-                        <Pagination count={this.state.trips.totalPages} onChange={(event, value) => {
+                        <Pagination count={2} onChange={(event, value) => {
                             this.getData(value);
                         }} color="primary" />
                         <FooterDashboard></FooterDashboard>
